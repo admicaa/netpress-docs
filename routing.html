@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Routing | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-routing">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link is-active" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Basics</div>
+            <h1 id="routing">Routing</h1>
+<p>Netpress routing is built on Express routers plus a small wrapper that adds Laravel-style route groups and smart-response dispatch.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// routes/api.js
+import { Router } from &quot;@admicaa/netpress&quot;;
+import authRoutes from &quot;./auth.js&quot;;
+import userRoutes from &quot;./users.js&quot;;
+import { db } from &quot;../app/Providers/DatabaseServiceProvider.js&quot;;
+import appConfig from &quot;../config/app.js&quot;;
+
+const router = Router();
+
+router.get(&quot;/health&quot;, () =&gt; ({
+  status: &quot;ok&quot;,
+  db: db.type,
+  env: appConfig.env,
+}));
+
+router.group(&quot;/auth&quot;, (auth) =&gt; {
+  auth.use(&quot;/&quot;, authRoutes);
+});
+
+router.group(&quot;/users&quot;, (users) =&gt; {
+  users.use(&quot;/&quot;, userRoutes);
+});
+
+export default router;</code></pre>
+<h2 id="where-routes-mount">Where Routes Mount</h2>
+<p><code>RouteServiceProvider</code> mounts:</p>
+<ul>
+  <li><code>routes/web.js</code> at <code>/</code> when <code>config/view.js</code> enables a web engine</li>
+  <li><code>routes/api.js</code> under <code>/api/v1</code></li>
+</ul>
+<p>That means the example <code>&amp;quot;/health&amp;quot;</code> route above is served at <code>/api/v1/health</code>.</p>
+<h2 id="routergroup"><code>Router.group()</code></h2>
+<p><code>Router.group()</code> accepts:</p>
+<ul>
+  <li>a prefix and a callback</li>
+  <li>one or more middleware functions and a callback</li>
+  <li>a prefix, one or more middleware functions, and a callback</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="language-js">router.group(&quot;/api&quot;, (api) =&gt; {
+  api.get(&quot;/health&quot;, () =&gt; ({ ok: true }));
+});
+
+router.group(authMiddleware, (protectedRoutes) =&gt; {
+  protectedRoutes.get(&quot;/me&quot;, (req) =&gt; req.user);
+});
+
+router.group(&quot;/admin&quot;, [authMiddleware, requireRole(&quot;admin&quot;)], (admin) =&gt; {
+  admin.get(&quot;/users&quot;, UserController.index);
+});</code></pre>
+<p>Nested groups preserve parent params:</p>
+<pre><code class="language-js">router.group(&quot;/users/:userId&quot;, (users) =&gt; {
+  users.group(&quot;/posts&quot;, (posts) =&gt; {
+    posts.get(&quot;/:postId&quot;, (req) =&gt; req.params);
+  });
+});</code></pre>
+<h2 id="smart-response-dispatch">Smart Response Dispatch</h2>
+<p>Only the last non-error handler in a route is auto-dispatched. Earlier middleware stays untouched.</p>
+<p>A terminal handler can return:</p>
+<table class="md-table">
+<thead>
+<tr><th>Return value</th><th>Result</th></tr>
+</thead>
+<tbody>
+<tr><td>plain object or array</td><td>JSON</td></tr>
+<tr><td><code>view(componentOrName, props)</code></td><td>HTML</td></tr>
+<tr><td><code>json(data, status?)</code></td><td>JSON with explicit status</td></tr>
+<tr><td><code>redirect(url, status?)</code></td><td>redirect</td></tr>
+<tr><td>string</td><td><code>text/plain</code></td></tr>
+<tr><td><code>Buffer</code></td><td>raw body</td></tr>
+<tr><td><code>number</code> or <code>boolean</code></td><td>JSON</td></tr>
+<tr><td><code>null</code> or <code>undefined</code></td><td><code>204 No Content</code></td></tr>
+<tr><td><code>res</code></td><td>treated as already handled</td></tr>
+</tbody>
+</table>
+<p>Manual <code>res.send</code>, <code>res.json</code>, <code>res.render</code>, <code>res.redirect</code>, <code>res.end</code>, <code>res.sendFile</code>, <code>res.download</code>, and <code>res.sendStatus</code> continue to work normally.</p>
+<h2 id="route-listing">Route Listing</h2>
+<p>The starter CLI can print every mounted route:</p>
+<pre><code class="language-bash">npm run artisan -- route:list</code></pre>
+<p>That is especially useful after adding nested groups or when web routes are conditionally mounted through <code>config/view.js</code>.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="service-providers.html">
+        <small>Previous</small>
+        <strong>Service Providers</strong>
+      </a>
+    
+      
+      <a href="views.html">
+        <small>Next</small>
+        <strong>Views</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#where-routes-mount">Where Routes Mount</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#routergroup">`Router.group()`</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#smart-response-dispatch">Smart Response Dispatch</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#route-listing">Route Listing</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Database Architecture | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-database-architecture">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link is-active" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="database-architecture">Database Architecture</h1>
+<p>Netpress keeps the model and query API shared while isolating SQL and MongoDB internals into dedicated runtime pieces.</p>
+<h2 id="shared-first-layout">Shared-First Layout</h2>
+<ul>
+  <li><code>app/Models/</code> contains application models</li>
+  <li><code>database/migrations/</code> contains shared migrations</li>
+  <li><code>database/seeders/</code> contains shared seeders</li>
+  <li><code>@admicaa/netpress/src/base/BaseModel.js</code> holds shared model behavior</li>
+  <li><code>@admicaa/netpress/src/base/QueryBuilder.js</code> holds shared query state</li>
+  <li><code>@admicaa/netpress/src/database/model-adapters/</code> contains the SQL and Mongo model adapters</li>
+  <li><code>@admicaa/netpress/src/database/query-builders/</code> contains <code>SqlQueryBuilder</code> and <code>MongoQueryBuilder</code></li>
+  <li><code>@admicaa/netpress/src/database/query-adapters/</code> contains driver-specific query compilation and execution</li>
+  <li><code>@admicaa/netpress/src/database/relations/</code> contains the SQL and Mongo pivot adapters for <code>BelongsToMany</code></li>
+</ul>
+<h2 id="driver-resolution">Driver Resolution</h2>
+<p>Each model resolves its runtime from its connection:</p>
+<ol>
+  <li>If <code>static connection</code> is set, that value is used.</li>
+  <li>Otherwise the model resolves against the active app connection from <code>DB_CONNECTION</code>.</li>
+  <li><code>mysql</code>, <code>postgres</code>, <code>sqlite</code>, and <code>sql</code> normalize to the SQL runtime.</li>
+  <li><code>mongo</code> normalizes to the MongoDB runtime.</li>
+</ol>
+<p>One model class can stay application-facing and still resolve to the correct backend automatically.</p>
+<h2 id="shared-responsibilities">Shared Responsibilities</h2>
+<p>Shared behavior lives in the base layer:</p>
+<ul>
+  <li>mass assignment</li>
+  <li>casts</li>
+  <li>hooks</li>
+  <li>serialization</li>
+  <li>soft-delete API</li>
+  <li>relations</li>
+  <li>eager loading</li>
+  <li>query state</li>
+  <li>pagination</li>
+  <li>chunking</li>
+  <li>Laravel-style convenience helpers on models and builders</li>
+</ul>
+<p>That means the application code does not branch on driver for normal reads and writes.</p>
+<h2 id="driver-specific-responsibilities">Driver-Specific Responsibilities</h2>
+<p>SQL-specific behavior:</p>
+<ul>
+  <li>table introspection</li>
+  <li>Knex query execution</li>
+  <li>SQL full-text and LIKE compilation</li>
+  <li>SQL pivot-table operations</li>
+</ul>
+<p>Mongo-specific behavior:</p>
+<ul>
+  <li>schema inference from the migration manifest</li>
+  <li>Mongoose model compilation</li>
+  <li>Mongo filter and aggregation compilation</li>
+  <li>Mongo <code>$text</code> and <code>$regex</code> query translation</li>
+  <li>Mongo pivot-collection operations</li>
+</ul>
+<h2 id="unified-migrations">Unified Migrations</h2>
+<p>Shared migrations live in one directory and can target the default connection or an explicit connection from the same file:</p>
+<pre><code class="language-js">export async function up(database) {
+  await database.connection(&quot;mongo&quot;).createTable(&quot;users&quot;, (table) =&gt; {
+    table.increments(&quot;id&quot;).primary();
+    table.string(&quot;email&quot;, 255).trim().lowercase().notNullable().unique();
+    table.timestamps(true, true);
+  });
+}</code></pre>
+<p>Key behavior:</p>
+<ul>
+  <li><code>database.createTable(...)</code> targets the default configured connection</li>
+  <li><code>database.connection(&amp;quot;mongo&amp;quot;)</code> or <code>database.connection(&amp;quot;mysql&amp;quot;)</code> scopes to a specific connection</li>
+  <li>migration planning analyzes files first and only opens referenced connections</li>
+  <li>the same blueprint is replayed into an in-memory manifest so Mongo models can infer schema without handwritten <code>static schema</code> definitions</li>
+</ul>
+<h2 id="shared-seeders">Shared Seeders</h2>
+<p>Shared seeders live in <code>database/seeders/</code> and usually start from <code>DatabaseSeeder.js</code>:</p>
+<pre><code class="language-js">export async function run(db) {
+  await db.call([
+    &quot;UserSeeder&quot;,
+    &quot;BookSeeder&quot;,
+  ]);
+}</code></pre>
+<p><code>db.call(...)</code> accepts:</p>
+<ul>
+  <li>seeder names</li>
+  <li>arrays of names</li>
+  <li>imported modules</li>
+  <li>classes with <code>run()</code></li>
+  <li>functions</li>
+</ul>
+<h2 id="compatibility-notes">Compatibility Notes</h2>
+<p>Legacy folders are still supported as fallbacks when the shared roots are absent:</p>
+<ul>
+  <li><code>app/Models/sql</code></li>
+  <li><code>app/Models/mongo</code></li>
+  <li><code>database/migrations/sql</code></li>
+  <li><code>database/migrations/mongo</code></li>
+  <li><code>database/seeders/sql</code></li>
+  <li><code>database/seeders/mongo</code></li>
+</ul>
+<p>Legacy SQL migrations also keep working through the unified first argument, so older files that call <code>knex.schema.createTable(...)</code> or <code>knex(...)</code> still work in the common cases.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="authorization.html">
+        <small>Previous</small>
+        <strong>Authorization</strong>
+      </a>
+    
+      
+      <a href="models.html">
+        <small>Next</small>
+        <strong>Models</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#shared-first-layout">Shared-First Layout</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#driver-resolution">Driver Resolution</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#shared-responsibilities">Shared Responsibilities</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#driver-specific-responsibilities">Driver-Specific Responsibilities</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#unified-migrations">Unified Migrations</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#shared-seeders">Shared Seeders</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#compatibility-notes">Compatibility Notes</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512">
+  <title>NetPress · shield</title>
+  <path d="M32 4 L58 10 L58 30 C58 44 48 54 32 60 C16 54 6 44 6 30 L6 10 Z" fill="#0A0613" stroke="none" stroke-width="0" stroke-linejoin="round"></path>
+  <g transform="translate(13.440000000000001 12.440000000000001) scale(0.58)">
+
+    <rect x="14" y="16" width="6" height="32" fill="#A78BFA"></rect>
+    <rect x="44" y="16" width="6" height="32" fill="#A78BFA"></rect>
+    <path d="M20 40 L44 18 L44 26 L26 42 Z" fill="#A78BFA"></path>
+    <path d="M40 14 L50 14 L50 24 Z" fill="#A78BFA"></path>
+  </g>
+</svg>

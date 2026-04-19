@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Database | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-database">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link is-active" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="database">Database</h1>
+<p>Netpress no longer treats the database layer as “SQL first with optional extras.” The starter now supports MongoDB and SQL through one shared model, migration, and seeder structure, while the framework resolves the correct runtime internally.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// config/database.js
+export default {
+  default: process.env.DB_CONNECTION || &quot;mongo&quot;,
+  connections: {
+    mongo: {
+      uri: process.env.MONGO_URI || &quot;mongodb://localhost:27017/netpress&quot;,
+    },
+    mysql: {
+      host: process.env.DB_HOST || &quot;127.0.0.1&quot;,
+      port: parseInt(process.env.DB_PORT, 10) || 3306,
+      database: process.env.DB_DATABASE || &quot;netpress&quot;,
+      username: process.env.DB_USERNAME || &quot;root&quot;,
+      password: process.env.DB_PASSWORD || &quot;&quot;,
+      dialect: &quot;mysql&quot;,
+    },
+    postgres: {
+      host: process.env.DB_HOST || &quot;127.0.0.1&quot;,
+      port: parseInt(process.env.DB_PORT, 10) || 5432,
+      database: process.env.DB_DATABASE || &quot;netpress&quot;,
+      username: process.env.DB_USERNAME || &quot;root&quot;,
+      password: process.env.DB_PASSWORD || &quot;&quot;,
+      dialect: &quot;postgres&quot;,
+    },
+    sqlite: {
+      storage: process.env.DB_SQLITE_PATH || &quot;:memory:&quot;,
+      dialect: &quot;sqlite&quot;,
+    },
+  },
+};</code></pre>
+<h2 id="how-the-starter-boots-the-database">How The Starter Boots The Database</h2>
+<p><code>DatabaseServiceProvider</code> reads <code>config/database.js</code> and boots the active runtime:</p>
+<ul>
+  <li><code>bootMongoRuntime(...)</code> for MongoDB</li>
+  <li><code>bootSqlRuntime(...)</code> for MySQL, PostgreSQL, or SQLite</li>
+</ul>
+<p>It also registers the discovered shared models and exposes a small <code>db</code> helper object:</p>
+<ul>
+  <li><code>db.type</code></li>
+  <li><code>db.connection</code></li>
+  <li><code>db.model(name)</code></li>
+</ul>
+<p>That helper is useful for starter-level diagnostics, seeders, and health checks. <code>db.model(name)</code> resolves the same model class you would normally import, but by name at runtime. Your application code will usually import models directly instead.</p>
+<h2 id="shared-application-structure">Shared Application Structure</h2>
+<p>These are the default database-facing folders now:</p>
+<ul>
+  <li><code>app/Models/</code></li>
+  <li><code>database/migrations/</code></li>
+  <li><code>database/seeders/</code></li>
+</ul>
+<p>Legacy driver-specific folders are fallback-only and should not be used for new work.</p>
+<h2 id="connection-resolution">Connection Resolution</h2>
+<p>Each model resolves its own driver and connection:</p>
+<ol>
+  <li>If the model sets <code>static connection</code>, Netpress uses that connection or driver.</li>
+  <li>Otherwise the model resolves against the active <code>DB_CONNECTION</code>.</li>
+  <li>SQL connections normalize to the SQL runtime.</li>
+  <li><code>mongo</code> normalizes to the MongoDB runtime.</li>
+</ol>
+<p>That means the same application API works across drivers:</p>
+<pre><code class="language-js">import User from &quot;../app/Models/User.js&quot;;
+
+const user = await User.find(1);
+const admins = await User.where({ role: &quot;admin&quot; }).paginate(1, 20);</code></pre>
+<h2 id="raw-access-when-you-need-it">Raw Access When You Need It</h2>
+<p>Most code should stay on shared models and builders, but the runtime is still available when you need lower-level control.</p>
+<p>For SQL:</p>
+<pre><code class="language-js">import { db } from &quot;../app/Providers/DatabaseServiceProvider.js&quot;;
+
+const stats = await db.connection(&quot;posts&quot;)
+  .select(&quot;userId&quot;)
+  .count({ posts: &quot;id&quot; })
+  .groupBy(&quot;userId&quot;);</code></pre>
+<p>For Mongo, the active provider exposes the underlying Mongoose connection through <code>db.connection</code>.</p>
+<p>Keep raw access wrapped in service or model methods so controllers do not start depending on database-specific queries.</p>
+<h2 id="sqlite-for-tests">SQLite For Tests</h2>
+<p>The starter treats in-memory SQLite as a first-class test runtime. When <code>DB_CONNECTION=sqlite</code> and the configured storage is <code>:memory:</code>, <code>DatabaseServiceProvider</code> boots SQL and runs migrations during setup so tests can execute without an external database service.</p>
+<h2 id="database-commands">Database Commands</h2>
+<pre><code class="language-bash">npm run artisan -- migrate
+npm run artisan -- migrate --seed
+npm run artisan -- migrate:rollback --step=1
+npm run artisan -- migrate:fresh --seed
+npm run artisan -- migrate:refresh --seed
+npm run artisan -- migrate:status
+npm run artisan -- db:seed
+npm run artisan -- db:seed --seeder=UserSeeder</code></pre>
+<p>These commands now read the configured connections and migration plan. They do not take runtime <code>--connection</code> flags the way the older docs described.</p>
+<h2 id="related-pages">Related Pages</h2>
+<ul>
+  <li><a href="database-architecture.html">Database Architecture</a></li>
+  <li><a href="models.html">Models</a></li>
+  <li><a href="migrations.html">Migrations</a></li>
+  <li><a href="seeders.html">Seeders</a></li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="models.html">
+        <small>Previous</small>
+        <strong>Models</strong>
+      </a>
+    
+      
+      <a href="migrations.html">
+        <small>Next</small>
+        <strong>Migrations</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#how-the-starter-boots-the-database">How The Starter Boots The Database</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#shared-application-structure">Shared Application Structure</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#connection-resolution">Connection Resolution</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#raw-access-when-you-need-it">Raw Access When You Need It</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#sqlite-for-tests">SQLite For Tests</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#database-commands">Database Commands</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#related-pages">Related Pages</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

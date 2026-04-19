@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relationships | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-relationships">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link is-active" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="relationships">Relationships</h1>
+<p>Relationships are defined as instance methods on shared <code>BaseModel</code> subclasses. The relation object is itself a query builder, so you can chain filters, eager loads, pagination, and write helpers on top of it.</p>
+<h2 id="supported-relation-types">Supported Relation Types</h2>
+<table class="md-table">
+<thead>
+<tr><th>Relation</th><th>Factory</th></tr>
+</thead>
+<tbody>
+<tr><td>one-to-one</td><td><code>hasOne(Related, foreignKey?, localKey?)</code></td></tr>
+<tr><td>one-to-many</td><td><code>hasMany(Related, foreignKey?, localKey?)</code></td></tr>
+<tr><td>inverse belongs-to</td><td><code>belongsTo(Related, foreignKey?, ownerKey?)</code></td></tr>
+<tr><td>many-to-many</td><td><code>belongsToMany(Related, pivotTable, foreignPivotKey?, relatedPivotKey?, parentKey?, relatedKey?)</code></td></tr>
+<tr><td>polymorphic one</td><td><code>morphOne(Related, name, typeColumn?, idColumn?, localKey?)</code></td></tr>
+<tr><td>polymorphic many</td><td><code>morphMany(Related, name, typeColumn?, idColumn?, localKey?)</code></td></tr>
+<tr><td>inverse polymorphic</td><td><code>morphTo(name, typeColumn?, idColumn?, classResolver?)</code></td></tr>
+<tr><td>polymorphic many-to-many</td><td><code>morphToMany(Related, name, pivotTable, ...)</code></td></tr>
+<tr><td>inverse polymorphic many-to-many</td><td><code>morphedByMany(Related, name, pivotTable, ...)</code></td></tr>
+</tbody>
+</table>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">import { BaseModel } from &quot;@admicaa/netpress&quot;;
+import Post from &quot;./Post.js&quot;;
+import Profile from &quot;./Profile.js&quot;;
+import Image from &quot;./Image.js&quot;;
+import Tag from &quot;./Tag.js&quot;;
+
+export default class User extends BaseModel {
+  posts() {
+    return this.hasMany(Post);
+  }
+
+  profile() {
+    return this.hasOne(Profile);
+  }
+
+  image() {
+    return this.morphOne(Image, &quot;imageable&quot;);
+  }
+
+  tags() {
+    return this.morphToMany(Tag, &quot;taggable&quot;, &quot;taggables&quot;);
+  }
+}</code></pre>
+<h2 id="eager-loading">Eager Loading</h2>
+<p>Netpress now supports all of these eager-load forms:</p>
+<pre><code class="language-js">await User.with(&quot;posts&quot;).get();
+await User.with([&quot;posts&quot;, &quot;profile&quot;]).get();
+await User.with(&quot;posts.author&quot;).get();
+await User.with(&quot;posts&quot;, (q) =&gt; q.where(&quot;published&quot;, true)).get();
+await User.with({ posts: (q) =&gt; q.orderBy(&quot;title&quot;, &quot;desc&quot;) }).get();</code></pre>
+<h2 id="relation-existence-queries">Relation Existence Queries</h2>
+<p>The shared query builder also supports relation existence helpers:</p>
+<pre><code class="language-js">await User.whereHas(&quot;posts&quot;).get();
+await User.whereHas(&quot;posts&quot;, (q) =&gt; q.where(&quot;published&quot;, true)).get();
+await User.orWhereHas(&quot;posts&quot;).get();
+await User.whereDoesntHave(&quot;posts&quot;).get();
+await User.orWhereDoesntHave(&quot;posts&quot;).get();
+await User.has(&quot;posts&quot;).get();
+await User.doesntHave(&quot;posts&quot;).get();</code></pre>
+<p>These helpers work across the shared query layer and are resolved into driver-safe filters before execution.</p>
+<h2 id="common-usage">Common Usage</h2>
+<pre><code class="language-js">const user = await User.find(1);
+
+await user.posts().get();
+await user.posts().where(&quot;published&quot;, true).latest().get();
+await user.profile().first();
+await user.tags().attach([1, 2, 3]);
+
+const post = await Post.find(42);
+await post.author().first();
+await post.comments().create({ body: &quot;Nice post&quot; });</code></pre>
+<h2 id="polymorphic-relations">Polymorphic Relations</h2>
+<p>Morph relations are now part of the implemented API, not just planned behavior.</p>
+<p>Example:</p>
+<pre><code class="language-js">class Comment extends BaseModel {
+  commentable() {
+    return this.morphTo(&quot;commentable&quot;);
+  }
+}</code></pre>
+<p>To keep morph type values stable across refactors, register aliases:</p>
+<pre><code class="language-js">BaseModel.registerMorphMap({
+  post: Post,
+  user: User,
+  comment: Comment,
+});</code></pre>
+<p>Reset the map in tests with:</p>
+<pre><code class="language-js">BaseModel.resetMorphMap();</code></pre>
+<h2 id="notes-on-defaults">Notes On Defaults</h2>
+<ul>
+  <li><code>hasOne</code> and <code>hasMany</code> default to <code>&amp;lt;parentClassName&amp;gt;Id</code></li>
+  <li><code>belongsTo</code> defaults to <code>&amp;lt;relatedClassName&amp;gt;Id</code></li>
+  <li>morph helpers default to <code>&amp;lt;name&amp;gt;Type</code> and <code>&amp;lt;name&amp;gt;Id</code></li>
+  <li>many-to-many helpers still let you override every pivot and key column explicitly</li>
+</ul>
+<p>Use the explicit arguments whenever your schema deviates from the default camelCase conventions.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="seeders.html">
+        <small>Previous</small>
+        <strong>Seeders</strong>
+      </a>
+    
+      
+      <a href="artisan-cli.html">
+        <small>Next</small>
+        <strong>Artisan CLI</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#supported-relation-types">Supported Relation Types</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#eager-loading">Eager Loading</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#relation-existence-queries">Relation Existence Queries</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#common-usage">Common Usage</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#polymorphic-relations">Polymorphic Relations</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#notes-on-defaults">Notes On Defaults</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

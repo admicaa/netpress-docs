@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mail | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-mail">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link is-active" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">More Features</div>
+            <h1 id="mail">Mail</h1>
+<p>Mail rendering is always enabled in the starter and uses either React or Vue. The mail transport and engine are registered during app boot, and mail content can be sent through <code>Mail.send(...)</code> or <code>BaseMail</code> subclasses.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// app/Mail/WelcomeMail.js
+import { BaseMail } from &quot;@admicaa/netpress&quot;;
+import WelcomeMailView from &quot;../../resources/mails/WelcomeMail.jsx&quot;;
+
+export default class WelcomeMail extends BaseMail {
+  constructor(user) {
+    super();
+    this.user = user;
+  }
+
+  subject() {
+    return `Welcome to Netpress, ${this.user.name}!`;
+  }
+
+  component() {
+    return WelcomeMailView;
+  }
+
+  props() {
+    return { user: this.user };
+  }
+}</code></pre>
+<h2 id="config">Config</h2>
+<pre><code class="language-js">export default {
+  engine: &quot;react&quot;,
+  driver: process.env.MAIL_DRIVER || &quot;smtp&quot;,
+  from: {
+    address: process.env.MAIL_FROM || &quot;no-reply@netpress.io&quot;,
+    name: process.env.APP_NAME || &quot;Netpress&quot;,
+  },
+  // smtp, mailgun, or ses config...
+};</code></pre>
+<p>Valid mail engines:</p>
+<ul>
+  <li><code>&amp;quot;react&amp;quot;</code></li>
+  <li><code>&amp;quot;vue&amp;quot;</code></li>
+</ul>
+<p>Unlike <code>config/view.js</code>, mail does not support <code>null</code>.</p>
+<h2 id="mailsend"><code>Mail.send(...)</code></h2>
+<p>Use the helper when you want to send a component directly:</p>
+<pre><code class="language-js">import { Mail } from &quot;@admicaa/netpress&quot;;
+import WelcomeMailView from &quot;../../resources/mails/WelcomeMail.jsx&quot;;
+
+await Mail.send(
+  WelcomeMailView,
+  { user },
+  { to: user.email, subject: `Welcome, ${user.name}` },
+);</code></pre>
+<p><code>Mail.send(...)</code> requires a <code>to</code> address from either <code>options.to</code> or <code>props.to</code>. It renders both:</p>
+<ul>
+  <li>HTML</li>
+  <li>plain text</li>
+</ul>
+<h2 id="basemail"><code>BaseMail</code></h2>
+<p><code>BaseMail</code> gives you a mailable-style class surface:</p>
+<ul>
+  <li><code>subject()</code></li>
+  <li><code>component()</code></li>
+  <li><code>props()</code></li>
+  <li><code>engine()</code></li>
+  <li><code>build()</code></li>
+  <li><code>send(to)</code></li>
+  <li><code>queue(to)</code></li>
+</ul>
+<p>Override <code>build()</code> directly when you want raw HTML instead of a rendered component.</p>
+<h2 id="queued-mail">Queued Mail</h2>
+<p><code>BaseMail.queue(to)</code> uses BullMQ. It expects:</p>
+<ul>
+  <li><code>queue.connection</code> in the container</li>
+  <li><code>queue.mail</code> optionally in the container, otherwise it defaults to <code>&amp;quot;emails&amp;quot;</code></li>
+</ul>
+<p>The queued job name convention is <code>&amp;quot;SendMail&amp;quot;</code>, which the app worker handles.</p>
+<h2 id="template-layout">Template Layout</h2>
+<ul>
+  <li><code>resources/mails/WelcomeMail.jsx</code> or <code>.vue</code></li>
+  <li><code>resources/mails/layouts/MailLayout.jsx</code> or <code>.vue</code></li>
+</ul>
+<p><code>make:mail</code> follows the configured mail engine and writes the correct template extension automatically.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="artisan-cli.html">
+        <small>Previous</small>
+        <strong>Artisan CLI</strong>
+      </a>
+    
+      
+      <a href="queues.html">
+        <small>Next</small>
+        <strong>Queues</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#config">Config</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#mailsend">`Mail.send(...)`</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#basemail">`BaseMail`</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#queued-mail">Queued Mail</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#template-layout">Template Layout</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

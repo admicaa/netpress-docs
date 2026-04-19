@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 640" width="1800" height="1280">
+  <title>NetPress · banner</title>
+  <rect width="900" height="640" fill="#141028"></rect>
+
+  
+  <g transform="translate(80 80)">
+    <g transform="scale(4)"><path d="M32 4 L58 10 L58 30 C58 44 48 54 32 60 C16 54 6 44 6 30 L6 10 Z" fill="#7C3AED" opacity="0.35"></path></g>
+    <g transform="translate(25 25) scale(3.2)"><path d="M32 4 L58 10 L58 30 C58 44 48 54 32 60 C16 54 6 44 6 30 L6 10 Z" fill="#7C3AED" opacity="0.55"></path></g>
+    <g transform="translate(48 48) scale(2.45)"><path d="M32 4 L58 10 L58 30 C58 44 48 54 32 60 C16 54 6 44 6 30 L6 10 Z" fill="#A78BFA" opacity="0.9"></path></g>
+    
+    <g transform="translate(80.928 78.47800000000001) scale(1.421)">
+
+    <rect x="14" y="16" width="6" height="32" fill="#FAFAF7"></rect>
+    <rect x="44" y="16" width="6" height="32" fill="#FAFAF7"></rect>
+    <path d="M20 40 L44 18 L44 26 L26 42 Z" fill="#FAFAF7"></path>
+    <path d="M40 14 L50 14 L50 24 Z" fill="#FAFAF7"></path>
+    </g>
+  </g>
+
+  
+  <text x="370" y="220" font-family="Geist, Inter, -apple-system, &#39;Helvetica Neue&#39;, sans-serif" font-size="96" font-weight="500" letter-spacing="-3" fill="#FAFAF7">net<tspan fill="#A78BFA" font-weight="600">press</tspan></text>
+
+  
+  <text x="372" y="260" font-family="ui-monospace, &#39;JetBrains Mono&#39;, Menlo, monospace" font-size="20" letter-spacing="4" fill="#A78BFA" opacity="0.7">FOR EXPRESS.JS</text>
+
+  
+  <rect x="80" y="340" width="740" height="1" fill="#A78BFA" opacity="0.2"></rect>
+
+  
+  
+    <g transform="translate(80 380)">
+      <rect width="200" height="48" rx="24" fill="#7C3AED" opacity="0.25" stroke="#A78BFA" stroke-opacity="0.35"></rect>
+      <text x="100" y="30" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="16" font-weight="500" fill="#FAFAF7">MVC structure</text>
+    </g>
+    <g transform="translate(300 380)">
+      <rect width="200" height="48" rx="24" fill="#7C3AED" opacity="0.25" stroke="#A78BFA" stroke-opacity="0.35"></rect>
+      <text x="100" y="30" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="16" font-weight="500" fill="#FAFAF7">CLI scaffolding</text>
+    </g>
+    <g transform="translate(520 380)">
+      <rect width="200" height="48" rx="24" fill="#7C3AED" opacity="0.25" stroke="#A78BFA" stroke-opacity="0.35"></rect>
+      <text x="100" y="30" text-anchor="middle" font-family="Geist, Inter, sans-serif" font-size="16" font-weight="500" fill="#FAFAF7">Middleware first</text>
+    </g>
+
+  
+  <text x="450" y="500" text-anchor="middle" font-family="ui-monospace, &#39;JetBrains Mono&#39;, Menlo, monospace" font-size="16" fill="#FAFAF7" opacity="0.45">github.com/admicaa/netpress</text>
+
+  <circle cx="120" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="152" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="184" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="216" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="248" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="280" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="312" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="344" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="376" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="408" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="440" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="472" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="504" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="536" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="568" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="600" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="632" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="664" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="696" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="728" cy="560" r="3" fill="#ffffff" opacity="0.08"></circle><circle cx="120" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="152" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="184" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="216" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="248" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="280" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="312" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="344" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="376" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="408" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="440" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="472" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="504" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="536" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="568" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="600" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="632" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="664" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="696" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle><circle cx="728" cy="582" r="3" fill="#ffffff" opacity="0.1"></circle>
+</svg>

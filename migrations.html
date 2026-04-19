@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Migrations | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-migrations">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link is-active" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="migrations">Migrations</h1>
+<p>Netpress now uses one shared migration directory and one shared schema builder for SQL and MongoDB. The framework analyzes the migration files first, plans the targeted connections, and then runs only the connections those files actually reference.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// database/migrations/20260419_create_posts_table.js
+export async function up(database) {
+  const schema = database.connection(&quot;mysql&quot;);
+
+  await schema.createTable(&quot;posts&quot;, (table) =&gt; {
+    table.increments(&quot;id&quot;).primary();
+    table.foreignId(&quot;userId&quot;)
+      .notNullable()
+      .references(&quot;id&quot;)
+      .inTable(&quot;users&quot;)
+      .onDelete(&quot;cascade&quot;);
+    table.string(&quot;title&quot;, 255).notNullable();
+    table.string(&quot;slug&quot;, 255).notNullable().unique();
+    table.text(&quot;body&quot;).notNullable();
+    table.string(&quot;status&quot;, 20).notNullable().defaultTo(&quot;draft&quot;);
+    table.datetime(&quot;publishedAt&quot;).nullable();
+    table.timestamps(true, true);
+    table.index(&quot;userId&quot;);
+  });
+}
+
+export async function down(database) {
+  const schema = database.connection(&quot;mysql&quot;);
+  await schema.dropTableIfExists(&quot;posts&quot;);
+}</code></pre>
+<p>If the migration should target the default configured connection, you can use <code>database.createTable(...)</code> directly instead of <code>database.connection(...)</code>.</p>
+<h2 id="supported-schema-methods">Supported Schema Methods</h2>
+<h3 id="table-methods">Table Methods</h3>
+<ul>
+  <li><code>createTable(name, callback)</code></li>
+  <li><code>alterTable(name, callback)</code></li>
+  <li><code>dropTableIfExists(name)</code></li>
+  <li><code>connection(name)</code></li>
+</ul>
+<h3 id="column-methods">Column Methods</h3>
+<ul>
+  <li><code>increments(name = &amp;quot;id&amp;quot;)</code></li>
+  <li><code>id(name = &amp;quot;id&amp;quot;)</code></li>
+  <li><code>string(name, length = 255)</code></li>
+  <li><code>text(name)</code></li>
+  <li><code>integer(name)</code></li>
+  <li><code>float(name)</code></li>
+  <li><code>decimal(name, precision = 8, scale = 2)</code></li>
+  <li><code>boolean(name)</code></li>
+  <li><code>datetime(name)</code></li>
+  <li><code>timestamp(name)</code></li>
+  <li><code>json(name)</code></li>
+  <li><code>foreignId(name)</code></li>
+  <li><code>timestamps(useTz = false, defaultToNow = false)</code></li>
+</ul>
+<h3 id="column-modifiers">Column Modifiers</h3>
+<ul>
+  <li><code>primary()</code></li>
+  <li><code>notNullable()</code></li>
+  <li><code>required()</code></li>
+  <li><code>nullable()</code></li>
+  <li><code>defaultTo(value)</code></li>
+  <li><code>unique(indexName?)</code></li>
+  <li><code>index(indexName?)</code></li>
+  <li><code>unsigned()</code></li>
+  <li><code>trim()</code></li>
+  <li><code>lowercase()</code></li>
+  <li><code>enum(values)</code></li>
+  <li><code>minLength(length)</code></li>
+  <li><code>maxLength(length)</code></li>
+  <li><code>references(column)</code></li>
+  <li><code>inTable(table)</code></li>
+  <li><code>onDelete(action)</code></li>
+  <li><code>onUpdate(action)</code></li>
+</ul>
+<h3 id="table-level-index-helpers">Table-Level Index Helpers</h3>
+<ul>
+  <li><code>index(columns, indexName?)</code></li>
+  <li><code>unique(columns, indexName?)</code></li>
+</ul>
+<h2 id="connection-planning">Connection Planning</h2>
+<p>Migration execution works differently now:</p>
+<ul>
+  <li>Netpress discovers the migration files first</li>
+  <li>it analyzes which connections each file targets</li>
+  <li>it opens only the referenced connections</li>
+  <li>it tracks executed migrations per connection</li>
+</ul>
+<p>This is why the current migrate commands do not need runtime <code>--connection</code> flags in the docs flow.</p>
+<h2 id="commands">Commands</h2>
+<pre><code class="language-bash">npm run artisan -- make:migration create_posts_table
+npm run artisan -- migrate
+npm run artisan -- migrate --seed
+npm run artisan -- migrate:rollback --step=1
+npm run artisan -- migrate:fresh --seed
+npm run artisan -- migrate:refresh --seed
+npm run artisan -- migrate:status</code></pre>
+<h2 id="legacy-compatibility">Legacy Compatibility</h2>
+<p>Older SQL migrations still work through the unified first argument in the common cases. The migration context preserves:</p>
+<ul>
+  <li><code>knex.schema.createTable(...)</code></li>
+  <li><code>knex(...)</code></li>
+  <li><code>knex.raw(...)</code></li>
+  <li><code>knex.fn.now()</code></li>
+</ul>
+<p>That lets older migration files keep running while newer files use <code>database.createTable(...)</code> and <code>database.connection(...)</code>.</p>
+<h2 id="mongodb-behavior">MongoDB Behavior</h2>
+<p>The shared blueprint is translated into:</p>
+<ul>
+  <li>collection validators</li>
+  <li>indexes</li>
+  <li>in-memory schema metadata used by Mongo model boot</li>
+</ul>
+<p>That means a Mongo-backed model can infer its shape from shared migrations without requiring handwritten <code>static schema</code> definitions.</p>
+<h2 id="workflow">Workflow</h2>
+<ol>
+  <li>Create a migration with <code>make:migration</code>.</li>
+  <li>Keep the generated connection name if it matches your intended target, or change it to another configured connection.</li>
+  <li>Write <code>up()</code> and <code>down()</code> with the shared builder.</li>
+  <li>Run <code>npm run artisan -- migrate</code>.</li>
+  <li>Boot or test the app against the updated schema.</li>
+</ol>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="database.html">
+        <small>Previous</small>
+        <strong>Database</strong>
+      </a>
+    
+      
+      <a href="seeders.html">
+        <small>Next</small>
+        <strong>Seeders</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#supported-schema-methods">Supported Schema Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#table-methods">Table Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#column-methods">Column Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#column-modifiers">Column Modifiers</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#table-level-index-helpers">Table-Level Index Helpers</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#connection-planning">Connection Planning</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#commands">Commands</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#legacy-compatibility">Legacy Compatibility</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#mongodb-behavior">MongoDB Behavior</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#workflow">Workflow</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

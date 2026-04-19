@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Controllers | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-controllers">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link is-active" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Basics</div>
+            <h1 id="controllers">Controllers</h1>
+<p>Controllers stay thin in Netpress. They sit at the HTTP boundary, call services or models, and either return a value for the smart-response layer or use the response helpers that <code>AppServiceProvider</code> decorates onto <code>res</code>.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">import { BaseController, json } from &quot;@admicaa/netpress&quot;;
+import RegisterRequest from &quot;../../Requests/Auth/RegisterRequest.js&quot;;
+import AuthService from &quot;../../../Services/AuthService.js&quot;;
+
+class AuthController extends BaseController {
+  async register(req) {
+    const payload = await this.validate(req, RegisterRequest);
+    const result = await AuthService.register(payload);
+    return json(result, 201);
+  }
+}
+
+export default new AuthController();</code></pre>
+<h2 id="basecontroller"><code>BaseController</code></h2>
+<p>Extending <code>BaseController</code> gives you:</p>
+<ul>
+  <li><code>await this.validate(req, RequestClassOrRules)</code></li>
+  <li><code>await this.authorize(req, PolicyClass, method, resource?)</code></li>
+</ul>
+<p><code>BaseController</code> also binds inherited action methods to the controller instance, so passing <code>PostController.show</code> directly into the router works as expected.</p>
+<h2 id="response-options">Response Options</h2>
+<p>You can use the smart-response return style:</p>
+<pre><code class="language-js">async show(req) {
+  return Post.findOrFail(req.params.id);
+}</code></pre>
+<p>Or the starter response helpers:</p>
+<pre><code class="language-js">async show(req, res) {
+  const post = await Post.find(req.params.id);
+  if (!post) return res.error(&quot;Post not found&quot;, 404);
+  return res.success(post);
+}</code></pre>
+<p><code>AppServiceProvider</code> decorates:</p>
+<ul>
+  <li><code>res.success(data, meta?)</code></li>
+  <li><code>res.error(message, status = 400, errors?)</code></li>
+  <li><code>res.paginate(items, total, page, perPage)</code></li>
+  <li><code>res.render(componentOrName, props, status = 200)</code></li>
+</ul>
+<h2 id="smart-builders">Smart Builders</h2>
+<p>Netpress also exports response builders when you want explicit intent:</p>
+<pre><code class="language-js">import { json, redirect, view } from &quot;@admicaa/netpress&quot;;
+
+return json({ ok: true }, 201)
+  .header(&quot;X-Resource&quot;, &quot;post&quot;);
+
+return redirect(&quot;/login&quot;)
+  .withErrors({ email: [&quot;Required&quot;] })
+  .withInput(req.body);
+
+return view(HomePage, { title: &quot;Dashboard&quot; });</code></pre>
+<p>Those builders support shared methods like:</p>
+<ul>
+  <li><code>.status(code)</code></li>
+  <li><code>.header(name, value)</code></li>
+  <li><code>.withHeaders(map)</code></li>
+  <li><code>.cookie(name, value, options)</code></li>
+</ul>
+<h2 id="controller-pattern">Controller Pattern</h2>
+<pre><code class="language-js">import { BaseController, json } from &quot;@admicaa/netpress&quot;;
+import Post from &quot;../../Models/Post.js&quot;;
+import StorePostRequest from &quot;../Requests/StorePostRequest.js&quot;;
+
+class PostController extends BaseController {
+  async index(req) {
+    const page = Number(req.query.page || 1);
+    return Post.with(&quot;author&quot;)
+      .where({ status: &quot;published&quot; })
+      .latest()
+      .paginate(page, 15);
+  }
+
+  async store(req) {
+    const payload = await this.validate(req, StorePostRequest);
+    const post = await Post.create({ ...payload, userId: req.user.id });
+    return json(post, 201);
+  }
+}</code></pre>
+<p>This keeps the controller focused on HTTP concerns while the model and service layers own the data and domain behavior.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="middleware.html">
+        <small>Previous</small>
+        <strong>Middleware</strong>
+      </a>
+    
+      
+      <a href="requests-and-validation.html">
+        <small>Next</small>
+        <strong>Requests and Validation</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#basecontroller">`BaseController`</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#response-options">Response Options</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#smart-builders">Smart Builders</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#controller-pattern">Controller Pattern</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

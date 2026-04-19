@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Structure | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-directory-structure">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link is-active" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Getting Started</div>
+            <h1 id="project-structure">Project Structure</h1>
+<p>The starter now uses one shared application tree for most day-to-day work. Driver-specific folders still exist as compatibility fallbacks, but they are no longer the main layout.</p>
+<h2 id="main-folders">Main Folders</h2>
+<table class="md-table">
+<thead>
+<tr><th>Path</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>app/</code></td><td>Your application code: controllers, models, services, policies, jobs, mail classes, providers</td></tr>
+<tr><td><code>bootstrap/</code></td><td>Express app creation and ordered provider boot</td></tr>
+<tr><td><code>config/</code></td><td>Runtime configuration for app, database, auth, mail, views, queue, and more</td></tr>
+<tr><td><code>database/migrations/</code></td><td>Shared migrations for SQL and MongoDB</td></tr>
+<tr><td><code>database/seeders/</code></td><td>Shared seeders with <code>DatabaseSeeder.js</code> as the default root entry</td></tr>
+<tr><td><code>resources/views/</code></td><td>Server-rendered web components and layouts</td></tr>
+<tr><td><code>resources/mails/</code></td><td>Server-rendered mail components and layouts</td></tr>
+<tr><td><code>routes/</code></td><td>Web and API route files</td></tr>
+<tr><td><code>tests/</code></td><td>Feature and unit tests</td></tr>
+<tr><td><code>node_modules/@admicaa/netpress/</code></td><td>The installed framework package</td></tr>
+</tbody>
+</table>
+<h2 id="the-most-important-shift">The Most Important Shift</h2>
+<p>The implementation is shared-first now:</p>
+<ul>
+  <li><code>app/Models/</code> is the default place for models</li>
+  <li><code>database/migrations/</code> is the default place for migrations</li>
+  <li><code>database/seeders/</code> is the default place for seeders</li>
+</ul>
+<p>Legacy fallback folders are still recognized only when the shared roots are absent:</p>
+<ul>
+  <li><code>app/Models/sql</code></li>
+  <li><code>app/Models/mongo</code></li>
+  <li><code>database/migrations/sql</code></li>
+  <li><code>database/migrations/mongo</code></li>
+  <li><code>database/seeders/sql</code></li>
+  <li><code>database/seeders/mongo</code></li>
+</ul>
+<p>If you are starting new work, do not create those legacy folders.</p>
+<h2 id="common-feature-paths">Common Feature Paths</h2>
+<table class="md-table">
+<thead>
+<tr><th>Feature</th><th>Path</th></tr>
+</thead>
+<tbody>
+<tr><td>API controller</td><td><code>app/Http/Controllers/</code></td></tr>
+<tr><td>Middleware</td><td><code>app/Http/Middleware/</code></td></tr>
+<tr><td>Request validation class</td><td><code>app/Http/Requests/</code></td></tr>
+<tr><td>Model</td><td><code>app/Models/</code></td></tr>
+<tr><td>Mail class</td><td><code>app/Mail/</code></td></tr>
+<tr><td>Mail template</td><td><code>resources/mails/</code></td></tr>
+<tr><td>Web page component</td><td><code>resources/views/pages/</code></td></tr>
+<tr><td>Shared web layout</td><td><code>resources/views/layouts/</code></td></tr>
+<tr><td>Migration</td><td><code>database/migrations/</code></td></tr>
+<tr><td>Seeder</td><td><code>database/seeders/</code></td></tr>
+<tr><td>Policy</td><td><code>app/Policies/</code></td></tr>
+<tr><td>Job</td><td><code>app/Jobs/</code></td></tr>
+<tr><td>User-defined CLI command</td><td><code>app/Console/Commands/</code></td></tr>
+</tbody>
+</table>
+<h2 id="provider-and-route-layout">Provider And Route Layout</h2>
+<p>The app boots through:</p>
+<ul>
+  <li><code>server.js</code></li>
+  <li><code>bootstrap/app.js</code></li>
+  <li><code>bootstrap/providers.js</code></li>
+</ul>
+<p>Then the providers mount routes and shared services:</p>
+<ul>
+  <li><code>AppServiceProvider</code> registers body parsing, sessions, shared view state, and response helpers</li>
+  <li><code>DatabaseServiceProvider</code> boots the active runtime and shared models</li>
+  <li><code>RouteServiceProvider</code> mounts <code>routes/web.js</code> only when <code>config/view.js</code> enables a web engine, then mounts <code>routes/api.js</code> under <code>/api/v1</code></li>
+</ul>
+<h2 id="rendering-files">Rendering Files</h2>
+<p><code>setup:rendering</code> writes and updates these areas:</p>
+<ul>
+  <li><code>config/view.js</code></li>
+  <li><code>config/mail.js</code></li>
+  <li><code>routes/web.js</code></li>
+  <li><code>app/Http/Controllers/HomeController.js</code></li>
+  <li><code>resources/views/layouts/</code></li>
+  <li><code>resources/views/pages/</code></li>
+  <li><code>resources/mails/layouts/</code></li>
+  <li><code>resources/mails/</code></li>
+</ul>
+<p>That means rendering setup is part of the starter structure, not an external addon.</p>
+<h2 id="inside-the-framework-package">Inside The Framework Package</h2>
+<p>The <code>@admicaa/netpress</code> package contains the reusable framework runtime:</p>
+<ul>
+  <li><code>src/base/</code> for shared model, controller, request, mail, and relation primitives</li>
+  <li><code>src/database/</code> for connection resolution, model adapters, query builders, query adapters, and migration helpers</li>
+  <li><code>src/core/</code> for view and mail rendering helpers</li>
+  <li><code>src/commands/</code> for CLI commands</li>
+  <li><code>stubs/</code> for generator output</li>
+</ul>
+<p>If you are documenting or debugging framework behavior, inspect this package before guessing from the starter files.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="quickstart-blog.html">
+        <small>Previous</small>
+        <strong>Quickstart: Blog</strong>
+      </a>
+    
+      
+      <a href="request-lifecycle.html">
+        <small>Next</small>
+        <strong>Request Lifecycle</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#main-folders">Main Folders</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-most-important-shift">The Most Important Shift</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#common-feature-paths">Common Feature Paths</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#provider-and-route-layout">Provider And Route Layout</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#rendering-files">Rendering Files</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#inside-the-framework-package">Inside The Framework Package</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

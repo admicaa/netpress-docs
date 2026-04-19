@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-overview">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link is-active" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="hero-label">Implementation-synced docs</p>
+        <p class="hero-lead">
+          Netpress now ships as a shared runtime for Express 5 with one model
+          layer, one migration flow, one seeder flow, optional server-rendered
+          web, and React or Vue mail rendering.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-button is-primary" href="installation.html">Install The Starter</a>
+          <a class="hero-button" href="database-architecture.html">Study The Runtime</a>
+          <a class="hero-button" href="quickstart-blog.html">Build The Blog Example</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <img class="hero-banner" src="logo/netpress-banner.svg" alt="Netpress banner" />
+        <p class="hero-command-label">Starter quick start</p>
+        <pre class="hero-command"><code>npx create-netpress-app my-app
+cd my-app
+cp .env.example .env
+npm run artisan -- key:generate
+npm run setup:rendering
+npm run migrate
+npm run seed
+npm run dev</code></pre>
+      </div>
+    </section>
+  
+
+          <article class="article">
+            <div class="eyebrow">Netpress Docs</div>
+            <h1 id="start-here">Start Here</h1>
+<p>Netpress now starts from a published starter generator and a published framework package:</p>
+<ul>
+  <li><code>create-netpress-app</code> scaffolds the application</li>
+  <li><code>@admicaa/netpress</code> powers the runtime, CLI, and shared base classes</li>
+</ul>
+<p>The starter is not just an API shell anymore. It includes shared models, unified migrations, shared seeders, optional server-rendered pages, React or Vue mail rendering, and a Laravel-style CLI on top of Express 5.</p>
+<h2 id="what-you-get">What You Get</h2>
+<ul>
+  <li>Express 5 app bootstrapped through ordered service providers</li>
+  <li>API routes under <code>/api/v1</code></li>
+  <li>optional web routes mounted from <code>routes/web.js</code> when <code>config/view.js</code> enables a web engine</li>
+  <li>shared <code>app/Models/</code> classes that run against MongoDB, MySQL, PostgreSQL, or SQLite</li>
+  <li>unified <code>database/migrations/</code> and <code>database/seeders/</code> folders instead of separate SQL and Mongo trees</li>
+  <li>server-rendered web components in React or Vue</li>
+  <li>server-rendered mail components in React or Vue</li>
+  <li>the published <code>@admicaa/netpress</code> package underneath the starter app</li>
+</ul>
+<h2 id="starter-flow">Starter Flow</h2>
+<p>Create a new app with the generator, then finish the app-level setup:</p>
+<pre><code class="language-bash">npx create-netpress-app my-app
+cd my-app
+cp .env.example .env
+npm run artisan -- key:generate
+npm run setup:rendering
+npm run migrate
+npm run seed
+npm run dev</code></pre>
+<p>That is the path the published starter kit now targets.</p>
+<h2 id="the-path-through-the-docs">The Path Through The Docs</h2>
+<ol>
+  <li>Read <a href="installation.html">Installation</a> to configure the starter exactly as the code expects.</li>
+  <li>Read <a href="directory-structure.html">Project Structure</a> to understand what lives in the app and what comes from <code>@admicaa/netpress</code>.</li>
+  <li>Read <a href="database-architecture.html">Database Architecture</a> before making model, migration, or seeder decisions.</li>
+  <li>Build a real feature in <a href="quickstart-blog.html">Quickstart: Blog</a>.</li>
+</ol>
+<h2 id="what-changed-in-the-starter">What Changed In The Starter</h2>
+<p>The biggest implementation shift is that the starter is now shared-first:</p>
+<ul>
+  <li>models live in <code>app/Models/</code></li>
+  <li>migrations live in <code>database/migrations/</code></li>
+  <li>seeders live in <code>database/seeders/</code></li>
+  <li>driver-specific folders are now compatibility fallbacks, not the main structure</li>
+</ul>
+<p>Netpress resolves the correct runtime per model and per connection, so application code does not need separate SQL and Mongo versions of the same model.</p>
+<h2 id="what-to-keep-in-mind">What To Keep In Mind</h2>
+<ul>
+  <li><code>npx create-netpress-app</code> installs dependencies for you unless you pass <code>--skip-install</code></li>
+  <li><code>setup:rendering</code> is part of normal setup, not an optional extra step</li>
+  <li><code>config/view.js</code> controls whether starter web routes are mounted</li>
+  <li><code>config/mail.js</code> always needs a mail engine of <code>react</code> or <code>vue</code></li>
+  <li>the docs in this site are synced to the current starter kit and <code>@admicaa/netpress</code></li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      <span></span>
+      
+      <a href="installation.html">
+        <small>Next</small>
+        <strong>Installation</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-you-get">What You Get</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#starter-flow">Starter Flow</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-path-through-the-docs">The Path Through The Docs</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-changed-in-the-starter">What Changed In The Starter</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-to-keep-in-mind">What To Keep In Mind</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

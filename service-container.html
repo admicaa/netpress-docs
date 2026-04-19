@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Service Container | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-service-container">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link is-active" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Core Ideas</div>
+            <h1 id="service-container">Service Container</h1>
+<p>The service container lets the package resolve app-level services without hard-coding your project files. It is small, but it covers the common cases you need in a starter kit.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">import { container } from &quot;@admicaa/netpress&quot;;
+import MailService from &quot;../app/Services/MailService.js&quot;;
+
+container.bind(&quot;mail&quot;, MailService);
+
+const mail = container.get(&quot;mail&quot;);</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>Bindings live behind a string key. You can bind a ready value or a lazy factory. The first time you call <code>container.get(key)</code>, NetPress resolves the binding and caches it.</p>
+<p>This pattern is used by the base mail and job classes:</p>
+<ul>
+  <li><code>BaseMail</code> resolves the <code>mail</code> binding</li>
+  <li><code>BaseJob</code> resolves <code>queue.connection</code></li>
+</ul>
+<h2 id="additional-examples">Additional Examples</h2>
+<p>Bind queue configuration:</p>
+<pre><code class="language-js">import { container } from &quot;@admicaa/netpress&quot;;
+
+container.bind(&quot;queue.connection&quot;, {
+  host: &quot;127.0.0.1&quot;,
+  port: 6379,
+});</code></pre>
+<p>Use a lazy factory when setup is expensive:</p>
+<pre><code class="language-js">container.bind(&quot;search&quot;, () =&gt; {
+  return new SearchClient(process.env.SEARCH_URL);
+});</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<p>Keep bindings inside service providers when possible. That gives you one place to manage boot order and one place to test app setup.</p>
+<h2 id="notes-tips">Notes / Tips</h2>
+<ul>
+  <li>Use stable keys like <code>mail</code>, <code>queue.connection</code>, and <code>payments.gateway</code>.</li>
+  <li>Bind once during boot.</li>
+  <li>Resolve from the container inside framework-facing code, not everywhere in the app.</li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="request-lifecycle.html">
+        <small>Previous</small>
+        <strong>Request Lifecycle</strong>
+      </a>
+    
+      
+      <a href="service-providers.html">
+        <small>Next</small>
+        <strong>Service Providers</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#explanation">Explanation</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#additional-examples">Additional Examples</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#advanced-usage">Advanced Usage</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#notes-tips">Notes / Tips</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

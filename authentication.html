@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Authentication | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-authentication">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link is-active" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Security</div>
+            <h1 id="authentication">Authentication</h1>
+<p>The starter kit includes token-based authentication out of the box. It covers registration, login, refresh, logout, and current-user endpoints.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// routes/auth.js
+import { Router } from &quot;@admicaa/netpress&quot;;
+
+const router = Router();
+
+router.group(throttle(10, 60), (router) =&gt; {
+  router.post(&quot;/register&quot;, AuthController.register);
+  router.post(&quot;/login&quot;, AuthController.login);
+});
+
+router.group(throttle(30, 60), (router) =&gt; {
+  router.post(&quot;/refresh&quot;, AuthController.refresh);
+});
+
+router.group(authMiddleware, (router) =&gt; {
+  router.post(&quot;/logout&quot;, AuthController.logout);
+  router.get(&quot;/me&quot;, AuthController.me);
+});</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p><code>AuthService</code> handles the real work:</p>
+<ul>
+  <li>creating users</li>
+  <li>signing access and refresh tokens</li>
+  <li>rotating refresh tokens</li>
+  <li>blacklisting logged-out access tokens</li>
+</ul>
+<p><code>auth.js</code> middleware verifies the bearer token, loads the user from the database, and sets <code>req.user</code>.</p>
+<p><code>AuthController</code> can validate the register and login payloads inside the action with <code>this.validate(...)</code>.</p>
+<h2 id="additional-examples">Additional Examples</h2>
+<p>Login request:</p>
+<pre><code class="language-bash">curl -X POST http://127.0.0.1:3000/api/v1/auth/login \
+  -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;email&quot;:&quot;admin@netpress.io&quot;,&quot;password&quot;:&quot;password123&quot;}'</code></pre>
+<p>Authenticated request:</p>
+<pre><code class="language-bash">curl http://127.0.0.1:3000/api/v1/auth/me \
+  -H &quot;Authorization: Bearer YOUR_ACCESS_TOKEN&quot;</code></pre>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<p>The starter kit also includes optional Google and GitHub OAuth setup inside <code>AuthServiceProvider</code>. Keep email and password auth working first, then add OAuth when the app actually needs it.</p>
+<h2 id="notes-tips">Notes / Tips</h2>
+<ul>
+  <li>Use throttling on login and registration routes.</li>
+  <li>Group auth routes when they share the same middleware.</li>
+  <li>Keep JWT secrets out of source control.</li>
+  <li>Treat <code>req.user</code> as the trusted authenticated user once <code>authMiddleware</code> passes.</li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="requests-and-validation.html">
+        <small>Previous</small>
+        <strong>Requests and Validation</strong>
+      </a>
+    
+      
+      <a href="authorization.html">
+        <small>Next</small>
+        <strong>Authorization</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#explanation">Explanation</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#additional-examples">Additional Examples</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#advanced-usage">Advanced Usage</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#notes-tips">Notes / Tips</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

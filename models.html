@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Models | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-models">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link is-active" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="models">Models</h1>
+<p>Netpress ships with an Eloquent-style ORM that now works across SQL and MongoDB through one shared model API. Application models live in <code>app/Models/</code> and resolve their driver at query time.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// app/Models/Post.js
+import { BaseModel } from &quot;@admicaa/netpress&quot;;
+import User from &quot;./User.js&quot;;
+
+export default class Post extends BaseModel {
+  static connection = &quot;mysql&quot;;
+
+  static fillable = [&quot;userId&quot;, &quot;title&quot;, &quot;slug&quot;, &quot;body&quot;, &quot;status&quot;, &quot;publishedAt&quot;];
+
+  static casts = {
+    publishedAt: &quot;date&quot;,
+    createdAt: &quot;date&quot;,
+    updatedAt: &quot;date&quot;,
+  };
+
+  author() {
+    return this.belongsTo(User, &quot;userId&quot;);
+  }
+}</code></pre>
+<pre><code class="language-js">const post = await Post.create({
+  userId: 1,
+  title: &quot;Shared models&quot;,
+  body: &quot;One API across SQL and Mongo.&quot;,
+  status: &quot;published&quot;,
+});
+
+const rows = await Post.whereLike(&quot;title&quot;, &quot;Shared%&quot;)
+  .with(&quot;author&quot;)
+  .latest()
+  .get();</code></pre>
+<h2 id="how-model-resolution-works">How Model Resolution Works</h2>
+<p><code>BaseModel</code> keeps the application-facing behavior shared and delegates storage details to runtime adapters:</p>
+<ul>
+  <li><code>SqlModelAdapter</code> handles table introspection and SQL writes</li>
+  <li><code>MongoModelAdapter</code> builds schemas from the migration manifest and handles Mongo writes</li>
+  <li><code>Model.query()</code> resolves to <code>SqlQueryBuilder</code> or <code>MongoQueryBuilder</code></li>
+</ul>
+<p>You do not create different model classes per driver anymore.</p>
+<h2 id="static-configuration">Static Configuration</h2>
+<table class="md-table">
+<thead>
+<tr><th>Static</th><th>Purpose</th><th>Default</th></tr>
+</thead>
+<tbody>
+<tr><td><code>connection</code></td><td>Pin the model to a connection or driver</td><td>active <code>DB_CONNECTION</code></td></tr>
+<tr><td><code>table</code></td><td>Force a table name</td><td>pluralized snake_case of the class name</td></tr>
+<tr><td><code>collection</code></td><td>Force a Mongo collection name</td><td><code>null</code></td></tr>
+<tr><td><code>primaryKey</code></td><td>Primary key field</td><td><code>&amp;quot;id&amp;quot;</code></td></tr>
+<tr><td><code>schema</code></td><td>Legacy Mongo schema override</td><td><code>null</code></td></tr>
+<tr><td><code>schemaOptions</code></td><td>Extra Mongoose schema options merged onto the inferred schema</td><td><code>{}</code></td></tr>
+<tr><td><code>hidden</code></td><td>Fields stripped by <code>toJSON()</code></td><td><code>[]</code></td></tr>
+<tr><td><code>casts</code></td><td>Per-field coercion on hydration</td><td><code>{}</code></td></tr>
+<tr><td><code>fillable</code></td><td>Mass-assignment allow list</td><td><code>null</code></td></tr>
+<tr><td><code>guarded</code></td><td>Mass-assignment deny list</td><td><code>[]</code></td></tr>
+<tr><td><code>softDeletes</code></td><td>Enable soft deletes</td><td><code>false</code></td></tr>
+<tr><td><code>deletedAtColumn</code></td><td>Soft-delete column name</td><td><code>&amp;quot;deletedAt&amp;quot;</code></td></tr>
+</tbody>
+</table>
+<h2 id="supported-casts">Supported Casts</h2>
+<table class="md-table">
+<thead>
+<tr><th>Cast</th><th>Effect</th></tr>
+</thead>
+<tbody>
+<tr><td><code>int</code>, <code>integer</code></td><td><code>parseInt(value, 10)</code></td></tr>
+<tr><td><code>float</code>, <code>number</code></td><td><code>Number(value)</code></td></tr>
+<tr><td><code>boolean</code>, <code>bool</code></td><td>coercion to boolean</td></tr>
+<tr><td><code>string</code></td><td><code>String(value)</code></td></tr>
+<tr><td><code>date</code>, <code>datetime</code></td><td><code>new Date(value)</code></td></tr>
+<tr><td><code>json</code>, <code>object</code></td><td><code>JSON.parse(...)</code> when the stored value is a string</td></tr>
+</tbody>
+</table>
+<h2 id="query-entry-points">Query Entry Points</h2>
+<p>The model exposes both explicit and convenience entry points:</p>
+<pre><code class="language-js">Post.query();
+Post.newQuery();
+Post.where(&quot;status&quot;, &quot;published&quot;);
+Post.whereLike(&quot;title&quot;, &quot;Shared%&quot;);
+Post.whereFullText([&quot;title&quot;, &quot;body&quot;], &quot;shared models&quot;);
+Post.with(&quot;author&quot;);
+Post.latest();
+Post.withTrashed();</code></pre>
+<h2 id="query-builder-surface">Query Builder Surface</h2>
+<h3 id="filtering">Filtering</h3>
+<table class="md-table">
+<thead>
+<tr><th>Method</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>where(column, value)</code></td><td>equality shorthand</td></tr>
+<tr><td><code>where(column, operator, value)</code></td><td>explicit operator</td></tr>
+<tr><td><code>where({ ... })</code></td><td>object shorthand</td></tr>
+<tr><td><code>where(q =&amp;gt; ...)</code></td><td>nested group</td></tr>
+<tr><td><code>orWhere(...)</code></td><td>OR variant</td></tr>
+<tr><td><code>whereNot(column, value)</code></td><td><code>!=</code></td></tr>
+<tr><td><code>whereIn(column, values)</code></td><td>includes <code>orWhereIn</code> and <code>whereNotIn</code></td></tr>
+<tr><td><code>whereNull(column)</code></td><td>includes <code>orWhereNull</code> and <code>whereNotNull</code> / <code>orWhereNotNull</code></td></tr>
+<tr><td><code>whereBetween(column, [a, b])</code></td><td>includes <code>whereNotBetween</code></td></tr>
+<tr><td><code>whereRaw(sql, bindings)</code></td><td>SQL only; Mongo throws</td></tr>
+<tr><td><code>whereLike(column, value)</code></td><td>SQL uses native LIKE behavior; Mongo compiles to <code>$regex</code></td></tr>
+<tr><td><code>whereFullText(columns, value)</code></td><td>SQL compiles per dialect; Mongo compiles to <code>$text</code></td></tr>
+<tr><td><code>whereHas(name, constraint?)</code></td><td>relation existence</td></tr>
+<tr><td><code>orWhereHas(name, constraint?)</code></td><td>OR relation existence</td></tr>
+<tr><td><code>whereDoesntHave(name, constraint?)</code></td><td>negative relation existence</td></tr>
+<tr><td><code>orWhereDoesntHave(name, constraint?)</code></td><td>OR negative relation existence</td></tr>
+<tr><td><code>has(name)</code></td><td>alias of <code>whereHas(name)</code></td></tr>
+<tr><td><code>doesntHave(name)</code></td><td>alias of <code>whereDoesntHave(name)</code></td></tr>
+</tbody>
+</table>
+<h3 id="eager-loading-and-flow">Eager Loading And Flow</h3>
+<table class="md-table">
+<thead>
+<tr><th>Method</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>with(&amp;quot;posts&amp;quot;)</code></td><td>eager load one relation</td></tr>
+<tr><td><code>with([&amp;quot;posts&amp;quot;, &amp;quot;profile&amp;quot;])</code></td><td>eager load many</td></tr>
+<tr><td><code>with(&amp;quot;posts.author&amp;quot;)</code></td><td>nested eager loading</td></tr>
+<tr><td><code>with(&amp;quot;posts&amp;quot;, q =&amp;gt; q.where(...))</code></td><td>constrained eager loading</td></tr>
+<tr><td><code>with({ posts: q =&amp;gt; q.where(...) })</code></td><td>object syntax</td></tr>
+<tr><td><code>when(condition, cb, otherwise?)</code></td><td>conditional builder branch</td></tr>
+<tr><td><code>tap(cb)</code></td><td>inspect or mutate the builder inline</td></tr>
+</tbody>
+</table>
+<h3 id="ordering-paging-and-soft-deletes">Ordering, Paging, And Soft Deletes</h3>
+<table class="md-table">
+<thead>
+<tr><th>Method</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>orderBy(column, direction)</code></td><td>base ordering</td></tr>
+<tr><td><code>latest(column)</code></td><td>descending order</td></tr>
+<tr><td><code>oldest(column)</code></td><td>ascending order</td></tr>
+<tr><td><code>reorder(column?, direction?)</code></td><td>clears existing ordering first</td></tr>
+<tr><td><code>limit(n)</code>, <code>take(n)</code></td><td>limit rows</td></tr>
+<tr><td><code>offset(n)</code>, <code>skip(n)</code></td><td>offset rows</td></tr>
+<tr><td><code>forPage(page, perPage)</code></td><td>page slice</td></tr>
+<tr><td><code>withTrashed()</code></td><td>include soft-deleted rows</td></tr>
+<tr><td><code>onlyTrashed()</code></td><td>only soft-deleted rows</td></tr>
+<tr><td><code>withoutTrashed()</code></td><td>reset to default behavior</td></tr>
+</tbody>
+</table>
+<h3 id="terminal-methods">Terminal Methods</h3>
+<table class="md-table">
+<thead>
+<tr><th>Method</th><th>Result</th></tr>
+</thead>
+<tbody>
+<tr><td><code>get()</code></td><td>array of model instances</td></tr>
+<tr><td><code>first()</code></td><td>single instance or <code>null</code></td></tr>
+<tr><td><code>find(id)</code></td><td>primary-key lookup</td></tr>
+<tr><td><code>find([ids])</code></td><td><code>whereIn(primaryKey, ids)</code></td></tr>
+<tr><td><code>firstWhere(...)</code></td><td><code>where(...).first()</code></td></tr>
+<tr><td><code>firstOrFail(where?)</code></td><td>throws <code>ModelNotFoundError</code></td></tr>
+<tr><td><code>findOrFail(id)</code></td><td>throws <code>ModelNotFoundError</code></td></tr>
+<tr><td><code>findOr(id, fallback)</code></td><td>resolves fallback when not found</td></tr>
+<tr><td><code>value(column)</code></td><td>first row value</td></tr>
+<tr><td><code>pluck(column, key?)</code></td><td>values or keyed object</td></tr>
+<tr><td><code>count()</code></td><td>count of matching rows</td></tr>
+<tr><td><code>exists()</code></td><td>boolean</td></tr>
+<tr><td><code>doesntExist()</code></td><td>boolean</td></tr>
+<tr><td><code>sum</code>, <code>avg</code>, <code>min</code>, <code>max</code></td><td>aggregates</td></tr>
+<tr><td><code>paginate(page, perPage)</code></td><td><code>{ data, total, page, perPage, lastPage }</code></td></tr>
+<tr><td><code>chunk(size, callback)</code></td><td>batch iteration</td></tr>
+<tr><td><code>each(callback)</code></td><td>row iteration</td></tr>
+<tr><td><code>firstOrCreate(attrs, values?)</code></td><td>find or insert</td></tr>
+<tr><td><code>firstOrNew(attrs, values?)</code></td><td>find or instantiate unsaved</td></tr>
+<tr><td><code>updateOrCreate(attrs, values)</code></td><td>upsert-style helper</td></tr>
+<tr><td><code>update(data)</code></td><td>bulk update</td></tr>
+<tr><td><code>delete()</code></td><td>bulk delete</td></tr>
+<tr><td><code>forceDelete()</code></td><td>bulk hard delete</td></tr>
+<tr><td><code>restore()</code></td><td>bulk restore</td></tr>
+</tbody>
+</table>
+<h2 id="static-convenience-methods">Static Convenience Methods</h2>
+<p>Most common builder methods are also available directly on the model:</p>
+<pre><code class="language-js">await Post.all();
+await Post.find(1);
+await Post.findOrFail(1);
+await Post.first({ status: &quot;draft&quot; });
+await Post.firstWhere(&quot;slug&quot;, &quot;hello-world&quot;);
+await Post.whereIn(&quot;id&quot;, [1, 2, 3]).get();
+await Post.whereLike(&quot;title&quot;, &quot;Shared%&quot;);
+await Post.whereFullText([&quot;title&quot;, &quot;body&quot;], &quot;shared&quot;);
+await Post.count({ status: &quot;published&quot; });
+await Post.sum(&quot;views&quot;);
+await Post.paginate({ status: &quot;published&quot; }, 1, 15);
+await Post.destroy(1, 2, 3);
+await Post.truncate();</code></pre>
+<h2 id="instance-methods">Instance Methods</h2>
+<p>Hydrated rows are real model instances, not plain objects. That gives you instance-level helpers:</p>
+<pre><code class="language-js">const post = await Post.find(1);
+
+post.title = &quot;Renamed&quot;;
+await post.save();
+await post.update({ status: &quot;draft&quot; });
+await post.delete();
+await post.forceDelete();
+await post.restore();
+
+post.trashed();
+post.getKey();
+post.getKeyName();
+post.is(otherPost);
+post.isNot(otherPost);
+
+const fresh = await post.fresh();
+await post.refresh();
+const copy = post.replicate([&quot;slug&quot;]);</code></pre>
+<h2 id="mass-assignment-and-writes">Mass Assignment And Writes</h2>
+<p>All write paths filter payloads through the model's writable fields:</p>
+<ul>
+  <li>if <code>fillable</code> is set, only those fields are written</li>
+  <li>if <code>guarded</code> contains <code>&amp;quot;*&amp;quot;</code>, nothing is mass assignable</li>
+  <li>otherwise unknown fields are dropped automatically</li>
+</ul>
+<p>That behavior applies across <code>create</code>, <code>update</code>, relation writes, and bulk builder updates.</p>
+<h2 id="hooks">Hooks</h2>
+<p><code>BaseModel.on(event, handler)</code> supports:</p>
+<ul>
+  <li><code>creating</code></li>
+  <li><code>created</code></li>
+  <li><code>updating</code></li>
+  <li><code>updated</code></li>
+  <li><code>deleting</code></li>
+  <li><code>deleted</code></li>
+  <li><code>forceDeleting</code></li>
+  <li><code>forceDeleted</code></li>
+  <li><code>restoring</code></li>
+  <li><code>restored</code></li>
+</ul>
+<p>Returning <code>false</code> from the “before” hooks stops the operation.</p>
+<h2 id="soft-deletes">Soft Deletes</h2>
+<p>Enable soft deletes with:</p>
+<pre><code class="language-js">static softDeletes = true;</code></pre>
+<p>The model must have a nullable <code>deletedAt</code> column, or whatever name you set in <code>static deletedAtColumn</code>.</p>
+<h2 id="relations">Relations</h2>
+<p>Relation factories still live as instance methods on the model:</p>
+<ul>
+  <li><code>hasOne</code></li>
+  <li><code>hasMany</code></li>
+  <li><code>belongsTo</code></li>
+  <li><code>belongsToMany</code></li>
+  <li><code>morphOne</code></li>
+  <li><code>morphMany</code></li>
+  <li><code>morphTo</code></li>
+  <li><code>morphToMany</code></li>
+  <li><code>morphedByMany</code></li>
+</ul>
+<p>See <a href="relationships.html">Relationships</a> for the detailed guide.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="database-architecture.html">
+        <small>Previous</small>
+        <strong>Database Architecture</strong>
+      </a>
+    
+      
+      <a href="database.html">
+        <small>Next</small>
+        <strong>Database</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#how-model-resolution-works">How Model Resolution Works</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#static-configuration">Static Configuration</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#supported-casts">Supported Casts</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#query-entry-points">Query Entry Points</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#query-builder-surface">Query Builder Surface</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#filtering">Filtering</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#eager-loading-and-flow">Eager Loading And Flow</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#ordering-paging-and-soft-deletes">Ordering, Paging, And Soft Deletes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#terminal-methods">Terminal Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#static-convenience-methods">Static Convenience Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#instance-methods">Instance Methods</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#mass-assignment-and-writes">Mass Assignment And Writes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#hooks">Hooks</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#soft-deletes">Soft Deletes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#relations">Relations</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

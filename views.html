@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Views | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-views">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link is-active" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Basics</div>
+            <h1 id="views">Views</h1>
+<p>Web rendering is optional in the starter. Netpress can render React or Vue components on the server, or skip web rendering entirely when the app is API-only.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// app/Http/Controllers/HomeController.js
+import HomePage from &quot;../../../resources/views/pages/HomePage.jsx&quot;;
+
+class HomeController {
+  index(_req, res) {
+    return res.render(HomePage, {
+      appName: &quot;Netpress&quot;,
+      title: &quot;Netpress Starter Kit&quot;,
+      message: &quot;Build APIs, pages, and mail in one simple Node.js app.&quot;,
+    });
+  }
+}
+
+export default new HomeController();</code></pre>
+<h2 id="the-view-engine-switch">The View Engine Switch</h2>
+<p><code>config/view.js</code> controls whether web routes are mounted and which renderer to use:</p>
+<pre><code class="language-js">export default {
+  engine: &quot;react&quot;,
+};</code></pre>
+<p>Valid values:</p>
+<ul>
+  <li><code>&amp;quot;react&amp;quot;</code></li>
+  <li><code>&amp;quot;vue&amp;quot;</code></li>
+  <li><code>null</code></li>
+</ul>
+<p>When the value is <code>null</code>, <code>RouteServiceProvider</code> does not mount <code>routes/web.js</code>.</p>
+<h2 id="what-setuprendering-writes">What <code>setup:rendering</code> Writes</h2>
+<p>Running:</p>
+<pre><code class="language-bash">npm run artisan -- setup:rendering</code></pre>
+<p>updates the starter web files:</p>
+<ul>
+  <li><code>config/view.js</code></li>
+  <li><code>routes/web.js</code></li>
+  <li><code>app/Http/Controllers/HomeController.js</code></li>
+  <li><code>resources/views/layouts/</code></li>
+  <li><code>resources/views/pages/</code></li>
+</ul>
+<p>That command is the normal way to enable or change the starter web renderer.</p>
+<h2 id="rendering-modes">Rendering Modes</h2>
+<p>There are two view paths:</p>
+<h3 id="component-rendering">Component Rendering</h3>
+<p>When you pass a component to <code>res.render(...)</code> or <code>view(...)</code>, Netpress uses the registered renderer from <code>AppServiceProvider</code>, which calls <code>renderView(...)</code> with the configured engine.</p>
+<h3 id="string-templates">String Templates</h3>
+<p>When you pass a string like <code>&amp;quot;dashboard&amp;quot;</code> to <code>res.render(...)</code> or <code>view(&amp;quot;dashboard&amp;quot;, props)</code>, Netpress delegates to Express <code>res.render(...)</code> like a normal Express app.</p>
+<h2 id="shared-view-state">Shared View State</h2>
+<p><code>AppServiceProvider</code> and the shared view middleware make these available to server-rendered pages:</p>
+<ul>
+  <li><code>errors</code>, an <code>ErrorBag</code></li>
+  <li><code>old(field, fallback)</code></li>
+</ul>
+<p>That is what powers form redirects like:</p>
+<pre><code class="language-js">return redirect(&quot;/register&quot;)
+  .withErrors({ email: [&quot;Required&quot;] })
+  .withInput(req.body);</code></pre>
+<h2 id="folder-layout">Folder Layout</h2>
+<ul>
+  <li><code>resources/views/pages/</code> for page components</li>
+  <li><code>resources/views/layouts/</code> for layouts and shared chrome</li>
+</ul>
+<p>Use <code>resources/mails/</code> for email templates instead. Web and mail rendering are separate systems even when they use the same engine family.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="routing.html">
+        <small>Previous</small>
+        <strong>Routing</strong>
+      </a>
+    
+      
+      <a href="middleware.html">
+        <small>Next</small>
+        <strong>Middleware</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-view-engine-switch">The View Engine Switch</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-setuprendering-writes">What `setup:rendering` Writes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#rendering-modes">Rendering Modes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#component-rendering">Component Rendering</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#string-templates">String Templates</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#shared-view-state">Shared View State</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#folder-layout">Folder Layout</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

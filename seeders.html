@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seeders | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-seeders">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link is-active" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Data</div>
+            <h1 id="seeders">Seeders</h1>
+<p>Seeders now live in one shared directory and are composed from <code>DatabaseSeeder.js</code> instead of relying on driver-specific folder splits or alphabetical order alone.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// database/seeders/DatabaseSeeder.js
+export async function run(db) {
+  await db.call([
+    &quot;UserSeeder&quot;,
+    &quot;PostSeeder&quot;,
+  ]);
+}</code></pre>
+<pre><code class="language-js">// database/seeders/PostSeeder.js
+export async function run(db) {
+  const Post = db.model(&quot;Post&quot;);
+
+  if (!Post) {
+    throw new Error(&quot;Post model is not registered.&quot;);
+  }
+
+  const existing = await Post.first({ title: &quot;Hello Netpress&quot; });
+  if (!existing) {
+    await Post.create({
+      userId: 1,
+      title: &quot;Hello Netpress&quot;,
+      body: &quot;Shared seeders now compose from DatabaseSeeder.&quot;,
+      status: &quot;published&quot;,
+    });
+  }
+}</code></pre>
+<p><code>db.model(&amp;quot;Post&amp;quot;)</code> returns the regular discovered <code>Post</code> model class for the active runtime. Once you have it, methods like <code>Post.create()</code>, <code>Post.query()</code>, and <code>Post.first()</code> are the normal model API.</p>
+<p>Seeder examples use <code>db.model(...)</code> because that is the helper Netpress passes into <code>run(db)</code>, and it matches the generated seeder stubs. In regular application code, you will usually import <code>Post</code> directly.</p>
+<h2 id="what-db-gives-you">What <code>db</code> Gives You</h2>
+<p>Inside a seeder, Netpress passes a helper object with:</p>
+<table class="md-table">
+<thead>
+<tr><th>Helper</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>db.defaultConnection</code></td><td>the default configured connection name</td></tr>
+<tr><td><code>db.model(name)</code></td><td>resolve the regular discovered model class by name inside a seeder</td></tr>
+<tr><td><code>await db.connection(name)</code></td><td>resolve a live connection handle</td></tr>
+<tr><td><code>await db.call(target)</code></td><td>run another seeder target</td></tr>
+</tbody>
+</table>
+<p><code>db.call(...)</code> accepts:</p>
+<ul>
+  <li>a seeder name like <code>&amp;quot;UserSeeder&amp;quot;</code></li>
+  <li>an array of seeder names</li>
+  <li>an imported module</li>
+  <li>a class with <code>run()</code></li>
+  <li>a function</li>
+</ul>
+<h2 id="commands">Commands</h2>
+<pre><code class="language-bash">npm run artisan -- make:seeder DatabaseSeeder
+npm run artisan -- make:seeder PostSeeder
+npm run artisan -- db:seed
+npm run artisan -- db:seed --seeder=PostSeeder
+npm run artisan -- migrate:fresh --seed</code></pre>
+<h2 id="seeder-discovery-rules">Seeder Discovery Rules</h2>
+<p>Seeder discovery now prefers:</p>
+<ol>
+  <li><code>database/seeders/</code></li>
+  <li>legacy fallback folders only when the shared root has no top-level seeders</li>
+</ol>
+<p>That matches the model and migration discovery strategy.</p>
+<h2 id="recommended-pattern">Recommended Pattern</h2>
+<ul>
+  <li>keep <code>DatabaseSeeder.js</code> as the root entry point</li>
+  <li>use <code>db.call(...)</code> to compose other seeders</li>
+  <li>make seeders idempotent so reruns stay safe</li>
+  <li>prefer shared models over raw inserts unless you intentionally want to bypass model logic</li>
+</ul>
+<h2 id="when-to-use-raw-connections">When To Use Raw Connections</h2>
+<p>If a seed really needs lower-level access, you can ask for a connection explicitly:</p>
+<pre><code class="language-js">export async function run(db) {
+  const knex = await db.connection(&quot;mysql&quot;);
+  await knex(&quot;roles&quot;).insert({ name: &quot;admin&quot; });
+}</code></pre>
+<p>Most starter seeders should still stay on shared models.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="migrations.html">
+        <small>Previous</small>
+        <strong>Migrations</strong>
+      </a>
+    
+      
+      <a href="relationships.html">
+        <small>Next</small>
+        <strong>Relationships</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-db-gives-you">What `db` Gives You</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#commands">Commands</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#seeder-discovery-rules">Seeder Discovery Rules</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#recommended-pattern">Recommended Pattern</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#when-to-use-raw-connections">When To Use Raw Connections</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

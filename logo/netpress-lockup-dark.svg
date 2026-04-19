@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="1040" height="320">
+  <title>NetPress · horizontal lockup</title>
+  <rect width="520" height="160" fill="#0A0613"></rect>
+  <g transform="translate(20 40) scale(1.25)">
+    <path d="M32 4 L58 10 L58 30 C58 44 48 54 32 60 C16 54 6 44 6 30 L6 10 Z" fill="#7C3AED"></path>
+    <g transform="translate(13.440000000000001 12.440000000000001) scale(0.58)">
+
+    <rect x="14" y="16" width="6" height="32" fill="#FAFAF7"></rect>
+    <rect x="44" y="16" width="6" height="32" fill="#FAFAF7"></rect>
+    <path d="M20 40 L44 18 L44 26 L26 42 Z" fill="#FAFAF7"></path>
+    <path d="M40 14 L50 14 L50 24 Z" fill="#FAFAF7"></path>
+    </g>
+  </g>
+  <text x="130" y="100" font-family="Geist, Inter, -apple-system, &#39;Helvetica Neue&#39;, sans-serif" font-size="56" font-weight="600" letter-spacing="-1.5" fill="#FAFAF7">Net<tspan font-weight="700">Press</tspan></text>
+</svg>

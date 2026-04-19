@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Service Providers | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-service-providers">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link is-active" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Core Ideas</div>
+            <h1 id="service-providers">Service Providers</h1>
+<p>Service providers are the boot sequence of the starter. They register integrations, bind shared runtime services, and mount routes in a predictable order.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// bootstrap/providers.js
+import AppServiceProvider from &quot;../app/Providers/AppServiceProvider.js&quot;;
+import DatabaseServiceProvider from &quot;../app/Providers/DatabaseServiceProvider.js&quot;;
+import AuthServiceProvider from &quot;../app/Providers/AuthServiceProvider.js&quot;;
+import MailServiceProvider from &quot;../app/Providers/MailServiceProvider.js&quot;;
+import EventServiceProvider from &quot;../app/Providers/EventServiceProvider.js&quot;;
+import RouteServiceProvider from &quot;../app/Providers/RouteServiceProvider.js&quot;;
+
+export default [
+  AppServiceProvider,
+  DatabaseServiceProvider,
+  AuthServiceProvider,
+  MailServiceProvider,
+  EventServiceProvider,
+  RouteServiceProvider,
+];</code></pre>
+<h2 id="what-the-default-providers-do">What The Default Providers Do</h2>
+<table class="md-table">
+<thead>
+<tr><th>Provider</th><th>Responsibility</th></tr>
+</thead>
+<tbody>
+<tr><td><code>AppServiceProvider</code></td><td>global Express middleware, shared view renderer, shared flash state, response helpers</td></tr>
+<tr><td><code>DatabaseServiceProvider</code></td><td>boots Mongo or SQL runtime and registers shared application models</td></tr>
+<tr><td><code>AuthServiceProvider</code></td><td>authentication services and strategies</td></tr>
+<tr><td><code>MailServiceProvider</code></td><td>mail transport and mail engine bindings</td></tr>
+<tr><td><code>EventServiceProvider</code></td><td>event listener registration</td></tr>
+<tr><td><code>RouteServiceProvider</code></td><td>mounts web and API route trees</td></tr>
+</tbody>
+</table>
+<h2 id="the-register-contract">The Register Contract</h2>
+<p>Every provider exposes:</p>
+<pre><code class="language-js">static async register(app) {
+  // boot or bind services here
+}</code></pre>
+<p>Providers run sequentially inside <code>bootstrap/app.js</code>, so they are the right place for app-wide setup that should happen once during boot.</p>
+<h2 id="a-real-route-provider-example">A Real Route Provider Example</h2>
+<p><code>RouteServiceProvider</code> now mounts web routes only when the configured web engine is enabled:</p>
+<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
+import apiRoutes from &quot;../../routes/api.js&quot;;
+import viewConfig from &quot;../../config/view.js&quot;;
+
+export default class RouteServiceProvider {
+  static async register(app) {
+    const router = Router();
+
+    if (viewConfig.engine) {
+      const { default: webRoutes } = await import(&quot;../../routes/web.js&quot;);
+      router.use(&quot;/&quot;, webRoutes);
+    }
+
+    router.group(&quot;/api/v1&quot;, (api) =&gt; {
+      api.use(&quot;/&quot;, apiRoutes);
+    });
+
+    app.use(router);
+  }
+}</code></pre>
+<h2 id="a-custom-provider-example">A Custom Provider Example</h2>
+<pre><code class="language-js">import { container } from &quot;@admicaa/netpress&quot;;
+import Stripe from &quot;stripe&quot;;
+
+export default class PaymentServiceProvider {
+  static async register() {
+    container.bind(&quot;payments.stripe&quot;, () =&gt; {
+      return new Stripe(process.env.STRIPE_SECRET_KEY);
+    });
+  }
+}</code></pre>
+<p>Then add it to <code>bootstrap/providers.js</code> in the right order.</p>
+<h2 id="guidelines">Guidelines</h2>
+<ul>
+  <li>put global boot logic in providers, not route files</li>
+  <li>keep one provider focused on one area of responsibility</li>
+  <li>register dependencies before the providers that need them</li>
+  <li>mount routes late, after shared services are ready</li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="service-container.html">
+        <small>Previous</small>
+        <strong>Service Container</strong>
+      </a>
+    
+      
+      <a href="routing.html">
+        <small>Next</small>
+        <strong>Routing</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-the-default-providers-do">What The Default Providers Do</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-register-contract">The Register Contract</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#a-real-route-provider-example">A Real Route Provider Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#a-custom-provider-example">A Custom Provider Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#guidelines">Guidelines</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

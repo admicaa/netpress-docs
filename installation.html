@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Installation | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-installation">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link is-active" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Getting Started</div>
+            <h1 id="installation">Installation</h1>
+<p>Create a new app with the starter generator, configure <code>.env</code>, choose rendering engines, run shared migrations and seeders, then boot the app.</p>
+<h2 id="1-create-the-app">1. Create The App</h2>
+<pre><code class="language-bash">npx create-netpress-app my-app
+cd my-app</code></pre>
+<p>The generator copies the starter template, sets the app package name, and runs <code>npm install</code> for you by default. Use <code>--skip-install</code> if you only want the files.</p>
+<h2 id="2-copy-the-environment-file">2. Copy The Environment File</h2>
+<pre><code class="language-bash">cp .env.example .env</code></pre>
+<h2 id="3-generate-the-application-key">3. Generate The Application Key</h2>
+<pre><code class="language-bash">npm run artisan -- key:generate</code></pre>
+<h2 id="4-choose-the-web-and-mail-engines">4. Choose The Web And Mail Engines</h2>
+<pre><code class="language-bash">npm run setup:rendering</code></pre>
+<p><code>setup:rendering</code> asks for two choices:</p>
+<ul>
+  <li>web engine: <code>none</code>, <code>react</code>, or <code>vue</code></li>
+  <li>mail engine: <code>react</code> or <code>vue</code></li>
+</ul>
+<p>What the command actually does:</p>
+<ul>
+  <li>installs only missing renderer packages</li>
+  <li>writes <code>config/view.js</code></li>
+  <li>updates <code>config/mail.js</code></li>
+  <li>writes starter files in <code>resources/views/</code>, <code>resources/mails/</code>, <code>routes/web.js</code>, and <code>app/Http/Controllers/HomeController.js</code></li>
+</ul>
+<p>You can also run it non-interactively:</p>
+<pre><code class="language-bash">npm run artisan -- setup:rendering --web react --mail react
+npm run artisan -- setup:rendering --web none --mail vue --skip-install</code></pre>
+<h2 id="5-configure-the-database-and-app-secrets">5. Configure The Database And App Secrets</h2>
+<p>Set the connection that the starter should boot by default:</p>
+<pre><code class="language-bash"># MongoDB
+DB_CONNECTION=mongo
+MONGO_URI=mongodb://localhost:27017/netpress
+
+# MySQL
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=netpress
+DB_USERNAME=root
+DB_PASSWORD=secret
+
+# PostgreSQL
+DB_CONNECTION=postgres
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=netpress
+DB_USERNAME=postgres
+DB_PASSWORD=secret
+
+# SQLite
+DB_CONNECTION=sqlite
+DB_SQLITE_PATH=:memory:</code></pre>
+<p>The starter also expects the usual app, mail, queue, and auth settings from <code>.env</code>.</p>
+<h2 id="6-run-shared-migrations">6. Run Shared Migrations</h2>
+<pre><code class="language-bash">npm run migrate</code></pre>
+<p>Netpress analyzes the shared migration files first, figures out which configured connections they target, and only opens the connections those files actually use.</p>
+<h2 id="7-seed-the-database">7. Seed The Database</h2>
+<pre><code class="language-bash">npm run seed</code></pre>
+<p>If <code>database/seeders/DatabaseSeeder.js</code> exists, <code>db:seed</code> uses it as the entry point. Otherwise it falls back to the discovered seeders in <code>database/seeders/</code>.</p>
+<h2 id="8-start-the-development-server">8. Start The Development Server</h2>
+<pre><code class="language-bash">npm run dev</code></pre>
+<h2 id="9-verify-the-app">9. Verify The App</h2>
+<p>Check the health endpoint:</p>
+<pre><code class="language-bash">curl http://127.0.0.1:3000/api/v1/health</code></pre>
+<p>Expected shape:</p>
+<pre><code class="language-json">{ &quot;status&quot;: &quot;ok&quot;, &quot;db&quot;: &quot;mongo&quot;, &quot;env&quot;: &quot;local&quot; }</code></pre>
+<p>If <code>config/view.js</code> sets a web engine instead of <code>null</code>, the starter also mounts the home page:</p>
+<pre><code class="language-bash">curl http://127.0.0.1:3000/</code></pre>
+<h2 id="useful-setup-commands">Useful Setup Commands</h2>
+<pre><code class="language-bash">npm run artisan -- route:list
+npm run artisan -- migrate:status
+npm run artisan -- migrate:fresh --seed
+npm run artisan -- key:generate</code></pre>
+<h2 id="next-step">Next Step</h2>
+<p>Read <a href="directory-structure.html">Project Structure</a> and <a href="database-architecture.html">Database Architecture</a> before you start adding models or migrations. Those two pages explain the shared runtime layout the starter now uses.</p>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="index.html">
+        <small>Previous</small>
+        <strong>Start Here</strong>
+      </a>
+    
+      
+      <a href="quickstart-blog.html">
+        <small>Next</small>
+        <strong>Quickstart: Blog</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#1-create-the-app">1. Create The App</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#2-copy-the-environment-file">2. Copy The Environment File</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#3-generate-the-application-key">3. Generate The Application Key</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#4-choose-the-web-and-mail-engines">4. Choose The Web And Mail Engines</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#5-configure-the-database-and-app-secrets">5. Configure The Database And App Secrets</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#6-run-shared-migrations">6. Run Shared Migrations</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#7-seed-the-database">7. Seed The Database</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#8-start-the-development-server">8. Start The Development Server</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#9-verify-the-app">9. Verify The App</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#useful-setup-commands">Useful Setup Commands</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#next-step">Next Step</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

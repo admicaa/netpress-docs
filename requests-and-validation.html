@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Requests and Validation | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-requests-and-validation">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link is-active" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Basics</div>
+            <h1 id="requests-and-validation">Requests and Validation</h1>
+<p>Request classes in NetPress work like Laravel form requests. They keep validation rules out of controllers and make route definitions cleaner.</p>
+<h2 id="quick-example">Quick Example</h2>
+<pre><code class="language-js">// app/Http/Requests/Auth/RegisterRequest.js
+import { body } from &quot;express-validator&quot;;
+import { BaseRequest } from &quot;@admicaa/netpress&quot;;
+
+export default class RegisterRequest extends BaseRequest {
+  static rules() {
+    return [
+      body(&quot;name&quot;).trim().notEmpty().withMessage(&quot;Name is required&quot;),
+      body(&quot;email&quot;).trim().isEmail().withMessage(&quot;Invalid email address&quot;),
+      body(&quot;password&quot;).isLength({ min: 8 }).withMessage(&quot;Password is too short&quot;),
+    ];
+  }
+}</code></pre>
+<p>Use it inside the controller:</p>
+<pre><code class="language-js">const payload = await this.validate(req, RegisterRequest);</code></pre>
+<h2 id="explanation">Explanation</h2>
+<p>Each request class extends <code>BaseRequest</code>. You define <code>rules()</code>, and then you can use it in two ways:</p>
+<ul>
+  <li><code>await this.validate(req, RegisterRequest)</code> inside a <code>BaseController</code></li>
+  <li><code>RegisterRequest.middleware()</code> at the route level</li>
+</ul>
+<p>If validation fails, NetPress throws a <code>ValidationException</code>.</p>
+<ul>
+  <li>For API requests, the global handler returns JSON with status <code>422</code></li>
+  <li>For web forms, you can catch that error and redirect with <code>withErrors()</code> and <code>withInput()</code></li>
+</ul>
+<h2 id="additional-examples">Additional Examples</h2>
+<p>Validate post creation:</p>
+<pre><code class="language-js">import { body } from &quot;express-validator&quot;;
+import { BaseRequest } from &quot;@admicaa/netpress&quot;;
+
+export default class StorePostRequest extends BaseRequest {
+  static rules() {
+    return [
+      body(&quot;title&quot;).trim().notEmpty().withMessage(&quot;Title is required&quot;),
+      body(&quot;slug&quot;).trim().notEmpty().withMessage(&quot;Slug is required&quot;),
+      body(&quot;body&quot;).trim().notEmpty().withMessage(&quot;Body is required&quot;),
+    ];
+  }
+}</code></pre>
+<p>Use it with auth:</p>
+<pre><code class="language-js">router.post(&quot;/posts&quot;, authMiddleware, PostController.store);</code></pre>
+<h2 id="validation-flow-for-forms">Validation Flow For Forms</h2>
+<p>This is the usual flow for a server-rendered form:</p>
+<ol>
+  <li>the user submits the form</li>
+  <li>the controller runs <code>this.validate()</code></li>
+  <li>if validation fails, the controller redirects back</li>
+  <li>the redirect flashes <code>errors</code> and <code>old input</code></li>
+  <li>the next page render reads <code>errors</code> and <code>old()</code></li>
+</ol>
+<pre><code class="language-js">// app/Http/Controllers/Auth/RegisterController.js
+import {
+  BaseController,
+  ValidationException,
+  redirect,
+} from &quot;@admicaa/netpress&quot;;
+import RegisterRequest from &quot;../../Requests/Auth/RegisterRequest.js&quot;;
+
+class RegisterController extends BaseController {
+  async store(req) {
+    try {
+      const payload = await this.validate(req, RegisterRequest);
+
+      // Save the user here...
+
+      return redirect(&quot;/dashboard&quot;);
+    } catch (error) {
+      if (error instanceof ValidationException) {
+        return redirect(&quot;/register&quot;)
+          .withErrors(error.errors)
+          .withInput(req.body);
+      }
+
+      throw error;
+    }
+  }
+}</code></pre>
+<p>The next request can read:</p>
+<ul>
+  <li><code>errors.has(&amp;quot;email&amp;quot;)</code></li>
+  <li><code>errors.first(&amp;quot;email&amp;quot;)</code></li>
+  <li><code>old(&amp;quot;email&amp;quot;)</code></li>
+</ul>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<p>Keep request classes focused on input rules. If you need database lookups, derived fields, or cross-model workflows, perform them in the controller or service after validation succeeds.</p>
+<h2 id="notes-tips">Notes / Tips</h2>
+<ul>
+  <li>Keep one request class per action when the rules differ.</li>
+  <li>Reuse small validation helpers if several requests share the same fields.</li>
+  <li>Prefer clear error messages over clever validation chains.</li>
+  <li><code>this.validate(req, RequestClass)</code> returns the validated payload and also stores it on <code>req.validated</code>.</li>
+  <li><code>withInput(req.body)</code> is best for normal form input. Avoid flashing very large payloads.</li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="controllers.html">
+        <small>Previous</small>
+        <strong>Controllers</strong>
+      </a>
+    
+      
+      <a href="authentication.html">
+        <small>Next</small>
+        <strong>Authentication</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#explanation">Explanation</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#additional-examples">Additional Examples</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#validation-flow-for-forms">Validation Flow For Forms</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#advanced-usage">Advanced Usage</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#notes-tips">Notes / Tips</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>
