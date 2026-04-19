@@ -21,8 +21,8 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
@@ -54,6 +54,7 @@
             <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
 <li><a class="sidebar-link is-active" href="service-providers.html">Service Providers</a></li>
+<li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
@@ -97,6 +98,7 @@
           <ul class="sidebar-list">
             <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
 <li><a class="sidebar-link" href="queues.html">Queues</a></li>
 <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
 <li><a class="sidebar-link" href="observers.html">Observers</a></li>
@@ -115,8 +117,8 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
@@ -131,7 +133,24 @@
           <article class="article">
             <div class="eyebrow">Core Ideas</div>
             <h1 id="service-providers">Service Providers</h1>
-<p>Service providers are the boot sequence of the starter. They register integrations, bind shared runtime services, and mount routes in a predictable order.</p>
+<p>Service providers are the boot sequence of the starter. They register container bindings, mount middleware, wire routes, and expose optional integrations — all in a predictable order.</p>
+<p>Netpress uses a <strong>hybrid bootstrap</strong>: providers have a cheap <code>register()</code> phase that always runs, and a <code>boot()</code> phase that can be deferred. See <a href="hybrid-bootstrap.html">Hybrid Bootstrap</a> for the full model.</p>
+<h2 id="provider-shape">Provider Shape</h2>
+<pre><code class="language-js">import { ServiceProvider } from &quot;@admicaa/netpress&quot;;
+
+export default class MyServiceProvider extends ServiceProvider {
+  static deferred = false;           // true = skip boot() at startup
+  static provides = [];              // container keys this provider owns
+
+  async register() {
+    // cheap bindings — runs for every provider at boot
+  }
+
+  async boot() {
+    // heavy startup — runs eagerly, or on first `app.make(key)` if deferred
+  }
+}</code></pre>
+<p><code>this.app</code> is the Netpress <a href="hybrid-bootstrap.html">Application</a> kernel. <code>this.app.express</code> is the underlying Express instance. <code>this.app.container</code> is the shared service container.</p>
 <h2 id="quick-example">Quick Example</h2>
 <pre><code class="language-js">// bootstrap/providers.js
 import AppServiceProvider from &quot;../app/Providers/AppServiceProvider.js&quot;;
@@ -145,41 +164,62 @@ export default [
   AppServiceProvider,
   DatabaseServiceProvider,
   AuthServiceProvider,
-  MailServiceProvider,
+  MailServiceProvider,         // deferred
   EventServiceProvider,
   RouteServiceProvider,
 ];</code></pre>
 <h2 id="what-the-default-providers-do">What The Default Providers Do</h2>
 <table class="md-table">
 <thead>
-<tr><th>Provider</th><th>Responsibility</th></tr>
+<tr><th>Provider</th><th>Mode</th><th>Responsibility</th></tr>
 </thead>
 <tbody>
-<tr><td><code>AppServiceProvider</code></td><td>global Express middleware, shared view renderer, shared flash state, response helpers</td></tr>
-<tr><td><code>DatabaseServiceProvider</code></td><td>boots Mongo or SQL runtime and registers shared application models</td></tr>
-<tr><td><code>AuthServiceProvider</code></td><td>authentication services and strategies</td></tr>
-<tr><td><code>MailServiceProvider</code></td><td>mail transport and mail engine bindings</td></tr>
-<tr><td><code>EventServiceProvider</code></td><td>event listener registration</td></tr>
-<tr><td><code>RouteServiceProvider</code></td><td>mounts web and API route trees</td></tr>
+<tr><td><code>AppServiceProvider</code></td><td>eager</td><td>global Express middleware, shared view renderer, cache/storage facade configuration</td></tr>
+<tr><td><code>DatabaseServiceProvider</code></td><td>eager</td><td>registers the DB manager; connections stay <strong>lazy</strong> unless listed in <code>preload</code></td></tr>
+<tr><td><code>AuthServiceProvider</code></td><td>eager</td><td>mounts <code>passport.initialize()</code>; strategies are dynamic-imported</td></tr>
+<tr><td><code>MailServiceProvider</code></td><td><strong>deferred</strong></td><td>binds a mail factory — nothing runs until <code>Mail.send()</code></td></tr>
+<tr><td><code>QueueServiceProvider</code></td><td><strong>deferred</strong></td><td>binds a queue factory — BullMQ is built on first dispatch or <code>queue:work</code></td></tr>
+<tr><td><code>EventServiceProvider</code></td><td>eager</td><td>registers event listeners and model observers</td></tr>
+<tr><td><code>RouteServiceProvider</code></td><td>eager</td><td>mounts web and API route trees</td></tr>
 </tbody>
 </table>
-<h2 id="the-register-contract">The Register Contract</h2>
-<p>Every provider exposes:</p>
-<pre><code class="language-js">static async register(app) {
-  // boot or bind services here
-}</code></pre>
-<p>Providers run sequentially inside <code>bootstrap/app.js</code>, so they are the right place for app-wide setup that should happen once during boot.</p>
-<h2 id="a-real-route-provider-example">A Real Route Provider Example</h2>
-<p><code>RouteServiceProvider</code> now mounts web routes only when the configured web engine is enabled:</p>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import apiRoutes from &quot;../../routes/api.js&quot;;
-import viewConfig from &quot;../../config/view.js&quot;;
+<h2 id="lazy-service-registration-and-resolution">Lazy Service Registration and Resolution</h2>
+<p>A deferred provider binds factories in <code>register()</code>. The factory runs the first time something pulls the key from the container:</p>
+<pre><code class="language-js">import { ServiceProvider, container } from &quot;@admicaa/netpress&quot;;
+import Stripe from &quot;stripe&quot;;
 
-export default class RouteServiceProvider {
-  static async register(app) {
+export default class PaymentServiceProvider extends ServiceProvider {
+  static deferred = true;
+  static provides = [&quot;payments&quot;, &quot;payments.stripe&quot;];
+
+  async register() {
+    this.app.container.bind(&quot;payments.stripe&quot;, () =&gt; {
+      return new Stripe(process.env.STRIPE_SECRET_KEY);
+    });
+    this.app.container.bind(&quot;payments&quot;, () =&gt; this.app.container.get(&quot;payments.stripe&quot;));
+  }
+}</code></pre>
+<p>Resolution is uniform:</p>
+<pre><code class="language-js">// Anywhere that holds the Application:
+const stripe = await app.make(&quot;payments&quot;);
+
+// Or from the static container for ad-hoc use:
+const stripe = container.get(&quot;payments.stripe&quot;);</code></pre>
+<p>Neither <code>Stripe</code> nor its SDK is loaded until the first resolution.</p>
+<h2 id="a-real-route-provider-example">A Real Route Provider Example</h2>
+<p><code>RouteServiceProvider</code> mounts web routes only when a view engine is configured:</p>
+<pre><code class="language-js">import { ServiceProvider, Router, config } from &quot;@admicaa/netpress&quot;;
+import apiRoutes from &quot;../../routes/api.js&quot;;
+
+export default class RouteServiceProvider extends ServiceProvider {
+  async register() {
+    await config.load(&quot;view&quot;);
+  }
+
+  async boot() {
     const router = Router();
 
-    if (viewConfig.engine) {
+    if (config.get(&quot;view.engine&quot;)) {
       const { default: webRoutes } = await import(&quot;../../routes/web.js&quot;);
       router.use(&quot;/&quot;, webRoutes);
     }
@@ -188,27 +228,16 @@ export default class RouteServiceProvider {
       api.use(&quot;/&quot;, apiRoutes);
     });
 
-    app.use(router);
+    this.app.express.use(router);
   }
 }</code></pre>
-<h2 id="a-custom-provider-example">A Custom Provider Example</h2>
-<pre><code class="language-js">import { container } from &quot;@admicaa/netpress&quot;;
-import Stripe from &quot;stripe&quot;;
-
-export default class PaymentServiceProvider {
-  static async register() {
-    container.bind(&quot;payments.stripe&quot;, () =&gt; {
-      return new Stripe(process.env.STRIPE_SECRET_KEY);
-    });
-  }
-}</code></pre>
-<p>Then add it to <code>bootstrap/providers.js</code> in the right order.</p>
 <h2 id="guidelines">Guidelines</h2>
 <ul>
-  <li>put global boot logic in providers, not route files</li>
-  <li>keep one provider focused on one area of responsibility</li>
-  <li>register dependencies before the providers that need them</li>
-  <li>mount routes late, after shared services are ready</li>
+  <li>Keep <code>register()</code> cheap — binding factories, loading config. Save side effects for <code>boot()</code>.</li>
+  <li>Use <code>static deferred = true</code> when the service requires a socket, subprocess, or filesystem handle.</li>
+  <li>Register dependencies before the providers that need them (DB before Auth, etc.).</li>
+  <li>Mount routes late: <code>RouteServiceProvider</code> should be last in the eager list.</li>
+  <li>To warm a deferred provider at boot, call <code>await app.make(key)</code> from inside an eager provider's <code>boot()</code>.</li>
 </ul>
 
             
@@ -220,14 +249,14 @@ export default class PaymentServiceProvider {
       </a>
     
       
-      <a href="routing.html">
+      <a href="hybrid-bootstrap.html">
         <small>Next</small>
-        <strong>Routing</strong>
+        <strong>Hybrid Bootstrap</strong>
       </a>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.1 · starter v0.1.2 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -236,6 +265,11 @@ export default class PaymentServiceProvider {
       <h2>On This Page</h2>
       <ul class="toc-list">
         
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#provider-shape">Provider Shape</a>
+        </li>
+      
+
         <li class="toc-item">
           <a class="toc-link level-2" href="#quick-example">Quick Example</a>
         </li>
@@ -247,17 +281,12 @@ export default class PaymentServiceProvider {
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#the-register-contract">The Register Contract</a>
+          <a class="toc-link level-2" href="#lazy-service-registration-and-resolution">Lazy Service Registration and Resolution</a>
         </li>
       
 
         <li class="toc-item">
           <a class="toc-link level-2" href="#a-real-route-provider-example">A Real Route Provider Example</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#a-custom-provider-example">A Custom Provider Example</a>
         </li>
       
 

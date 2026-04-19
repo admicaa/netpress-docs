@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hybrid Bootstrap | Netpress Docs</title>
+    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <link rel="icon" href="logo/favicon.ico" sizes="any" />
+    <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body class="page-hybrid-bootstrap">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Netpress Docs">
+        <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
+        <span class="brand-copy">
+          <span class="brand-name">Netpress</span>
+          <span class="brand-tagline">Shared runtime for Express 5</span>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <div class="topbar-meta">
+          <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        </div>
+        <a class="topbar-link" href="index.html">Overview</a>
+        <a class="topbar-link" href="installation.html">Installation</a>
+        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="artisan-cli.html">CLI</a>
+        <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        
+    
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Getting Started</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+<li><a class="sidebar-link" href="installation.html">Installation</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Core Ideas</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+<li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+<li><a class="sidebar-link is-active" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Basics</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="views.html">Views</a></li>
+<li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
+<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Security</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+<li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Data</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="database-architecture.html">Database Architecture</a></li>
+<li><a class="sidebar-link" href="models.html">Models</a></li>
+<li><a class="sidebar-link" href="database.html">Database</a></li>
+<li><a class="sidebar-link" href="migrations.html">Migrations</a></li>
+<li><a class="sidebar-link" href="seeders.html">Seeders</a></li>
+<li><a class="sidebar-link" href="relationships.html">Relationships</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">More Features</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="queues.html">Queues</a></li>
+<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+          </ul>
+        </section>
+      
+
+        <section class="sidebar-section">
+          <h2 class="sidebar-heading">Testing</h2>
+          <ul class="sidebar-list">
+            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+          </ul>
+        </section>
+      
+
+    <section class="sidebar-meta">
+      <p class="sidebar-meta-title">Versions</p>
+      <div class="version-stack">
+        <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+      </div>
+      <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
+    </section>
+  
+      </aside>
+
+      <div class="content-shell">
+        <main class="content">
+          
+
+          <article class="article">
+            <div class="eyebrow">Core Ideas</div>
+            <h1 id="hybrid-bootstrap">Hybrid Bootstrap</h1>
+<p>Netpress uses a hybrid bootstrap model: a tiny eager core, and lazy providers for everything optional.</p>
+<p>Startup stays fast because only the features you actually reach pay their cost — database connections, mail transports, queue workers, cache drivers, and rendering engines are built on first use.</p>
+<h2 id="the-two-phases">The Two Phases</h2>
+<p>Every service provider has two lifecycle methods:</p>
+<pre><code class="language-js">import { ServiceProvider } from &quot;@admicaa/netpress&quot;;
+
+export default class MyServiceProvider extends ServiceProvider {
+  // Phase 1 — always runs. Cheap: bind factories into the container.
+  async register() {}
+
+  // Phase 2 — runs for eager providers only. Do startup side effects here.
+  async boot() {}
+}</code></pre>
+<p>The kernel calls <code>register()</code> for every provider, then <code>boot()</code> for non-deferred ones. Deferred providers skip phase 2 at startup; their <code>boot()</code> runs when something first resolves their services via <code>app.make(key)</code>.</p>
+<h2 id="eager-core">Eager Core</h2>
+<p>The following run at boot with no opt-out — they form the request/response skeleton:</p>
+<ul>
+  <li><code>config</code> repository</li>
+  <li>service container</li>
+  <li>base request / response layer</li>
+  <li>router</li>
+  <li>base middleware pipeline</li>
+  <li>exception handling</li>
+  <li>basic logger</li>
+</ul>
+<p>In the starter kit these are owned by <code>AppServiceProvider</code> and <code>RouteServiceProvider</code>.</p>
+<h2 id="lazy-on-first-use">Lazy On First Use</h2>
+<p>These are deferred by default. If the feature is never touched, it never loads:</p>
+<table class="md-table">
+<thead>
+<tr><th>Feature</th><th>First-use trigger</th></tr>
+</thead>
+<tbody>
+<tr><td>Mail system</td><td><code>Mail.send(...)</code></td></tr>
+<tr><td>Queue system</td><td><code>Queue.dispatch(...)</code> / <code>queue:work</code> CLI</td></tr>
+<tr><td>Cache drivers</td><td><code>cache.get(...)</code> — driver built on first call</td></tr>
+<tr><td>File storage</td><td><code>storage.get(...)</code> / <code>storage.put(...)</code></td></tr>
+<tr><td>Rendering engines (React / Vue)</td><td>first <code>res.render(Component)</code></td></tr>
+<tr><td>Broadcasting / websockets</td><td>first subscribe or publish</td></tr>
+<tr><td>Scheduler internals</td><td>when the scheduler process starts</td></tr>
+<tr><td>Optional DB integrations</td><td>model query, <code>DB.connection()</code>, transactions, migrations</td></tr>
+</tbody>
+</table>
+<h2 id="marking-a-provider-deferred">Marking A Provider Deferred</h2>
+<p>Two static fields on the provider class:</p>
+<pre><code class="language-js">import { ServiceProvider, Mail, config } from &quot;@admicaa/netpress&quot;;
+import MailService from &quot;../Services/MailService.js&quot;;
+
+export default class MailServiceProvider extends ServiceProvider {
+  static deferred = true;
+  static provides = [&quot;mail&quot;, &quot;mail.transport&quot;];
+
+  async register() {
+    await config.load(&quot;mail&quot;);
+
+    // Factory — nothing expensive runs yet.
+    this.app.container.bind(&quot;mail.transport&quot;, () =&gt; {
+      Mail.configure(MailService, { engine: config.get(&quot;mail.engine&quot;) });
+      return Mail;
+    });
+    this.app.container.bind(&quot;mail&quot;, () =&gt; this.app.container.get(&quot;mail.transport&quot;));
+  }
+
+  async boot() {
+    // Only reached when `await app.make(&quot;mail&quot;)` is first called.
+  }
+}</code></pre>
+<h2 id="resolving-a-deferred-service">Resolving A Deferred Service</h2>
+<p>From anywhere that holds the <code>Application</code>:</p>
+<pre><code class="language-js">const mail = await app.make(&quot;mail&quot;);
+await mail.send(WelcomeEmail, { to: user.email });</code></pre>
+<p>Or — more commonly — just use the facade; it resolves from the container internally and triggers the factory:</p>
+<pre><code class="language-js">import { Mail } from &quot;@admicaa/netpress&quot;;
+await Mail.send(WelcomeEmail, { to: user.email });</code></pre>
+<h2 id="folder-structure">Folder Structure</h2>
+<p>The hybrid model maps cleanly to the following project layout:</p>
+<pre><code>my-app/
+├── app/
+│   ├── Console/             # artisan commands
+│   ├── Http/                # controllers, middleware, requests
+│   ├── Models/              # models (lazy-bound to DB)
+│   ├── Providers/           # service providers (eager + deferred)
+│   │   ├── AppServiceProvider.js
+│   │   ├── DatabaseServiceProvider.js
+│   │   ├── AuthServiceProvider.js
+│   │   ├── MailServiceProvider.js        (deferred)
+│   │   ├── QueueServiceProvider.js       (deferred)
+│   │   ├── EventServiceProvider.js
+│   │   └── RouteServiceProvider.js
+│   ├── Services/            # domain services
+│   ├── Mail/ Jobs/ Events/ Listeners/ Observers/ Policies/
+│
+├── bootstrap/
+│   ├── app.js               # builds Express + Application kernel
+│   └── providers.js         # ordered provider list
+│
+├── config/                  # config files (lazy-loaded on demand)
+├── database/migrations/
+├── database/seeders/
+├── resources/views/
+├── routes/                  # web.js, api.js
+├── server.js                # `config.loadAll()` → `createApp()` → listen
+└── tests/</code></pre>
+<p><code>bootstrap/app.js</code> is the only orchestration code:</p>
+<pre><code class="language-js">import express from &quot;express&quot;;
+import { Application, config } from &quot;@admicaa/netpress&quot;;
+import providers from &quot;./providers.js&quot;;
+import Handler from &quot;../app/Exceptions/Handler.js&quot;;
+
+export async function createApp() {
+  await config.loadAll();
+
+  const expressApp = express();
+  const app = new Application({ express: expressApp });
+
+  await app.loadProviders(providers);
+  expressApp.use(Handler.handle);
+
+  expressApp.set(&quot;netpress:app&quot;, app);
+  return expressApp;
+}</code></pre>
+<h2 id="lazy-vs-preloaded-database-connections">Lazy vs Preloaded Database Connections</h2>
+<p>The database manager is registered at boot, but <strong>no real connection is opened</strong> until it is needed. This is the default and matches how models, query builder, transactions, and migrations already behave:</p>
+<pre><code class="language-js">// app/Providers/DatabaseServiceProvider.js
+import { ServiceProvider, config, registerApplicationDatabase, ApplicationDatabase } from &quot;@admicaa/netpress&quot;;
+
+const db = new ApplicationDatabase({});
+
+export default class DatabaseServiceProvider extends ServiceProvider {
+  static provides = [&quot;db&quot;, &quot;db.manager&quot;];
+
+  async register() {
+    await config.load(&quot;database&quot;);
+    const dbConfig = config.get(&quot;database&quot;);
+
+    await registerApplicationDatabase(dbConfig, {
+      database: db,
+      preload: dbConfig.preload || [],   // empty = fully lazy
+    });
+
+    this.app.container.bind(&quot;db&quot;, db);
+    this.app.container.bind(&quot;db.manager&quot;, db);
+  }
+}
+
+export { db };</code></pre>
+<h3 id="fully-lazy-default">Fully-lazy (default)</h3>
+<pre><code class="language-js">// config/database.js
+export default {
+  default: process.env.DB_CONNECTION || &quot;mongo&quot;,
+  preload: [],
+  connections: {
+    mongo:    { uri: process.env.MONGO_URI },
+    mysql:    { host: &quot;...&quot;, database: &quot;app&quot;, username: &quot;...&quot;, password: &quot;...&quot; },
+    postgres: { host: &quot;...&quot;, database: &quot;app&quot;, username: &quot;...&quot;, password: &quot;...&quot; },
+    sqlite:   { storage: &quot;:memory:&quot;, dialect: &quot;sqlite&quot; },
+  },
+};</code></pre>
+<p>No socket is opened at boot. The first query triggers the connection:</p>
+<pre><code class="language-js">// User.findOne() opens the mongo connection on demand
+const user = await User.findOne({ email });
+
+// DB.connection(&quot;analytics&quot;) opens that secondary connection on demand
+await DB.connection(&quot;analytics&quot;).table(&quot;events&quot;).insert({ ... });</code></pre>
+<h3 id="preloading-selected-connections">Preloading Selected Connections</h3>
+<p>When you want a fail-fast startup for critical connections:</p>
+<pre><code class="language-js">// config/database.js
+export default {
+  default: process.env.DB_CONNECTION || &quot;mysql&quot;,
+  preload: [&quot;mysql&quot;],                 // warm only the primary
+  connections: { /* ... */ },
+};</code></pre>
+<p>Or via env:</p>
+<pre><code class="language-bash">DB_PRELOAD=mysql,analytics node server.js</code></pre>
+<p>Each name in <code>preload</code> is opened during <code>DatabaseServiceProvider.register()</code>. Everything else stays lazy.</p>
+<h3 id="single-vs-multiple-connections">Single vs Multiple Connections</h3>
+<p>Both work identically. Single connection:</p>
+<pre><code class="language-js">// Model with no `static connection` uses the default — opens it on first use.
+class User extends BaseModel {
+  static table = &quot;users&quot;;
+}</code></pre>
+<p>Multiple connections:</p>
+<pre><code class="language-js">// Writes to the configured `analytics` connection.
+// That connection is opened on the first AuditLog query.
+class AuditLog extends BaseModel {
+  static table = &quot;audit_logs&quot;;
+  static connection = &quot;analytics&quot;;
+}</code></pre>
+<p>Both the facade and individual models funnel through the same lazy registry, so you pay at most one round-trip per logical connection per process.</p>
+<h2 id="what-runs-when-a-quick-trace">What Runs When — A Quick Trace</h2>
+<p>Startup for a typical API request that queries the DB and sends a mail:</p>
+<pre><code>server.js
+  └─ config.loadAll()                       eager
+  └─ new Application({ express })           eager
+  └─ app.loadProviders([...])
+        ├─ AppServiceProvider.register()    eager  (load cache/storage/view config)
+        ├─ DatabaseServiceProvider.register  eager  (seed registry, discover models)
+        ├─ AuthServiceProvider.register     eager  (load auth config)
+        ├─ MailServiceProvider.register     eager  (bind factory)         ← deferred
+        ├─ EventServiceProvider.register    eager  (register listeners)
+        ├─ RouteServiceProvider.register    eager  (load view config)
+        │
+        ├─ AppServiceProvider.boot()        eager  (mount middleware)
+        ├─ DatabaseServiceProvider.boot()   eager  (log; no connections)
+        ├─ AuthServiceProvider.boot()       eager  (mount passport.initialize)
+        ├─ EventServiceProvider.boot()      eager
+        └─ RouteServiceProvider.boot()      eager  (mount router)
+
+request GET /api/users
+  └─ controller: await User.find(id)
+        └─ resolveModelConnection(&quot;mongo&quot;)
+              └─ ensureConfiguredConnectionOpen(&quot;mongo&quot;)   ← first use
+                    └─ mongoose.connect(...)
+        └─ query runs
+  └─ controller: await Mail.send(Welcome, { to })
+        └─ container.get(&quot;mail.transport&quot;)   ← first use
+              └─ MailService transport built, renderer resolved
+        └─ mail sent</code></pre>
+<p>Nothing before the first model query paid a DB cost. Nothing before the first <code>Mail.send()</code> paid a mail cost.</p>
+<h2 id="guidelines">Guidelines</h2>
+<ul>
+  <li>Put anything that has to mount into Express (middleware, routes) in an eager provider.</li>
+  <li>Put anything that requires a socket, subprocess, or filesystem handle behind a factory and mark the provider deferred.</li>
+  <li>Preload deliberately — if a connection is required for the app to function at all, add it to <code>preload</code> so you fail fast at boot.</li>
+  <li>Do not guard lazy loads with <code>if (config.get(...))</code> in the eager register path; the factory itself is the guard.</li>
+</ul>
+
+            
+    <nav class="page-nav" aria-label="Page navigation">
+      
+      <a href="service-providers.html">
+        <small>Previous</small>
+        <strong>Service Providers</strong>
+      </a>
+    
+      
+      <a href="routing.html">
+        <small>Next</small>
+        <strong>Routing</strong>
+      </a>
+    
+    </nav>
+  
+            <p class="footer-note">Synced to framework v0.1.1 · starter v0.1.2 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+          </article>
+        </main>
+
+        
+    <aside class="toc">
+      <h2>On This Page</h2>
+      <ul class="toc-list">
+        
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-two-phases">The Two Phases</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#eager-core">Eager Core</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#lazy-on-first-use">Lazy On First Use</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#marking-a-provider-deferred">Marking A Provider Deferred</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#resolving-a-deferred-service">Resolving A Deferred Service</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#folder-structure">Folder Structure</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#lazy-vs-preloaded-database-connections">Lazy vs Preloaded Database Connections</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#fully-lazy-default">Fully-lazy (default)</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#preloading-selected-connections">Preloading Selected Connections</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#single-vs-multiple-connections">Single vs Multiple Connections</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-runs-when-a-quick-trace">What Runs When — A Quick Trace</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#guidelines">Guidelines</a>
+        </li>
+      
+      </ul>
+    </aside>
+  
+      </div>
+    </div>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

@@ -21,8 +21,8 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
@@ -54,6 +54,7 @@
             <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
 <li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+<li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
@@ -97,6 +98,7 @@
           <ul class="sidebar-list">
             <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
 <li><a class="sidebar-link" href="queues.html">Queues</a></li>
 <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
 <li><a class="sidebar-link" href="observers.html">Observers</a></li>
@@ -115,8 +117,8 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.0</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.0</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
@@ -136,6 +138,8 @@
 <pre><code class="language-js">// config/database.js
 export default {
   default: process.env.DB_CONNECTION || &quot;mongo&quot;,
+  // Opened at boot. Empty = fully lazy (connections open on first use).
+  preload: [],
   connections: {
     mongo: {
       uri: process.env.MONGO_URI || &quot;mongodb://localhost:27017/netpress&quot;,
@@ -163,18 +167,29 @@ export default {
   },
 };</code></pre>
 <h2 id="how-the-starter-boots-the-database">How The Starter Boots The Database</h2>
-<p><code>DatabaseServiceProvider</code> reads <code>config/database.js</code> and boots the active runtime:</p>
+<p><code>DatabaseServiceProvider</code> registers the manager with <code>registerApplicationDatabase(...)</code> during boot. This:</p>
 <ul>
-  <li><code>bootMongoRuntime(...)</code> for MongoDB</li>
-  <li><code>bootSqlRuntime(...)</code> for MySQL, PostgreSQL, or SQLite</li>
+  <li>Seeds placeholders in the connection registry for every configured connection</li>
+  <li>Discovers shared models from <code>app/Models/</code> (file imports only — no query runs)</li>
+  <li>Does <strong>not</strong> open any real database connections unless a name appears in <code>preload</code></li>
 </ul>
-<p>It also registers the discovered shared models and exposes a small <code>db</code> helper object:</p>
+<p>Real connections are opened lazily on first use (see <a href="hybrid-bootstrap.html">Hybrid Bootstrap</a>):</p>
+<ul>
+  <li><code>Model.query()</code> / <code>Model.find(...)</code> / etc.</li>
+  <li><code>DB.connection(name)</code> / <code>DB.table(...)</code> / <code>DB.collection(...)</code></li>
+  <li><code>DB.transaction(...)</code></li>
+  <li>Migration and seeder CLI commands</li>
+</ul>
+<p>The starter also exposes a small helper object:</p>
 <ul>
   <li><code>db.type</code></li>
   <li><code>db.connection</code></li>
   <li><code>db.model(name)</code></li>
+  <li><code>db.transaction(callback, name)</code></li>
+  <li><code>db.table(name)</code></li>
+  <li><code>db.collection(name)</code></li>
 </ul>
-<p>That helper is useful for starter-level diagnostics, seeders, and health checks. <code>db.model(name)</code> resolves the same model class you would normally import, but by name at runtime. Your application code will usually import models directly instead.</p>
+<p><code>db.model(name)</code> resolves the same model class you would normally import, but by name at runtime. The other methods proxy into the shared core <code>DB</code> facade, so you can still reach transactions or ad-hoc table and collection queries from starter code when needed. For named connections, use the core <code>DB.connection(name)</code> facade directly.</p>
 <h2 id="shared-application-structure">Shared Application Structure</h2>
 <p>These are the default database-facing folders now:</p>
 <ul>
@@ -196,19 +211,73 @@ export default {
 
 const user = await User.find(1);
 const admins = await User.where({ role: &quot;admin&quot; }).paginate(1, 20);</code></pre>
-<h2 id="raw-access-when-you-need-it">Raw Access When You Need It</h2>
-<p>Most code should stay on shared models and builders, but the runtime is still available when you need lower-level control.</p>
-<p>For SQL:</p>
-<pre><code class="language-js">import { db } from &quot;../app/Providers/DatabaseServiceProvider.js&quot;;
+<h2 id="db-facade">DB Facade</h2>
+<p>Most application code should stay on shared models, but Netpress now exposes a first-class core <code>DB</code> facade for ad-hoc table access, named connections, raw SQL, and transactions.</p>
+<pre><code class="language-js">import { DB } from &quot;@admicaa/netpress&quot;;
 
-const stats = await db.connection(&quot;posts&quot;)
-  .select(&quot;userId&quot;)
-  .count({ posts: &quot;id&quot; })
-  .groupBy(&quot;userId&quot;);</code></pre>
-<p>For Mongo, the active provider exposes the underlying Mongoose connection through <code>db.connection</code>.</p>
-<p>Keep raw access wrapped in service or model methods so controllers do not start depending on database-specific queries.</p>
+const activeUsers = await DB.table(&quot;users&quot;)
+  .where(&quot;status&quot;, &quot;active&quot;)
+  .latest(&quot;createdAt&quot;)
+  .get();
+
+const rows = await DB.select(
+  &quot;select count(*) as total from users where role = ?&quot;,
+  [&quot;admin&quot;],
+);</code></pre>
+<p>The ad-hoc <code>table()</code> and <code>collection()</code> helpers use the same hardened shared query builder as models, so they inherit the existing identifier and value safety checks.</p>
+<h2 id="transactions">Transactions</h2>
+<p><code>DB.transaction()</code> scopes model writes and ad-hoc table queries to the active transaction.</p>
+<pre><code class="language-js">import { DB } from &quot;@admicaa/netpress&quot;;
+import User from &quot;../app/Models/User.js&quot;;
+
+await DB.transaction(async (trx) =&gt; {
+  const user = await User.create({
+    name: &quot;Ada Lovelace&quot;,
+    email: &quot;ada@example.com&quot;,
+    password: &quot;secret&quot;,
+  });
+
+  await trx.table(&quot;users&quot;)
+    .where(&quot;id&quot;, user.id)
+    .update({ role: &quot;admin&quot; });
+});</code></pre>
+<p>You can also target a named connection explicitly:</p>
+<pre><code class="language-js">await DB.transaction(async () =&gt; {
+  // ...
+}, &quot;mysql&quot;);</code></pre>
+<p>On SQL connections, the callback runs inside a real Knex transaction. On MongoDB connections, Netpress starts a session transaction and pushes that session through the shared model and query runtime.</p>
+<h2 id="safety-notes">Safety Notes</h2>
+<ul>
+  <li><code>DB.table()</code> and <code>DB.collection()</code> reject unsafe table, collection, column, operator, sort, and pagination expressions.</li>
+  <li><code>DB.select()</code>, <code>DB.statement()</code>, <code>DB.update()</code>, and <code>DB.delete()</code> keep parameter binding separate from SQL and reject obvious unsafe fragments such as statement chaining and SQL comments.</li>
+  <li>Query builder protections still apply to <code>Model.where(...)</code>, <code>DB.table(...).where(...)</code>, and Mongo filters built through the shared runtime.</li>
+</ul>
+<h2 id="lazy-vs-preloaded-connections">Lazy vs Preloaded Connections</h2>
+<p>By default the starter opens zero database sockets at boot. That is correct for most apps — connections get built on first use, only for the databases actually touched by the current request or CLI command.</p>
+<p>To fail-fast at boot (e.g. in production, on a specific primary DB), add names to <code>preload</code>:</p>
+<pre><code class="language-js">// config/database.js
+export default {
+  default: &quot;mysql&quot;,
+  preload: [&quot;mysql&quot;],                 // warm the primary at boot
+  connections: { /* ... */ },
+};</code></pre>
+<p>Or via environment variable:</p>
+<pre><code class="language-bash">DB_PRELOAD=mysql,analytics node server.js</code></pre>
+<p>Multi-connection apps behave the same way: each named connection is opened independently on first use, or eagerly when listed in <code>preload</code>.</p>
+<pre><code class="language-js">class AuditLog extends BaseModel {
+  static table = &quot;audit_logs&quot;;
+  static connection = &quot;analytics&quot;;    // opened on first AuditLog query
+}</code></pre>
 <h2 id="sqlite-for-tests">SQLite For Tests</h2>
-<p>The starter treats in-memory SQLite as a first-class test runtime. When <code>DB_CONNECTION=sqlite</code> and the configured storage is <code>:memory:</code>, <code>DatabaseServiceProvider</code> boots SQL and runs migrations during setup so tests can execute without an external database service.</p>
+<p>The starter treats in-memory SQLite as a first-class test runtime. When <code>DB_CONNECTION=sqlite</code> and the configured storage is <code>:memory:</code>, add <code>sqlite</code> to <code>preload</code> so the connection opens at boot — migrations are auto-run against in-memory SQLite during preload so tests can execute without an external database service.</p>
+<pre><code class="language-js">// config/database.js (test env)
+export default {
+  default: &quot;sqlite&quot;,
+  preload: [&quot;sqlite&quot;],
+  connections: {
+    sqlite: { storage: &quot;:memory:&quot;, dialect: &quot;sqlite&quot; },
+  },
+};</code></pre>
 <h2 id="database-commands">Database Commands</h2>
 <pre><code class="language-bash">npm run artisan -- migrate
 npm run artisan -- migrate --seed
@@ -222,6 +291,7 @@ npm run artisan -- db:seed --seeder=UserSeeder</code></pre>
 <h2 id="related-pages">Related Pages</h2>
 <ul>
   <li><a href="database-architecture.html">Database Architecture</a></li>
+  <li><a href="cache-and-storage.html">Cache and Storage</a></li>
   <li><a href="models.html">Models</a></li>
   <li><a href="migrations.html">Migrations</a></li>
   <li><a href="seeders.html">Seeders</a></li>
@@ -243,7 +313,7 @@ npm run artisan -- db:seed --seeder=UserSeeder</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.0 · starter v0.1.0 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.1 · starter v0.1.2 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -273,7 +343,22 @@ npm run artisan -- db:seed --seeder=UserSeeder</code></pre>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#raw-access-when-you-need-it">Raw Access When You Need It</a>
+          <a class="toc-link level-2" href="#db-facade">DB Facade</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#transactions">Transactions</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#safety-notes">Safety Notes</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#lazy-vs-preloaded-connections">Lazy vs Preloaded Connections</a>
         </li>
       
 
