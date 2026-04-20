@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -54,6 +54,7 @@
             <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
 <li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
@@ -117,9 +118,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.1</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.2</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.0</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -134,6 +135,7 @@
             <div class="eyebrow">Data</div>
             <h1 id="seeders">Seeders</h1>
 <p>Seeders now live in one shared directory and are composed from <code>DatabaseSeeder.js</code> instead of relying on driver-specific folder splits or alphabetical order alone.</p>
+<p>Generated seeders use the shared <code>log</code> helper, so local seeding output matches the rest of the framework.</p>
 <h2 id="quick-example">Quick Example</h2>
 <pre><code class="language-js">// database/seeders/DatabaseSeeder.js
 export async function run(db) {
@@ -143,6 +145,8 @@ export async function run(db) {
   ]);
 }</code></pre>
 <pre><code class="language-js">// database/seeders/PostSeeder.js
+import { log } from &quot;@admicaa/netpress&quot;;
+
 export async function run(db) {
   const Post = db.model(&quot;Post&quot;);
 
@@ -159,6 +163,8 @@ export async function run(db) {
       status: &quot;published&quot;,
     });
   }
+
+  log.success(&quot;PostSeeder completed.&quot;);
 }</code></pre>
 <p><code>db.model(&amp;quot;Post&amp;quot;)</code> returns the regular discovered <code>Post</code> model class for the active runtime. Once you have it, methods like <code>Post.create()</code>, <code>Post.query()</code>, and <code>Post.first()</code> are the normal model API.</p>
 <p>Seeder examples use <code>db.model(...)</code> because that is the helper Netpress passes into <code>run(db)</code>, and it matches the generated seeder stubs. In regular application code, you will usually import <code>Post</code> directly.</p>
@@ -227,7 +233,7 @@ npm run artisan -- migrate:fresh --seed</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.1 · starter v0.1.2 · docs v1.0.0. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 

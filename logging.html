@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cache And Storage | Netpress Docs</title>
+    <title>Logging | Netpress Docs</title>
     <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-cache-and-storage">
+  <body class="page-logging">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -54,7 +54,7 @@
             <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
 <li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link is-active" href="logging.html">Logging</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
@@ -99,7 +99,7 @@
           <ul class="sidebar-list">
             <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link is-active" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
 <li><a class="sidebar-link" href="queues.html">Queues</a></li>
 <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
 <li><a class="sidebar-link" href="observers.html">Observers</a></li>
@@ -132,106 +132,81 @@
           
 
           <article class="article">
-            <div class="eyebrow">More Features</div>
-            <h1 id="cache-and-storage">Cache And Storage</h1>
-<p>Netpress now exposes cache and storage as shared core facades. The starter configures them during boot, so application code can import the framework helpers directly instead of rebuilding app-local services.</p>
+            <div class="eyebrow">Core Ideas</div>
+            <h1 id="logging">Logging</h1>
+<p>Netpress now ships with a lightweight Laravel-style logger in core. It is available as the shared <code>log</code> helper, is bound into the service container as <code>log</code> and <code>logger</code>, and is used by the CLI, migrations, seeders, queue runtime, and the starter template.</p>
 <h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { cache, storage } from &quot;@admicaa/netpress&quot;;
+<pre><code class="language-js">import { log } from &quot;@admicaa/netpress&quot;;
 
-await cache.set(&quot;users:count&quot;, 42);
-await cache.driver().set(&quot;users:active&quot;, 18);
-
-const avatarPath = await storage.put(&quot;avatars/ada.txt&quot;, &quot;hello&quot;);
-const publicUrl = storage.driver().url(avatarPath);</code></pre>
-<h2 id="how-the-starter-boots-them">How The Starter Boots Them</h2>
-<p><code>AppServiceProvider</code> reads <code>config/cache.js</code> and <code>config/storage.js</code>, then configures the shared core facades during boot.</p>
-<p>That gives you:</p>
+log.info(&quot;Booting HTTP kernel&quot;);
+log.success(&quot;Users seeded&quot;);
+log.warn(&quot;Queue connection is disabled&quot;, { connection: &quot;sync&quot; });
+log.error(&quot;Invoice sync failed&quot;, { invoiceId: 12 });
+log.debug(&quot;Resolved policy result&quot;, { ability: &quot;posts.update&quot;, allowed: true });</code></pre>
+<p>The default console output includes:</p>
 <ul>
-  <li><code>cache.get()</code>, <code>cache.set()</code>, <code>cache.put()</code>, <code>cache.remember()</code>, <code>cache.forget()</code>, <code>cache.flush()</code></li>
-  <li><code>cache.driver(name)</code> and <code>cache.store(name)</code></li>
-  <li><code>cache.tags([...])</code></li>
-  <li><code>storage.put()</code>, <code>storage.get()</code>, <code>storage.delete()</code>, <code>storage.exists()</code>, <code>storage.url()</code>, <code>storage.upload()</code></li>
-  <li><code>storage.driver(name)</code> and <code>storage.disk(name)</code></li>
+  <li>a timestamp</li>
+  <li>a colored level label</li>
+  <li>the formatted message</li>
+  <li>optional context data</li>
 </ul>
-<p>The starter keeps <code>app/Services/CacheService.js</code> and <code>app/Services/StorageService.js</code> only as thin compatibility re-exports of those core helpers.</p>
-<h2 id="cache-configuration">Cache Configuration</h2>
-<pre><code class="language-js">// config/cache.js
-export default {
-  driver: process.env.CACHE_DRIVER || &quot;redis&quot;,
-  prefix: process.env.CACHE_PREFIX || &quot;netpress_cache:&quot;,
-  ttl: parseInt(process.env.CACHE_TTL, 10) || 3600,
-  redis: {
-    url: process.env.REDIS_URL || &quot;redis://127.0.0.1:6379&quot;,
-  },
-  file: {
-    path: process.env.CACHE_FILE_PATH || &quot;./storage/cache&quot;,
-  },
-};</code></pre>
-<p>Supported cache drivers:</p>
+<h2 id="available-methods">Available Methods</h2>
 <ul>
-  <li><code>memory</code> for tests and local fallbacks</li>
-  <li><code>file</code> for simple filesystem-backed cache storage</li>
-  <li><code>redis</code> for shared process-safe cache storage</li>
+  <li><code>log.info(message, context?)</code></li>
+  <li><code>log.success(message, context?)</code></li>
+  <li><code>log.warn(message, context?)</code></li>
+  <li><code>log.error(message, context?)</code></li>
+  <li><code>log.debug(message, context?)</code></li>
+  <li><code>log.raw(message, { method? })</code></li>
 </ul>
-<p>Example usage:</p>
-<pre><code class="language-js">import { cache } from &quot;@admicaa/netpress&quot;;
+<p><code>context</code> can be a string, object, array, or <code>Error</code>. Objects are formatted with <code>util.inspect()</code> so logs stay readable during local development.</p>
+<h2 id="debug-logging">Debug Logging</h2>
+<p>Debug logs are disabled by default. Enable them with one of these environment variables:</p>
+<ul>
+  <li><code>LOG_DEBUG=true</code></li>
+  <li><code>NETPRESS_LOG_DEBUG=true</code></li>
+  <li><code>APP_DEBUG=true</code></li>
+</ul>
+<p><code>LOG_DEBUG</code> wins if multiple values are present.</p>
+<h2 id="container-access">Container Access</h2>
+<p>If you need the logger from framework-facing code, resolve it from the container:</p>
+<pre><code class="language-js">import { container } from &quot;@admicaa/netpress&quot;;
 
-const profile = await cache.remember(&quot;user:1:profile&quot;, 300, async () =&gt; {
-  return {
-    name: &quot;Ada&quot;,
-    plan: &quot;pro&quot;,
-  };
+const logger = container.get(&quot;log&quot;);
+logger.info(&quot;Container-bound logger is ready&quot;);</code></pre>
+<p>Applications created through the <code>Application</code> kernel bind both <code>log</code> and <code>logger</code> automatically.</p>
+<h2 id="extending-later">Extending Later</h2>
+<p>The default logger writes to the console and lazy-loads <code>chalk</code> only when the logger is first resolved. If you want to replace the shared logger or add transports later:</p>
+<pre><code class="language-js">import { createLogger, setLogger } from &quot;@admicaa/netpress&quot;;
+
+const logger = createLogger({
+  transports: [
+    {
+      write(line) {
+        process.stdout.write(`${line}\n`);
+      },
+      raw(message) {
+        process.stdout.write(`${message}\n`);
+      },
+    },
+  ],
 });
 
-await cache.tags([&quot;users&quot;, &quot;profiles&quot;]).set(&quot;user:1&quot;, profile, 300);</code></pre>
-<h2 id="storage-configuration">Storage Configuration</h2>
-<pre><code class="language-js">// config/storage.js
-export default {
-  default: process.env.STORAGE_DRIVER || &quot;local&quot;,
-  disks: {
-    local: {
-      driver: &quot;local&quot;,
-      root: process.env.STORAGE_LOCAL_ROOT || &quot;./storage/app&quot;,
-      url: &quot;/storage&quot;,
-    },
-    s3: {
-      driver: &quot;s3&quot;,
-      bucket: process.env.AWS_BUCKET || &quot;&quot;,
-      region: process.env.AWS_REGION || &quot;us-east-1&quot;,
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID || &quot;&quot;,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || &quot;&quot;,
-    },
-  },
-};</code></pre>
-<p>Example usage:</p>
-<pre><code class="language-js">import { storage } from &quot;@admicaa/netpress&quot;;
-
-await storage.put(&quot;reports/today.json&quot;, JSON.stringify({ ok: true }));
-
-const report = await storage.driver().get(&quot;reports/today.json&quot;);
-const exists = await storage.exists(&quot;reports/today.json&quot;);
-const url = storage.url(&quot;reports/today.json&quot;);</code></pre>
-<p><code>storage.upload(field)</code> returns the upload middleware for the active disk. Local disks stream directly to the filesystem. S3 uses in-memory upload buffering so your controller can decide how to persist the file.</p>
-<h2 id="notes">Notes</h2>
-<ul>
-  <li><code>cache.driver()</code> and <code>storage.driver()</code> are the clearest way to switch stores or disks explicitly.</li>
-  <li><code>cache:clear</code> and <code>storage:link</code> use the same shared configuration the runtime uses at request time.</li>
-  <li>Redis support depends on <code>ioredis</code>.</li>
-  <li>S3 support depends on <code>@aws-sdk/client-s3</code>.</li>
-</ul>
+setLogger(logger);</code></pre>
+<p>That keeps the helper API stable even if you later add file logging, external shipping, or structured JSON output.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="mail.html">
+      <a href="service-providers.html">
         <small>Previous</small>
-        <strong>Mail</strong>
+        <strong>Service Providers</strong>
       </a>
     
       
-      <a href="queues.html">
+      <a href="hybrid-bootstrap.html">
         <small>Next</small>
-        <strong>Queues</strong>
+        <strong>Hybrid Bootstrap</strong>
       </a>
     
     </nav>
@@ -251,22 +226,22 @@ const url = storage.url(&quot;reports/today.json&quot;);</code></pre>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#how-the-starter-boots-them">How The Starter Boots Them</a>
+          <a class="toc-link level-2" href="#available-methods">Available Methods</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#cache-configuration">Cache Configuration</a>
+          <a class="toc-link level-2" href="#debug-logging">Debug Logging</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#storage-configuration">Storage Configuration</a>
+          <a class="toc-link level-2" href="#container-access">Container Access</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#notes">Notes</a>
+          <a class="toc-link level-2" href="#extending-later">Extending Later</a>
         </li>
       
       </ul>
