@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Authentication | Netpress Docs</title>
+    <title>Architecture Overview | Netpress Docs</title>
     <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-authentication">
+  <body class="page-architecture-overview">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -52,7 +52,7 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+            <li><a class="sidebar-link is-active" href="architecture-overview.html">Architecture Overview</a></li>
 <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
 <li><a class="sidebar-link" href="service-providers.html">Providers</a></li>
@@ -79,7 +79,7 @@
             <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
 <li><a class="sidebar-link" href="routing.html">Routing</a></li>
 <li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
-<li><a class="sidebar-link is-active" href="authentication.html">Auth</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
 <li><a class="sidebar-link" href="queues.html">Queue</a></li>
@@ -143,75 +143,77 @@
           
 
           <article class="article">
-            <div class="eyebrow">Features</div>
-            <h1 id="authentication">Authentication</h1>
-<p>Authentication answers one question:</p>
-<p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
-
-const router = Router();
-
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
-
-router.group(authMiddleware, (router) =&gt; {
-  router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
-});</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
-<p>Core auth gives you:</p>
+            <div class="eyebrow">Architecture</div>
+            <h1 id="architecture-overview">Architecture Overview</h1>
+<p>Netpress keeps the backend flow simple:</p>
+<p><code>Request -&amp;gt; Router -&amp;gt; Middleware -&amp;gt; Controller -&amp;gt; Service -&amp;gt; Response</code></p>
+<p>That sequence is the core mental model of the framework.</p>
+<h2 id="request-lifecycle-at-a-glance">Request Lifecycle At A Glance</h2>
+<ol>
+  <li>The router matches the incoming request.</li>
+  <li>Middleware handles cross-cutting concerns like auth, validation, throttling, and request shaping.</li>
+  <li>The controller receives the request and delegates work.</li>
+  <li>A service performs business logic or coordinates models and external systems.</li>
+  <li>Netpress turns the returned value into a response.</li>
+</ol>
+<p>This keeps responsibilities separated and code easier to test.</p>
+<h2 id="service-container">Service Container</h2>
+<p>The service container holds shared application services behind stable keys.</p>
+<p>Use it for things like:</p>
 <ul>
-  <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
-  <li><code>Auth.middleware(name)</code> to protect routes</li>
-  <li><code>Auth.guest(name)</code> for guest-only routes</li>
+  <li>mail transports</li>
+  <li>queue runtimes</li>
+  <li>cache drivers</li>
+  <li>payment clients</li>
+  <li>custom infrastructure services</li>
 </ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&amp;quot;jwt&amp;quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
+<p>Bindings can be eager values or lazy factories. That means you can define a service at boot time without actually creating it until the application needs it.</p>
+<h2 id="providers-and-lazy-loading">Providers And Lazy Loading</h2>
+<p>Providers are the framework boot layer.</p>
+<p>Each provider can:</p>
 <ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
+  <li>register container bindings</li>
+  <li>load config</li>
+  <li>attach middleware</li>
+  <li>mount routes</li>
+  <li>defer heavier setup until first use</li>
 </ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
-
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
-
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
-<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
-<p>Authentication identifies the user.</p>
-<p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<p>Next, read <a href="authorization.html">Authorization</a>.</p>
+<p>This is how Netpress stays modular. Mail, queue, storage, and other optional systems do not need to boot during every request if the app is not using them yet.</p>
+<h2 id="separation-of-concerns">Separation Of Concerns</h2>
+<table class="md-table">
+<thead>
+<tr><th>Layer</th><th>Responsibility</th></tr>
+</thead>
+<tbody>
+<tr><td>Router</td><td>Match the request to an action</td></tr>
+<tr><td>Middleware</td><td>Cross-cutting HTTP concerns</td></tr>
+<tr><td>Controller</td><td>HTTP boundary and orchestration</td></tr>
+<tr><td>Service</td><td>Business logic and workflows</td></tr>
+<tr><td>Model</td><td>Data access and persistence</td></tr>
+<tr><td>Provider</td><td>Application bootstrapping and infrastructure wiring</td></tr>
+</tbody>
+</table>
+<h2 id="why-this-structure-works">Why This Structure Works</h2>
+<ul>
+  <li>It is easy to explain to new developers.</li>
+  <li>It scales better than “everything in routes”.</li>
+  <li>It stays flexible because each layer is still plain JavaScript.</li>
+  <li>It is friendly to AI tooling because naming and flow stay consistent.</li>
+</ul>
+<p>For the lower-level flow, see <a href="request-lifecycle.html">Request Lifecycle</a>. For bootstrapping details, see <a href="service-providers.html">Providers</a> and <a href="service-container.html">Service Container</a>.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="requests-and-validation.html">
+      <a href="directory-structure.html">
         <small>Previous</small>
-        <strong>Validation</strong>
+        <strong>Project Structure</strong>
       </a>
     
       
-      <a href="authorization.html">
+      <a href="request-lifecycle.html">
         <small>Next</small>
-        <strong>Authorization</strong>
+        <strong>Request Lifecycle</strong>
       </a>
     
     </nav>
@@ -226,27 +228,27 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#request-lifecycle-at-a-glance">Request Lifecycle At A Glance</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-2" href="#service-container">Service Container</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
+          <a class="toc-link level-2" href="#providers-and-lazy-loading">Providers And Lazy Loading</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
+          <a class="toc-link level-2" href="#separation-of-concerns">Separation Of Concerns</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#authentication-vs-authorization">Authentication vs Authorization</a>
+          <a class="toc-link level-2" href="#why-this-structure-works">Why This Structure Works</a>
         </li>
       
       </ul>

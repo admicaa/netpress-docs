@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Authentication | Netpress Docs</title>
+    <title>Feature Overview | Netpress Docs</title>
     <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-authentication">
+  <body class="page-feature-overview">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -76,10 +76,10 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+            <li><a class="sidebar-link is-active" href="feature-overview.html">Feature Overview</a></li>
 <li><a class="sidebar-link" href="routing.html">Routing</a></li>
 <li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
-<li><a class="sidebar-link is-active" href="authentication.html">Auth</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
 <li><a class="sidebar-link" href="queues.html">Queue</a></li>
@@ -144,74 +144,68 @@
 
           <article class="article">
             <div class="eyebrow">Features</div>
-            <h1 id="authentication">Authentication</h1>
-<p>Authentication answers one question:</p>
-<p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
-
-const router = Router();
-
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
-
-router.group(authMiddleware, (router) =&gt; {
-  router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
-});</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
-<p>Core auth gives you:</p>
+            <h1 id="feature-overview">Feature Overview</h1>
+<p>Netpress gives you a production-ready backend foundation without forcing every feature to boot on every request.</p>
+<h2 id="what-netpress-includes">What Netpress Includes</h2>
+<table class="md-table">
+<thead>
+<tr><th>Feature</th><th>What it gives you</th></tr>
+</thead>
+<tbody>
+<tr><td>Routing</td><td>Structured route groups and Laravel-style router helpers</td></tr>
+<tr><td>Middleware</td><td>Clean request pipeline for auth, throttling, validation, and custom HTTP logic</td></tr>
+<tr><td>Dependency Injection</td><td>A small service container for lazy shared services</td></tr>
+<tr><td>Providers</td><td>Predictable application bootstrapping and optional lazy-loaded systems</td></tr>
+<tr><td>Auth</td><td>Guard-based authentication flow in core</td></tr>
+<tr><td>Validation</td><td>Request validation through dedicated request classes or inline rules</td></tr>
+<tr><td>Permissions</td><td>Companion package for roles, permissions, morph assignments, and <code>AuthGuard</code> middleware</td></tr>
+<tr><td>Mail</td><td>Deferred mail transport and server-rendered email templates</td></tr>
+<tr><td>Queue</td><td>Deferred BullMQ runtime and class-based jobs</td></tr>
+<tr><td>Cache</td><td>Cache facade and driver abstraction</td></tr>
+<tr><td>Storage</td><td>Storage facade for local and cloud-backed file access</td></tr>
+<tr><td>Rendering</td><td>Optional server-rendered React or Vue views</td></tr>
+<tr><td>CLI</td><td>Laravel-style <code>artisan</code> commands for scaffolding and operations</td></tr>
+</tbody>
+</table>
+<h2 id="why-the-feature-set-matters">Why The Feature Set Matters</h2>
+<p>Most Node.js teams do not want twelve unrelated libraries and twelve different conventions.</p>
+<p>Netpress gives you one backend shape:</p>
 <ul>
-  <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
-  <li><code>Auth.middleware(name)</code> to protect routes</li>
-  <li><code>Auth.guest(name)</code> for guest-only routes</li>
+  <li>one CLI</li>
+  <li>one provider model</li>
+  <li>one response system</li>
+  <li>one place for services</li>
+  <li>one way to wire optional infrastructure</li>
 </ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&amp;quot;jwt&amp;quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
+<h2 id="feature-docs">Feature Docs</h2>
 <ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
+  <li><a href="routing.html">Routing</a></li>
+  <li><a href="requests-and-validation.html">Validation</a></li>
+  <li><a href="authentication.html">Auth</a></li>
+  <li><a href="authorization.html">Authorization</a></li>
+  <li><a href="mail.html">Mail</a></li>
+  <li><a href="queues-and-jobs.html">Queue</a></li>
+  <li><a href="cache-and-storage.html">Cache and Storage</a></li>
+  <li><a href="views.html">Rendering</a></li>
+  <li><a href="artisan-cli.html">CLI</a></li>
 </ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
-
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
-
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
-<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
-<p>Authentication identifies the user.</p>
-<p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<p>Next, read <a href="authorization.html">Authorization</a>.</p>
+<p>For roles and permissions, see the companion package docs:</p>
+<ul>
+  <li><a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a></li>
+</ul>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="requests-and-validation.html">
+      <a href="logging.html">
         <small>Previous</small>
-        <strong>Validation</strong>
+        <strong>Logging</strong>
       </a>
     
       
-      <a href="authorization.html">
+      <a href="routing.html">
         <small>Next</small>
-        <strong>Authorization</strong>
+        <strong>Routing</strong>
       </a>
     
     </nav>
@@ -226,27 +220,17 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#what-netpress-includes">What Netpress Includes</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-2" href="#why-the-feature-set-matters">Why The Feature Set Matters</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#authentication-vs-authorization">Authentication vs Authorization</a>
+          <a class="toc-link level-2" href="#feature-docs">Feature Docs</a>
         </li>
       
       </ul>

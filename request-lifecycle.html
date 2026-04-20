@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Request Lifecycle | Netpress Docs</title>
-    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
@@ -15,19 +15,19 @@
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
         <span class="brand-copy">
           <span class="brand-name">Netpress</span>
-          <span class="brand-tagline">Shared runtime for Express 5</span>
+          <span class="brand-tagline">Laravel-inspired backend framework for Node.js</span>
         </span>
       </a>
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
-        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="architecture-overview.html">Architecture</a>
         <a class="topbar-link" href="artisan-cli.html">CLI</a>
         <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
       </div>
@@ -40,43 +40,52 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+            <li><a class="sidebar-link" href="index.html">Home</a></li>
+<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Core Ideas</h2>
+          <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link is-active" href="request-lifecycle.html">Request Lifecycle</a></li>
+            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+<li><a class="sidebar-link is-active" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
-<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Providers</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Basics</h2>
+          <h2 class="sidebar-heading">Core Concepts</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
-<li><a class="sidebar-link" href="views.html">Views</a></li>
+            <li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="services.html">Services</a></li>
 <li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
-<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
-<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+<li><a class="sidebar-link" href="response-system.html">Response System</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Security</h2>
+          <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+<li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queue</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="views.html">Rendering</a></li>
+<li><a class="sidebar-link" href="artisan-cli.html">CLI</a></li>
           </ul>
         </section>
       
@@ -95,22 +104,24 @@
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">More Features</h2>
+          <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
-<li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
-<li><a class="sidebar-link" href="queues.html">Queues</a></li>
-<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
-<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+            <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
+<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
+<li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Testing</h2>
+          <h2 class="sidebar-heading">Reference</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+            <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+<li><a class="sidebar-link" href="comparison.html">Netpress vs Others</a></li>
+<li><a class="sidebar-link" href="testing.html">Testing</a></li>
           </ul>
         </section>
       
@@ -118,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -132,83 +143,59 @@
           
 
           <article class="article">
-            <div class="eyebrow">Core Ideas</div>
+            <div class="eyebrow">Architecture</div>
             <h1 id="request-lifecycle">Request Lifecycle</h1>
-<p>Netpress keeps the request path intentionally short: boot providers, match a route, run middleware, execute the controller or terminal handler, then let the smart-response layer turn the return value into an HTTP response.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">// bootstrap/app.js
-import express from &quot;express&quot;;
-import providers from &quot;./providers.js&quot;;
-import Handler from &quot;../app/Exceptions/Handler.js&quot;;
-
-export async function createApp() {
-  const app = express();
-
-  for (const Provider of providers) {
-    await Provider.register(app);
-  }
-
-  app.use(Handler.handle);
-  return app;
-}</code></pre>
+<p>Netpress keeps the request path easy to follow:</p>
+<p><code>Request -&amp;gt; Router -&amp;gt; Middleware -&amp;gt; Controller -&amp;gt; Service -&amp;gt; Response</code></p>
+<p>That is the core execution model of the framework.</p>
 <h2 id="lifecycle-order">Lifecycle Order</h2>
 <ol>
-  <li><code>server.js</code> loads <code>.env</code>, calls <code>createApp()</code>, and starts listening.</li>
-  <li><code>bootstrap/app.js</code> creates the Express app.</li>
-  <li><code>bootstrap/providers.js</code> boots providers in a fixed order.</li>
-  <li><code>AppServiceProvider</code> installs global middleware, registers the view renderer, and decorates <code>res</code> with helpers like <code>success</code>, <code>error</code>, <code>paginate</code>, and component-aware <code>render</code>.</li>
-  <li><code>DatabaseServiceProvider</code> boots the configured database runtime and shared models.</li>
-  <li><code>AuthServiceProvider</code>, <code>MailServiceProvider</code>, and <code>EventServiceProvider</code> register their integrations.</li>
-  <li><code>RouteServiceProvider</code> mounts:</li>
+  <li>The server boots the Netpress application and loads providers.</li>
+  <li>The router matches the incoming request.</li>
+  <li>Route and global middleware run.</li>
+  <li>The controller action executes.</li>
+  <li>The controller calls services, models, or framework features.</li>
+  <li>Netpress turns the returned value into the final HTTP response.</li>
+  <li>If anything throws, the exception handler formats the error response.</li>
 </ol>
+<h2 id="provider-boot-comes-first">Provider Boot Comes First</h2>
+<p>Before requests start flowing, providers prepare the app:</p>
 <ul>
-  <li><code>routes/web.js</code> at <code>/</code> only when <code>config/view.js</code> enables a web engine</li>
-  <li><code>routes/api.js</code> under <code>/api/v1</code></li>
+  <li><code>AppServiceProvider</code> wires shared middleware and response helpers</li>
+  <li><code>DatabaseServiceProvider</code> registers the database runtime</li>
+  <li><code>AuthServiceProvider</code> registers guards and auth integrations</li>
+  <li>deferred providers like mail and queue stay cheap until first use</li>
+  <li><code>RouteServiceProvider</code> mounts the route tree</li>
 </ul>
-<ol>
-  <li>Route middleware runs.</li>
-  <li>The terminal handler returns a value.</li>
-  <li>Netpress dispatches that return value as JSON, HTML, redirect, text, raw data, or <code>204 No Content</code>.</li>
-  <li>Thrown errors flow to the global exception handler.</li>
-</ol>
+<p>This makes boot order explicit instead of hidden in scattered startup files.</p>
 <h2 id="smart-response-dispatch">Smart Response Dispatch</h2>
-<p>Routes created with <code>Router()</code> automatically wrap the last non-error handler in the smart-response dispatcher.</p>
-<p>That means a handler can return:</p>
+<p>A route handler can return different kinds of values:</p>
 <ul>
-  <li>a plain object or array and get JSON automatically</li>
-  <li><code>view(...)</code></li>
-  <li><code>json(...)</code></li>
-  <li><code>redirect(...)</code></li>
-  <li>a string and get <code>text/plain</code></li>
-  <li><code>null</code> or <code>undefined</code> and get <code>204 No Content</code></li>
+  <li>object or array -&gt; JSON</li>
+  <li>string -&gt; text response</li>
+  <li><code>json(...)</code> -&gt; explicit JSON response</li>
+  <li><code>view(...)</code> -&gt; rendered view</li>
+  <li><code>redirect(...)</code> -&gt; redirect response</li>
+  <li><code>null</code> or <code>undefined</code> -&gt; <code>204 No Content</code></li>
 </ul>
-<p>Manual <code>res.send()</code> and <code>res.json()</code> still work. The dispatcher stands down as soon as the response has already been handled.</p>
-<h2 id="view-flash-state">View Flash State</h2>
-<p>When a controller returns:</p>
-<pre><code class="language-js">return redirect(&quot;/form&quot;)
-  .withErrors({ email: [&quot;Required&quot;] })
-  .withInput(req.body);</code></pre>
-<p><code>AppServiceProvider</code> and <code>shareViewState</code> make that flash data available to the next server-rendered view as:</p>
+<p>Manual <code>res.json()</code> and <code>res.send()</code> still work when you want full control.</p>
+<h2 id="why-the-lifecycle-matters">Why The Lifecycle Matters</h2>
+<p>This structure keeps framework behavior predictable:</p>
 <ul>
-  <li><code>errors</code>, an <code>ErrorBag</code></li>
-  <li><code>old(field, fallback)</code></li>
+  <li>middleware owns request-wide concerns</li>
+  <li>controllers own HTTP orchestration</li>
+  <li>services own business logic</li>
+  <li>providers own application bootstrapping</li>
 </ul>
-<p>The flash data is consumed on the next request and then cleared.</p>
-<h2 id="why-provider-order-matters">Why Provider Order Matters</h2>
-<p>The default provider order is deliberate:</p>
-<ul>
-  <li>views and response helpers are ready before routes mount</li>
-  <li>database services are available before auth or model-backed services need them</li>
-  <li>routes mount after the core services are already registered</li>
-</ul>
-<p>If you add a custom provider, place it according to what it depends on and what depends on it.</p>
+<p>That separation is what makes Netpress feel structured without feeling heavy.</p>
+<p>For the higher-level mental model, see <a href="index.html">Architecture Overview</a>.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="directory-structure.html">
+      <a href="architecture-overview.html">
         <small>Previous</small>
-        <strong>Project Structure</strong>
+        <strong>Architecture Overview</strong>
       </a>
     
       
@@ -219,7 +206,7 @@ export async function createApp() {
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -229,12 +216,12 @@ export async function createApp() {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#lifecycle-order">Lifecycle Order</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#lifecycle-order">Lifecycle Order</a>
+          <a class="toc-link level-2" href="#provider-boot-comes-first">Provider Boot Comes First</a>
         </li>
       
 
@@ -244,12 +231,7 @@ export async function createApp() {
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#view-flash-state">View Flash State</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#why-provider-order-matters">Why Provider Order Matters</a>
+          <a class="toc-link level-2" href="#why-the-lifecycle-matters">Why The Lifecycle Matters</a>
         </li>
       
       </ul>

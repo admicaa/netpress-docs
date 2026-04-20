@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Database Architecture | Netpress Docs</title>
-    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
@@ -15,19 +15,19 @@
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
         <span class="brand-copy">
           <span class="brand-name">Netpress</span>
-          <span class="brand-tagline">Shared runtime for Express 5</span>
+          <span class="brand-tagline">Laravel-inspired backend framework for Node.js</span>
         </span>
       </a>
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
-        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="architecture-overview.html">Architecture</a>
         <a class="topbar-link" href="artisan-cli.html">CLI</a>
         <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
       </div>
@@ -40,43 +40,52 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+            <li><a class="sidebar-link" href="index.html">Home</a></li>
+<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Core Ideas</h2>
+          <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+<li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
-<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Providers</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Basics</h2>
+          <h2 class="sidebar-heading">Core Concepts</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
-<li><a class="sidebar-link" href="views.html">Views</a></li>
+            <li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="services.html">Services</a></li>
 <li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
-<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
-<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+<li><a class="sidebar-link" href="response-system.html">Response System</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Security</h2>
+          <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+<li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queue</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="views.html">Rendering</a></li>
+<li><a class="sidebar-link" href="artisan-cli.html">CLI</a></li>
           </ul>
         </section>
       
@@ -95,22 +104,24 @@
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">More Features</h2>
+          <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
-<li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
-<li><a class="sidebar-link" href="queues.html">Queues</a></li>
-<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
-<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+            <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
+<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
+<li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Testing</h2>
+          <h2 class="sidebar-heading">Reference</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+            <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+<li><a class="sidebar-link" href="comparison.html">Netpress vs Others</a></li>
+<li><a class="sidebar-link" href="testing.html">Testing</a></li>
           </ul>
         </section>
       
@@ -118,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -235,9 +246,9 @@
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="authorization.html">
+      <a href="artisan-cli.html">
         <small>Previous</small>
-        <strong>Authorization</strong>
+        <strong>CLI</strong>
       </a>
     
       
@@ -248,7 +259,7 @@
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 

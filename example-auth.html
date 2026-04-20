@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Authentication | Netpress Docs</title>
+    <title>Auth System Example | Netpress Docs</title>
     <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-authentication">
+  <body class="page-example-auth">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -79,7 +79,7 @@
             <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
 <li><a class="sidebar-link" href="routing.html">Routing</a></li>
 <li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
-<li><a class="sidebar-link is-active" href="authentication.html">Auth</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
 <li><a class="sidebar-link" href="queues.html">Queue</a></li>
@@ -107,7 +107,7 @@
           <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
             <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
-<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link is-active" href="example-auth.html">Auth System</a></li>
 <li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
 <li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
 <li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
@@ -143,75 +143,59 @@
           
 
           <article class="article">
-            <div class="eyebrow">Features</div>
-            <h1 id="authentication">Authentication</h1>
-<p>Authentication answers one question:</p>
-<p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
+            <div class="eyebrow">Examples</div>
+            <h1 id="auth-system-example">Auth System Example</h1>
+<p>The starter kit already includes a complete auth flow, but this example shows the pattern clearly.</p>
+<h2 id="route-layer">Route Layer</h2>
+<pre><code class="language-js">import { Router } from '@admicaa/netpress';
+import authMiddleware from '../app/Http/Middleware/auth.js';
+import AuthController from '../app/Http/Controllers/Auth/AuthController.js';
 
 const router = Router();
 
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
+router.post('/login', AuthController.login);
+router.post('/register', AuthController.register);
 
 router.group(authMiddleware, (router) =&gt; {
-  router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
+  router.get('/me', AuthController.me);
+  router.post('/logout', AuthController.logout);
 });</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
-<p>Core auth gives you:</p>
-<ul>
-  <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
-  <li><code>Auth.middleware(name)</code> to protect routes</li>
-  <li><code>Auth.guest(name)</code> for guest-only routes</li>
-</ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&amp;quot;jwt&amp;quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
-<ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
-</ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
+<h2 id="controller-layer">Controller Layer</h2>
+<pre><code class="language-js">import { BaseController } from '@admicaa/netpress';
+import AuthService from '../../../Services/AuthService.js';
 
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
+class AuthController extends BaseController {
+  async login(req, res) {
+    return res.success(await AuthService.login(req.body));
+  }
 
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
-<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
-<p>Authentication identifies the user.</p>
-<p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<p>Next, read <a href="authorization.html">Authorization</a>.</p>
+  async me(req, res) {
+    return res.success(req.user);
+  }
+}</code></pre>
+<h2 id="service-layer">Service Layer</h2>
+<p><code>AuthService</code> owns the real work:</p>
+<ul>
+  <li>checking credentials</li>
+  <li>issuing tokens</li>
+  <li>rotating refresh tokens</li>
+  <li>loading the current user</li>
+</ul>
+<h2 id="key-idea">Key Idea</h2>
+<p>Authentication should not live in route files. Middleware authenticates the request, the controller coordinates the action, and the service handles the auth workflow.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="requests-and-validation.html">
+      <a href="example-crud.html">
         <small>Previous</small>
-        <strong>Validation</strong>
+        <strong>CRUD App</strong>
       </a>
     
       
-      <a href="authorization.html">
+      <a href="example-mail-queue.html">
         <small>Next</small>
-        <strong>Authorization</strong>
+        <strong>Mail + Queue</strong>
       </a>
     
     </nav>
@@ -226,27 +210,22 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#route-layer">Route Layer</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-2" href="#controller-layer">Controller Layer</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
+          <a class="toc-link level-2" href="#service-layer">Service Layer</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#authentication-vs-authorization">Authentication vs Authorization</a>
+          <a class="toc-link level-2" href="#key-idea">Key Idea</a>
         </li>
       
       </ul>

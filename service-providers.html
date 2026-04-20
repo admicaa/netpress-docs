@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Service Providers | Netpress Docs</title>
-    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <title>Providers | Netpress Docs</title>
+    <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
@@ -15,19 +15,19 @@
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
         <span class="brand-copy">
           <span class="brand-name">Netpress</span>
-          <span class="brand-tagline">Shared runtime for Express 5</span>
+          <span class="brand-tagline">Laravel-inspired backend framework for Node.js</span>
         </span>
       </a>
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
-        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="architecture-overview.html">Architecture</a>
         <a class="topbar-link" href="artisan-cli.html">CLI</a>
         <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
       </div>
@@ -40,43 +40,52 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+            <li><a class="sidebar-link" href="index.html">Home</a></li>
+<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Core Ideas</h2>
+          <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+<li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
-<li><a class="sidebar-link is-active" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link is-active" href="service-providers.html">Providers</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Basics</h2>
+          <h2 class="sidebar-heading">Core Concepts</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
-<li><a class="sidebar-link" href="views.html">Views</a></li>
+            <li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="services.html">Services</a></li>
 <li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
-<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
-<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+<li><a class="sidebar-link" href="response-system.html">Response System</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Security</h2>
+          <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+<li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queue</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="views.html">Rendering</a></li>
+<li><a class="sidebar-link" href="artisan-cli.html">CLI</a></li>
           </ul>
         </section>
       
@@ -95,22 +104,24 @@
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">More Features</h2>
+          <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
-<li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
-<li><a class="sidebar-link" href="queues.html">Queues</a></li>
-<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
-<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+            <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
+<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
+<li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Testing</h2>
+          <h2 class="sidebar-heading">Reference</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+            <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+<li><a class="sidebar-link" href="comparison.html">Netpress vs Others</a></li>
+<li><a class="sidebar-link" href="testing.html">Testing</a></li>
           </ul>
         </section>
       
@@ -118,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -132,114 +143,88 @@
           
 
           <article class="article">
-            <div class="eyebrow">Core Ideas</div>
-            <h1 id="service-providers">Service Providers</h1>
-<p>Service providers are the boot sequence of the starter. They register container bindings, mount middleware, wire routes, and expose optional integrations — all in a predictable order.</p>
-<p>Netpress uses a <strong>hybrid bootstrap</strong>: providers have a cheap <code>register()</code> phase that always runs, and a <code>boot()</code> phase that can be deferred. See <a href="hybrid-bootstrap.html">Hybrid Bootstrap</a> for the full model.</p>
+            <div class="eyebrow">Architecture</div>
+            <h1 id="providers">Providers</h1>
+<p>Providers are the boot layer of a Netpress application.</p>
+<p>They register services, load config, attach middleware, and mount routes in a predictable order. If you want to understand how a Netpress app starts, providers are the place to look.</p>
+<h2 id="why-providers-matter">Why Providers Matter</h2>
+<p>Without providers, boot logic usually gets scattered across:</p>
+<ul>
+  <li>route files</li>
+  <li>random startup modules</li>
+  <li>framework entry files</li>
+  <li>one-off infrastructure helpers</li>
+</ul>
+<p>Providers keep that setup in one predictable place.</p>
 <h2 id="provider-shape">Provider Shape</h2>
 <pre><code class="language-js">import { ServiceProvider } from &quot;@admicaa/netpress&quot;;
 
-export default class MyServiceProvider extends ServiceProvider {
-  static deferred = false;           // true = skip boot() at startup
-  static provides = [];              // container keys this provider owns
+export default class PaymentServiceProvider extends ServiceProvider {
+  static deferred = true;
+  static provides = [&quot;payments.stripe&quot;];
 
   async register() {
-    // cheap bindings — runs for every provider at boot
+    // bind services, load config, keep it cheap
   }
 
   async boot() {
-    // heavy startup — runs eagerly, or on first `app.make(key)` if deferred
+    // optional startup side effects
   }
 }</code></pre>
-<p><code>this.app</code> is the Netpress <a href="hybrid-bootstrap.html">Application</a> kernel. <code>this.app.express</code> is the underlying Express instance. <code>this.app.container</code> is the shared service container.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">// bootstrap/providers.js
-import AppServiceProvider from &quot;../app/Providers/AppServiceProvider.js&quot;;
-import DatabaseServiceProvider from &quot;../app/Providers/DatabaseServiceProvider.js&quot;;
-import AuthServiceProvider from &quot;../app/Providers/AuthServiceProvider.js&quot;;
-import MailServiceProvider from &quot;../app/Providers/MailServiceProvider.js&quot;;
-import EventServiceProvider from &quot;../app/Providers/EventServiceProvider.js&quot;;
-import RouteServiceProvider from &quot;../app/Providers/RouteServiceProvider.js&quot;;
-
-export default [
-  AppServiceProvider,
-  DatabaseServiceProvider,
-  AuthServiceProvider,
-  MailServiceProvider,         // deferred
-  EventServiceProvider,
-  RouteServiceProvider,
-];</code></pre>
-<h2 id="what-the-default-providers-do">What The Default Providers Do</h2>
+<h2 id="register-vs-boot"><code>register()</code> vs <code>boot()</code></h2>
+<ul>
+  <li><code>register()</code> is for bindings and lightweight setup</li>
+  <li><code>boot()</code> is for side effects and runtime wiring</li>
+  <li>deferred providers skip <code>boot()</code> until their services are first resolved</li>
+</ul>
+<p>This is what lets Netpress stay modular and lazy-loaded.</p>
+<h2 id="common-provider-responsibilities">Common Provider Responsibilities</h2>
+<ul>
+  <li>bind services into the container</li>
+  <li>load config</li>
+  <li>register auth guards</li>
+  <li>mount routes</li>
+  <li>configure mail, queue, storage, cache, and events</li>
+</ul>
+<h2 id="starter-providers">Starter Providers</h2>
+<p>The starter app includes providers with clear responsibilities:</p>
 <table class="md-table">
 <thead>
-<tr><th>Provider</th><th>Mode</th><th>Responsibility</th></tr>
+<tr><th>Provider</th><th>Responsibility</th></tr>
 </thead>
 <tbody>
-<tr><td><code>AppServiceProvider</code></td><td>eager</td><td>global Express middleware, shared view renderer, cache/storage facade configuration</td></tr>
-<tr><td><code>DatabaseServiceProvider</code></td><td>eager</td><td>registers the DB manager; connections stay <strong>lazy</strong> unless listed in <code>preload</code></td></tr>
-<tr><td><code>AuthServiceProvider</code></td><td>eager</td><td>mounts <code>passport.initialize()</code>; strategies are dynamic-imported</td></tr>
-<tr><td><code>MailServiceProvider</code></td><td><strong>deferred</strong></td><td>binds a mail factory — nothing runs until <code>Mail.send()</code></td></tr>
-<tr><td><code>QueueServiceProvider</code></td><td><strong>deferred</strong></td><td>binds a queue factory — BullMQ is built on first dispatch or <code>queue:work</code></td></tr>
-<tr><td><code>EventServiceProvider</code></td><td>eager</td><td>registers event listeners and model observers</td></tr>
-<tr><td><code>RouteServiceProvider</code></td><td>eager</td><td>mounts web and API route trees</td></tr>
+<tr><td><code>AppServiceProvider</code></td><td>global middleware, response helpers, shared runtime setup</td></tr>
+<tr><td><code>DatabaseServiceProvider</code></td><td>shared database runtime and models</td></tr>
+<tr><td><code>AuthServiceProvider</code></td><td>auth guards and optional OAuth setup</td></tr>
+<tr><td><code>MailServiceProvider</code></td><td>deferred mail system</td></tr>
+<tr><td><code>QueueServiceProvider</code></td><td>deferred queue runtime</td></tr>
+<tr><td><code>EventServiceProvider</code></td><td>events and observers</td></tr>
+<tr><td><code>RouteServiceProvider</code></td><td>web and API routes</td></tr>
 </tbody>
 </table>
-<h2 id="lazy-service-registration-and-resolution">Lazy Service Registration and Resolution</h2>
-<p>A deferred provider binds factories in <code>register()</code>. The factory runs the first time something pulls the key from the container:</p>
-<pre><code class="language-js">import { ServiceProvider, container } from &quot;@admicaa/netpress&quot;;
+<h2 id="example-custom-provider">Example: Custom Provider</h2>
+<pre><code class="language-js">import { ServiceProvider } from &quot;@admicaa/netpress&quot;;
 import Stripe from &quot;stripe&quot;;
 
 export default class PaymentServiceProvider extends ServiceProvider {
   static deferred = true;
-  static provides = [&quot;payments&quot;, &quot;payments.stripe&quot;];
+  static provides = [&quot;payments.stripe&quot;];
 
   async register() {
     this.app.container.bind(&quot;payments.stripe&quot;, () =&gt; {
       return new Stripe(process.env.STRIPE_SECRET_KEY);
     });
-    this.app.container.bind(&quot;payments&quot;, () =&gt; this.app.container.get(&quot;payments.stripe&quot;));
   }
 }</code></pre>
-<p>Resolution is uniform:</p>
-<pre><code class="language-js">// Anywhere that holds the Application:
-const stripe = await app.make(&quot;payments&quot;);
-
-// Or from the static container for ad-hoc use:
-const stripe = container.get(&quot;payments.stripe&quot;);</code></pre>
-<p>Neither <code>Stripe</code> nor its SDK is loaded until the first resolution.</p>
-<h2 id="a-real-route-provider-example">A Real Route Provider Example</h2>
-<p><code>RouteServiceProvider</code> mounts web routes only when a view engine is configured:</p>
-<pre><code class="language-js">import { ServiceProvider, Router, config } from &quot;@admicaa/netpress&quot;;
-import apiRoutes from &quot;../../routes/api.js&quot;;
-
-export default class RouteServiceProvider extends ServiceProvider {
-  async register() {
-    await config.load(&quot;view&quot;);
-  }
-
-  async boot() {
-    const router = Router();
-
-    if (config.get(&quot;view.engine&quot;)) {
-      const { default: webRoutes } = await import(&quot;../../routes/web.js&quot;);
-      router.use(&quot;/&quot;, webRoutes);
-    }
-
-    router.group(&quot;/api/v1&quot;, (api) =&gt; {
-      api.use(&quot;/&quot;, apiRoutes);
-    });
-
-    this.app.express.use(router);
-  }
-}</code></pre>
-<h2 id="guidelines">Guidelines</h2>
+<p>Then add it to <code>bootstrap/providers.js</code>.</p>
+<h2 id="good-provider-rules">Good Provider Rules</h2>
 <ul>
-  <li>Keep <code>register()</code> cheap — binding factories, loading config. Save side effects for <code>boot()</code>.</li>
-  <li>Use <code>static deferred = true</code> when the service requires a socket, subprocess, or filesystem handle.</li>
-  <li>Register dependencies before the providers that need them (DB before Auth, etc.).</li>
-  <li>Mount routes late: <code>RouteServiceProvider</code> should be last in the eager list.</li>
-  <li>To warm a deferred provider at boot, call <code>await app.make(key)</code> from inside an eager provider's <code>boot()</code>.</li>
+  <li>keep <code>register()</code> cheap</li>
+  <li>keep infrastructure wiring out of controllers</li>
+  <li>use deferred providers for expensive systems</li>
+  <li>place providers in a clear dependency order</li>
 </ul>
+<p>For the lazy-loading model behind providers, read <a href="hybrid-bootstrap.html">Hybrid Bootstrap</a>.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
@@ -250,14 +235,14 @@ export default class RouteServiceProvider extends ServiceProvider {
       </a>
     
       
-      <a href="logging.html">
+      <a href="hybrid-bootstrap.html">
         <small>Next</small>
-        <strong>Logging</strong>
+        <strong>Hybrid Bootstrap</strong>
       </a>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -267,32 +252,37 @@ export default class RouteServiceProvider extends ServiceProvider {
       <ul class="toc-list">
         
         <li class="toc-item">
+          <a class="toc-link level-2" href="#why-providers-matter">Why Providers Matter</a>
+        </li>
+      
+
+        <li class="toc-item">
           <a class="toc-link level-2" href="#provider-shape">Provider Shape</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#register-vs-boot">`register()` vs `boot()`</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#what-the-default-providers-do">What The Default Providers Do</a>
+          <a class="toc-link level-2" href="#common-provider-responsibilities">Common Provider Responsibilities</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#lazy-service-registration-and-resolution">Lazy Service Registration and Resolution</a>
+          <a class="toc-link level-2" href="#starter-providers">Starter Providers</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#a-real-route-provider-example">A Real Route Provider Example</a>
+          <a class="toc-link level-2" href="#example-custom-provider">Example: Custom Provider</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#guidelines">Guidelines</a>
+          <a class="toc-link level-2" href="#good-provider-rules">Good Provider Rules</a>
         </li>
       
       </ul>

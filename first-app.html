@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Authentication | Netpress Docs</title>
+    <title>First App | Netpress Docs</title>
     <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-authentication">
+  <body class="page-first-app">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -43,7 +43,7 @@
             <li><a class="sidebar-link" href="index.html">Home</a></li>
 <li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="first-app.html">First App</a></li>
+<li><a class="sidebar-link is-active" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
@@ -79,7 +79,7 @@
             <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
 <li><a class="sidebar-link" href="routing.html">Routing</a></li>
 <li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
-<li><a class="sidebar-link is-active" href="authentication.html">Auth</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
 <li><a class="sidebar-link" href="queues.html">Queue</a></li>
@@ -143,75 +143,87 @@
           
 
           <article class="article">
-            <div class="eyebrow">Features</div>
-            <h1 id="authentication">Authentication</h1>
-<p>Authentication answers one question:</p>
-<p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
-
-const router = Router();
-
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
-
-router.group(authMiddleware, (router) =&gt; {
-  router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
-});</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
-<p>Core auth gives you:</p>
+            <div class="eyebrow">Getting Started</div>
+            <h1 id="first-app">First App</h1>
+<p>This guide builds one tiny API endpoint so you can feel the Netpress flow quickly.</p>
+<p>We will create:</p>
 <ul>
-  <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
-  <li><code>Auth.middleware(name)</code> to protect routes</li>
-  <li><code>Auth.guest(name)</code> for guest-only routes</li>
+  <li>a controller</li>
+  <li>a service</li>
+  <li>a route</li>
+  <li>a JSON response</li>
 </ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&amp;quot;jwt&amp;quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
+<h2 id="1-create-the-app">1. Create The App</h2>
+<pre><code class="language-bash">npx create-netpress-app my-app
+cd my-app
+cp .env.example .env
+npm run artisan -- key:generate</code></pre>
+<p><code>create-netpress-app</code> installs dependencies for you by default. If you created the app with <code>--skip-install</code>, run <code>npm install</code> before continuing.</p>
+<h2 id="2-generate-a-controller">2. Generate A Controller</h2>
+<pre><code class="language-bash">npm run artisan -- make:controller PingController</code></pre>
+<p>This creates:</p>
+<pre><code class="language-text">app/Http/Controllers/PingController.js</code></pre>
+<h2 id="3-create-a-service">3. Create A Service</h2>
+<p>Create <code>app/Services/PingService.js</code>:</p>
+<pre><code class="language-js">export default class PingService {
+  static status() {
+    return {
+      framework: &quot;Netpress&quot;,
+      status: &quot;ok&quot;,
+    };
+  }
+}</code></pre>
+<h2 id="4-update-the-controller">4. Update The Controller</h2>
+<pre><code class="language-js">import { BaseController } from &quot;@admicaa/netpress&quot;;
+import PingService from &quot;../../Services/PingService.js&quot;;
+
+class PingController extends BaseController {
+  async index(_req, res) {
+    return res.success(PingService.status());
+  }
+}
+
+export default new PingController();</code></pre>
+<p>The controller stays thin. It only handles the HTTP layer and delegates the work.</p>
+<h2 id="5-register-the-route">5. Register The Route</h2>
+<p>Open <code>routes/api.js</code> and add:</p>
+<pre><code class="language-js">import PingController from &quot;../app/Http/Controllers/PingController.js&quot;;
+
+router.get(&quot;/ping&quot;, PingController.index);</code></pre>
+<h2 id="6-run-the-app">6. Run The App</h2>
+<pre><code class="language-bash">npm run dev</code></pre>
+<p>Then call the endpoint:</p>
+<pre><code class="language-bash">curl http://127.0.0.1:3000/api/v1/ping</code></pre>
+<p>Example response:</p>
+<pre><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;framework&quot;: &quot;Netpress&quot;,
+    &quot;status&quot;: &quot;ok&quot;
+  }
+}</code></pre>
+<h2 id="what-you-just-used">What You Just Used</h2>
 <ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
+  <li><code>Router()</code> to register the endpoint</li>
+  <li><code>BaseController</code> for controller helpers</li>
+  <li>a service for business logic</li>
+  <li><code>res.success()</code> for a predictable JSON response</li>
 </ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
-
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
-
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
-<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
-<p>Authentication identifies the user.</p>
-<p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<p>Next, read <a href="authorization.html">Authorization</a>.</p>
+<p>That is the normal Netpress pattern.</p>
+<p>Next, read <a href="index.html">Architecture Overview</a> or <a href="controllers.html">Controllers</a>.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="requests-and-validation.html">
+      <a href="installation.html">
         <small>Previous</small>
-        <strong>Validation</strong>
+        <strong>Installation</strong>
       </a>
     
       
-      <a href="authorization.html">
+      <a href="directory-structure.html">
         <small>Next</small>
-        <strong>Authorization</strong>
+        <strong>Project Structure</strong>
       </a>
     
     </nav>
@@ -226,27 +238,37 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#1-create-the-app">1. Create The App</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-2" href="#2-generate-a-controller">2. Generate A Controller</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
+          <a class="toc-link level-2" href="#3-create-a-service">3. Create A Service</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
+          <a class="toc-link level-2" href="#4-update-the-controller">4. Update The Controller</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#authentication-vs-authorization">Authentication vs Authorization</a>
+          <a class="toc-link level-2" href="#5-register-the-route">5. Register The Route</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#6-run-the-app">6. Run The App</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#what-you-just-used">What You Just Used</a>
         </li>
       
       </ul>

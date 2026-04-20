@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Netpress Docs</title>
-    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
@@ -15,19 +15,19 @@
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
         <span class="brand-copy">
           <span class="brand-name">Netpress</span>
-          <span class="brand-tagline">Shared runtime for Express 5</span>
+          <span class="brand-tagline">Laravel-inspired backend framework for Node.js</span>
         </span>
       </a>
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
-        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="architecture-overview.html">Architecture</a>
         <a class="topbar-link" href="artisan-cli.html">CLI</a>
         <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
       </div>
@@ -40,43 +40,52 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link is-active" href="index.html">Start Here</a></li>
+            <li><a class="sidebar-link is-active" href="index.html">Home</a></li>
+<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Core Ideas</h2>
+          <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+<li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
-<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Providers</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Basics</h2>
+          <h2 class="sidebar-heading">Core Concepts</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
-<li><a class="sidebar-link" href="views.html">Views</a></li>
+            <li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="services.html">Services</a></li>
 <li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
-<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
-<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+<li><a class="sidebar-link" href="response-system.html">Response System</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Security</h2>
+          <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+<li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queue</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="views.html">Rendering</a></li>
+<li><a class="sidebar-link" href="artisan-cli.html">CLI</a></li>
           </ul>
         </section>
       
@@ -95,22 +104,24 @@
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">More Features</h2>
+          <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
-<li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
-<li><a class="sidebar-link" href="queues.html">Queues</a></li>
-<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
-<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+            <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
+<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
+<li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Testing</h2>
+          <h2 class="sidebar-heading">Reference</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+            <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+<li><a class="sidebar-link" href="comparison.html">Netpress vs Others</a></li>
+<li><a class="sidebar-link" href="testing.html">Testing</a></li>
           </ul>
         </section>
       
@@ -118,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -132,16 +143,16 @@
           
     <section class="hero">
       <div class="hero-copy">
-        <p class="hero-label">Implementation-synced docs</p>
+        <p class="hero-label">Laravel-inspired backend framework for Node.js</p>
         <p class="hero-lead">
-          Netpress now ships as a shared runtime for Express 5 with one model
-          layer, one migration flow, one seeder flow, optional server-rendered
-          web, and React or Vue mail rendering.
+          Netpress is a Laravel-inspired backend framework for Node.js focused
+          on clean architecture, predictable DX, and modular lazy-loaded
+          systems.
         </p>
         <div class="hero-actions">
-          <a class="hero-button is-primary" href="installation.html">Install The Starter</a>
-          <a class="hero-button" href="database-architecture.html">Study The Runtime</a>
-          <a class="hero-button" href="quickstart-blog.html">Build The Blog Example</a>
+          <a class="hero-button is-primary" href="installation.html">Get Started</a>
+          <a class="hero-button" href="first-app.html">Build Your First App</a>
+          <a class="hero-button" href="architecture-overview.html">Explore Architecture</a>
         </div>
       </div>
 
@@ -162,73 +173,59 @@ npm run dev</code></pre>
 
           <article class="article">
             <div class="eyebrow">Netpress Docs</div>
-            <h1 id="start-here">Start Here</h1>
-<p>Netpress now starts from a published starter generator and a published framework package:</p>
+            <h1 id="netpress">Netpress</h1>
+<p>Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems.</p>
+<p>It gives Node teams a clear backend structure without forcing a heavy abstraction stack. You get controllers, services, providers, validation, responses, CLI tooling, and optional framework features that only load when you use them.</p>
+<h2 id="key-features">Key Features</h2>
 <ul>
-  <li><code>create-netpress-app</code> scaffolds the application</li>
-  <li><code>@admicaa/netpress</code> powers the runtime, CLI, and shared base classes</li>
+  <li>Laravel-style project structure for Node.js backends</li>
+  <li>Service providers for predictable application bootstrapping</li>
+  <li>Lazy-loaded systems for mail, queue, storage, cache, and rendering</li>
+  <li>Thin controllers and service-first application design</li>
+  <li>Smart response layer with <code>res.success()</code>, <code>json()</code>, <code>view()</code>, and <code>redirect()</code></li>
+  <li>Built-in CLI for controllers, models, migrations, seeders, jobs, mail, providers, policies, observers, and commands</li>
+  <li>Shared model, migration, and seeder flow across MongoDB and SQL connections</li>
+  <li>Optional companion package for roles and permissions: <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a></li>
 </ul>
-<p>The starter is not just an API shell anymore. It includes shared models, unified migrations, shared seeders, optional server-rendered pages, React or Vue mail rendering, and a Laravel-style CLI on top of Express 5.</p>
-<h2 id="what-you-get">What You Get</h2>
+<h2 id="why-netpress">Why Netpress</h2>
 <ul>
-  <li>Express 5 app bootstrapped through ordered service providers</li>
-  <li>API routes under <code>/api/v1</code></li>
-  <li>optional web routes mounted from <code>routes/web.js</code> when <code>config/view.js</code> enables a web engine</li>
-  <li>shared <code>app/Models/</code> classes that run against MongoDB, MySQL, PostgreSQL, or SQLite</li>
-  <li>unified <code>database/migrations/</code> and <code>database/seeders/</code> folders instead of separate SQL and Mongo trees</li>
-  <li>server-rendered web components in React or Vue</li>
-  <li>server-rendered mail components in React or Vue</li>
-  <li>the published <code>@admicaa/netpress</code> package underneath the starter app</li>
+  <li>It gives Express teams a real application structure instead of a blank folder and endless architecture decisions.</li>
+  <li>It keeps the good parts of framework conventions without forcing decorator-heavy or overly abstract patterns.</li>
+  <li>It makes backend code easier to reason about: request comes in, middleware runs, controller delegates, service handles business logic, response goes out.</li>
+  <li>It scales from small APIs to larger SaaS backends because optional systems stay lazy until used.</li>
 </ul>
-<h2 id="starter-flow">Starter Flow</h2>
-<p>Create a new app with the generator, then finish the app-level setup:</p>
-<pre><code class="language-bash">npx create-netpress-app my-app
-cd my-app
-cp .env.example .env
-npm run artisan -- key:generate
-npm run setup:rendering
-npm run migrate
-npm run seed
-npm run dev</code></pre>
-<p>That is the path the published starter kit now targets.</p>
-<h2 id="the-path-through-the-docs">The Path Through The Docs</h2>
+<h2 id="quick-comparison">Quick Comparison</h2>
+<table class="md-table">
+<thead>
+<tr><th>Framework</th><th>What it feels like</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Express</strong></td><td>Maximum freedom, minimum structure. Great for simple APIs, but teams often rebuild architecture by hand.</td></tr>
+<tr><td><strong>NestJS</strong></td><td>Strong architecture and DI, but often more ceremony than many backend teams need.</td></tr>
+<tr><td><strong>Netpress</strong></td><td>Opinionated enough to stay clean, flexible enough to stay practical. Laravel-style DX for Node.js.</td></tr>
+</tbody>
+</table>
+<h2 id="get-started">Get Started</h2>
 <ol>
-  <li>Read <a href="installation.html">Installation</a> to configure the starter exactly as the code expects.</li>
-  <li>Read <a href="directory-structure.html">Project Structure</a> to understand what lives in the app and what comes from <code>@admicaa/netpress</code>.</li>
-  <li>Read <a href="database-architecture.html">Database Architecture</a> before making model, migration, or seeder decisions.</li>
-  <li>Build a real feature in <a href="quickstart-blog.html">Quickstart: Blog</a>.</li>
+  <li>Follow <a href="installation.html">Installation</a> to create a new app.</li>
+  <li>Build something small with <a href="first-app.html">First App</a>.</li>
+  <li>Read <a href="index.html">Architecture Overview</a> to understand the framework shape.</li>
+  <li>Scan <a href="index.html">Feature Overview</a> to see what is available.</li>
+  <li>When you need roles and permissions, add <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</li>
 </ol>
-<h2 id="what-changed-in-the-starter">What Changed In The Starter</h2>
-<p>The biggest implementation shift is that the starter is now shared-first:</p>
-<ul>
-  <li>models live in <code>app/Models/</code></li>
-  <li>migrations live in <code>database/migrations/</code></li>
-  <li>seeders live in <code>database/seeders/</code></li>
-  <li>driver-specific folders are now compatibility fallbacks, not the main structure</li>
-</ul>
-<p>Netpress resolves the correct runtime per model and per connection, so application code does not need separate SQL and Mongo versions of the same model.</p>
-<h2 id="what-to-keep-in-mind">What To Keep In Mind</h2>
-<ul>
-  <li><code>npx create-netpress-app</code> installs dependencies for you unless you pass <code>--skip-install</code></li>
-  <li><code>setup:rendering</code> is part of normal setup, not an optional extra step</li>
-  <li><code>config/view.js</code> controls whether starter web routes are mounted</li>
-  <li><code>config/mail.js</code> always needs a mail engine of <code>react</code> or <code>vue</code></li>
-  <li>the docs in this site are synced to the current starter kit and <code>@admicaa/netpress</code></li>
-  <li>when you need roles, permissions, morph assignments, and package-level authorization middleware, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a></li>
-</ul>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       <span></span>
       
-      <a href="installation.html">
+      <a href="why-netpress.html">
         <small>Next</small>
-        <strong>Installation</strong>
+        <strong>Why Netpress</strong>
       </a>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -238,27 +235,22 @@ npm run dev</code></pre>
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#what-you-get">What You Get</a>
+          <a class="toc-link level-2" href="#key-features">Key Features</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-flow">Starter Flow</a>
+          <a class="toc-link level-2" href="#why-netpress">Why Netpress</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#the-path-through-the-docs">The Path Through The Docs</a>
+          <a class="toc-link level-2" href="#quick-comparison">Quick Comparison</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#what-changed-in-the-starter">What Changed In The Starter</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#what-to-keep-in-mind">What To Keep In Mind</a>
+          <a class="toc-link level-2" href="#get-started">Get Started</a>
         </li>
       
       </ul>

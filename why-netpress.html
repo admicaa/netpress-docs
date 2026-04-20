@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Authentication | Netpress Docs</title>
+    <title>Why Netpress | Netpress Docs</title>
     <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
-  <body class="page-authentication">
+  <body class="page-why-netpress">
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Netpress Docs">
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
@@ -41,7 +41,7 @@
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
             <li><a class="sidebar-link" href="index.html">Home</a></li>
-<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
+<li><a class="sidebar-link is-active" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
 <li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
@@ -79,7 +79,7 @@
             <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
 <li><a class="sidebar-link" href="routing.html">Routing</a></li>
 <li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
-<li><a class="sidebar-link is-active" href="authentication.html">Auth</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link" href="authorization.html">Authorization</a></li>
 <li><a class="sidebar-link" href="mail.html">Mail</a></li>
 <li><a class="sidebar-link" href="queues.html">Queue</a></li>
@@ -143,75 +143,77 @@
           
 
           <article class="article">
-            <div class="eyebrow">Features</div>
-            <h1 id="authentication">Authentication</h1>
-<p>Authentication answers one question:</p>
-<p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
-
-const router = Router();
-
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
-
-router.group(authMiddleware, (router) =&gt; {
-  router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
-});</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
-<p>Core auth gives you:</p>
+            <div class="eyebrow">Getting Started</div>
+            <h1 id="why-netpress">Why Netpress</h1>
+<p>Netpress exists because many Node.js backends fall into one of two extremes:</p>
 <ul>
-  <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
-  <li><code>Auth.middleware(name)</code> to protect routes</li>
-  <li><code>Auth.guest(name)</code> for guest-only routes</li>
+  <li>too little structure, where every project invents its own architecture;</li>
+  <li>too much framework ceremony, where simple backend code feels heavier than it should.</li>
 </ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&amp;quot;jwt&amp;quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
+<p>Netpress aims for the middle: clear structure, familiar patterns, and practical defaults.</p>
+<h2 id="the-problems-it-solves">The Problems It Solves</h2>
+<h3 id="node-chaos">Node Chaos</h3>
+<p>A lot of backend teams start with Express, then slowly build their own framework:</p>
 <ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
+  <li>custom folder conventions</li>
+  <li>hand-rolled dependency wiring</li>
+  <li>inconsistent controller and service patterns</li>
+  <li>ad-hoc validation and response helpers</li>
 </ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
-
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
-
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
-<h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
-<p>Authentication identifies the user.</p>
-<p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<p>Next, read <a href="authorization.html">Authorization</a>.</p>
+<p>Netpress gives that structure up front.</p>
+<h3 id="over-engineering">Over-Engineering</h3>
+<p>Some frameworks solve structure by adding a lot of ceremony:</p>
+<ul>
+  <li>decorators everywhere</li>
+  <li>multiple abstraction layers for simple features</li>
+  <li>framework magic that is hard to trace</li>
+</ul>
+<p>Netpress keeps the architecture clear without turning every endpoint into a framework puzzle.</p>
+<h3 id="inconsistency-across-teams">Inconsistency Across Teams</h3>
+<p>When every project uses different naming and folder rules, onboarding gets slower and AI tooling gets worse.</p>
+<p>Netpress uses repeatable patterns:</p>
+<ul>
+  <li><code>Controller -&amp;gt; Service -&amp;gt; Response</code></li>
+  <li><code>Provider -&amp;gt; Container -&amp;gt; Feature</code></li>
+  <li><code>Request -&amp;gt; Validation -&amp;gt; Action</code></li>
+</ul>
+<p>That makes codebases easier to teach, review, and automate.</p>
+<h2 id="philosophy">Philosophy</h2>
+<h3 id="clean-architecture">Clean Architecture</h3>
+<p>Controllers handle HTTP. Services handle business logic. Providers handle bootstrapping. Models handle data access. Each layer has a clear job.</p>
+<h3 id="service-providers">Service Providers</h3>
+<p>Framework features are registered in providers so boot order is easy to understand and change. This keeps application setup explicit.</p>
+<h3 id="lazy-loading">Lazy Loading</h3>
+<p>Mail, queues, storage, cache, and other optional systems should not cost startup time if the app is not using them yet.</p>
+<h3 id="no-unnecessary-magic">No Unnecessary Magic</h3>
+<p>Netpress prefers code you can follow over hidden behavior. It gives helpers and conventions, but keeps the flow readable.</p>
+<h2 id="who-netpress-is-for">Who Netpress Is For</h2>
+<ul>
+  <li>Laravel developers moving into Node.js</li>
+  <li>SaaS builders who want clean backend conventions from day one</li>
+  <li>Backend-focused developers who like explicit architecture</li>
+  <li>Teams that want framework structure without NestJS-level ceremony</li>
+</ul>
+<h2 id="when-netpress-fits-best">When Netpress Fits Best</h2>
+<p>Netpress is strongest when you want:</p>
+<ul>
+  <li>a maintainable Node.js backend with clear boundaries</li>
+  <li>faster onboarding for new developers</li>
+  <li>a framework that feels production-ready without being hard to customize</li>
+</ul>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
-      <a href="requests-and-validation.html">
+      <a href="index.html">
         <small>Previous</small>
-        <strong>Validation</strong>
+        <strong>Home</strong>
       </a>
     
       
-      <a href="authorization.html">
+      <a href="installation.html">
         <small>Next</small>
-        <strong>Authorization</strong>
+        <strong>Installation</strong>
       </a>
     
     </nav>
@@ -226,27 +228,57 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#the-problems-it-solves">The Problems It Solves</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-3" href="#node-chaos">Node Chaos</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
+          <a class="toc-link level-3" href="#over-engineering">Over-Engineering</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
+          <a class="toc-link level-3" href="#inconsistency-across-teams">Inconsistency Across Teams</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#authentication-vs-authorization">Authentication vs Authorization</a>
+          <a class="toc-link level-2" href="#philosophy">Philosophy</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#clean-architecture">Clean Architecture</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#service-providers">Service Providers</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#lazy-loading">Lazy Loading</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-3" href="#no-unnecessary-magic">No Unnecessary Magic</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#who-netpress-is-for">Who Netpress Is For</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#when-netpress-fits-best">When Netpress Fits Best</a>
         </li>
       
       </ul>

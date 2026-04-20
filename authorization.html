@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Authorization | Netpress Docs</title>
-    <meta name="description" content="Implementation-synced documentation for the Netpress starter kit and shared runtime." />
+    <meta name="description" content="Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems." />
     <link rel="icon" href="logo/favicon.ico" sizes="any" />
     <link rel="icon" href="logo/netpress-shield.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="assets/styles.css" />
@@ -15,19 +15,19 @@
         <img class="brand-icon" src="logo/netpress-shield.svg" alt="" aria-hidden="true" />
         <span class="brand-copy">
           <span class="brand-name">Netpress</span>
-          <span class="brand-tagline">Shared runtime for Express 5</span>
+          <span class="brand-tagline">Laravel-inspired backend framework for Node.js</span>
         </span>
       </a>
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
-        <a class="topbar-link" href="database-architecture.html">Architecture</a>
+        <a class="topbar-link" href="architecture-overview.html">Architecture</a>
         <a class="topbar-link" href="artisan-cli.html">CLI</a>
         <button class="nav-toggle" type="button" data-nav-toggle>Menu</button>
       </div>
@@ -40,43 +40,52 @@
         <section class="sidebar-section">
           <h2 class="sidebar-heading">Getting Started</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="index.html">Start Here</a></li>
+            <li><a class="sidebar-link" href="index.html">Home</a></li>
+<li><a class="sidebar-link" href="why-netpress.html">Why Netpress</a></li>
 <li><a class="sidebar-link" href="installation.html">Installation</a></li>
-<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
+<li><a class="sidebar-link" href="first-app.html">First App</a></li>
 <li><a class="sidebar-link" href="directory-structure.html">Project Structure</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Core Ideas</h2>
+          <h2 class="sidebar-heading">Architecture</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
+            <li><a class="sidebar-link" href="architecture-overview.html">Architecture Overview</a></li>
+<li><a class="sidebar-link" href="request-lifecycle.html">Request Lifecycle</a></li>
 <li><a class="sidebar-link" href="service-container.html">Service Container</a></li>
-<li><a class="sidebar-link" href="service-providers.html">Service Providers</a></li>
-<li><a class="sidebar-link" href="logging.html">Logging</a></li>
+<li><a class="sidebar-link" href="service-providers.html">Providers</a></li>
 <li><a class="sidebar-link" href="hybrid-bootstrap.html">Hybrid Bootstrap</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Basics</h2>
+          <h2 class="sidebar-heading">Core Concepts</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="routing.html">Routing</a></li>
-<li><a class="sidebar-link" href="views.html">Views</a></li>
+            <li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
+<li><a class="sidebar-link" href="services.html">Services</a></li>
 <li><a class="sidebar-link" href="middleware.html">Middleware</a></li>
-<li><a class="sidebar-link" href="controllers.html">Controllers</a></li>
-<li><a class="sidebar-link" href="requests-and-validation.html">Requests and Validation</a></li>
+<li><a class="sidebar-link" href="response-system.html">Response System</a></li>
+<li><a class="sidebar-link" href="logging.html">Logging</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Security</h2>
+          <h2 class="sidebar-heading">Features</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="authentication.html">Authentication</a></li>
+            <li><a class="sidebar-link" href="feature-overview.html">Feature Overview</a></li>
+<li><a class="sidebar-link" href="routing.html">Routing</a></li>
+<li><a class="sidebar-link" href="requests-and-validation.html">Validation</a></li>
+<li><a class="sidebar-link" href="authentication.html">Auth</a></li>
 <li><a class="sidebar-link is-active" href="authorization.html">Authorization</a></li>
+<li><a class="sidebar-link" href="mail.html">Mail</a></li>
+<li><a class="sidebar-link" href="queues.html">Queue</a></li>
+<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
+<li><a class="sidebar-link" href="views.html">Rendering</a></li>
+<li><a class="sidebar-link" href="artisan-cli.html">CLI</a></li>
           </ul>
         </section>
       
@@ -95,22 +104,24 @@
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">More Features</h2>
+          <h2 class="sidebar-heading">Examples</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="artisan-cli.html">Artisan CLI</a></li>
-<li><a class="sidebar-link" href="mail.html">Mail</a></li>
-<li><a class="sidebar-link" href="cache-and-storage.html">Cache and Storage</a></li>
-<li><a class="sidebar-link" href="queues.html">Queues</a></li>
-<li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
-<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+            <li><a class="sidebar-link" href="example-crud.html">CRUD App</a></li>
+<li><a class="sidebar-link" href="example-auth.html">Auth System</a></li>
+<li><a class="sidebar-link" href="example-mail-queue.html">Mail + Queue</a></li>
+<li><a class="sidebar-link" href="example-provider.html">Custom Provider</a></li>
+<li><a class="sidebar-link" href="quickstart-blog.html">Quickstart: Blog</a></li>
           </ul>
         </section>
       
 
         <section class="sidebar-section">
-          <h2 class="sidebar-heading">Testing</h2>
+          <h2 class="sidebar-heading">Reference</h2>
           <ul class="sidebar-list">
-            <li><a class="sidebar-link" href="testing.html">Testing</a></li>
+            <li><a class="sidebar-link" href="events-and-listeners.html">Events and Listeners</a></li>
+<li><a class="sidebar-link" href="observers.html">Observers</a></li>
+<li><a class="sidebar-link" href="comparison.html">Netpress vs Others</a></li>
+<li><a class="sidebar-link" href="testing.html">Testing</a></li>
           </ul>
         </section>
       
@@ -118,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.6</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.1</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -132,77 +143,85 @@
           
 
           <article class="article">
-            <div class="eyebrow">Security</div>
+            <div class="eyebrow">Features</div>
             <h1 id="authorization">Authorization</h1>
-<p>Authorization decides what an authenticated user may do. NetPress uses a small policy pattern plus role middleware, which feels close to Laravel without adding extra ceremony.</p>
-<p>If you need reusable roles, permissions, polymorphic assignments, and middleware helpers beyond the core policy layer, add the companion package: <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">// app/Policies/UserPolicy.js
-export default class UserPolicy {
-  async update(authUser, targetUser) {
-    return authUser.role === &quot;admin&quot; || authUser.id === targetUser.id;
+<p>Authorization answers a different question from authentication:</p>
+<p>Can this user perform this action?</p>
+<p>Netpress supports two layers:</p>
+<ul>
+  <li>core policies and the <code>can()</code> helper</li>
+  <li>the optional <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a> package for roles, permissions, morph assignments, and route guards</li>
+</ul>
+<h2 id="core-authorization">Core Authorization</h2>
+<p>Core authorization is policy-based and feels close to Laravel.</p>
+<p>You can:</p>
+<ul>
+  <li>call <code>await can(user, &amp;quot;posts.publish&amp;quot;)</code></li>
+  <li>call <code>await can(user, &amp;quot;update&amp;quot;, post)</code></li>
+  <li>use <code>await this.can(req, &amp;quot;update&amp;quot;, post)</code> inside a controller</li>
+  <li>use <code>await this.authorize(req, PolicyClass, &amp;quot;update&amp;quot;, post)</code> when you want an explicit policy class</li>
+</ul>
+<p>If a matching policy exists, Netpress uses it. If not, permission-aware models can fall back to permission checks.</p>
+<pre><code class="language-js">import { can } from &quot;@admicaa/netpress&quot;;
+
+await can(user, &quot;posts.publish&quot;);
+await can(user, &quot;update&quot;, post);</code></pre>
+<h2 id="quick-policy-example">Quick Policy Example</h2>
+<pre><code class="language-js">// app/Policies/PostPolicy.js
+export default class PostPolicy {
+  async update(user, post) {
+    return user.role === &quot;admin&quot; || user.id === post.userId;
   }
 }</code></pre>
 <p>Use it in a controller:</p>
-<pre><code class="language-js">const targetUser = await UserService.findById(req.params.id);
-await this.authorize(req, UserPolicy, &quot;update&quot;, targetUser);</code></pre>
-<h2 id="explanation">Explanation</h2>
-<p>There are three common authorization paths:</p>
-<ul>
-  <li><code>requireRole(&amp;quot;admin&amp;quot;)</code> for simple role checks</li>
-  <li><code>authorize(PolicyClass, method, resourceFn)</code> for route middleware checks</li>
-  <li><code>this.authorize(req, PolicyClass, method, resource)</code> inside a controller action</li>
-</ul>
-<p>Policies receive the authenticated user and the target resource. They return <code>true</code> or <code>false</code>.</p>
-<h2 id="additional-examples">Additional Examples</h2>
-<p>Role-only check:</p>
-<pre><code class="language-js">router.group(authMiddleware, (router) =&gt; {
+<pre><code class="language-js">const post = await PostService.show(req.params.id);
+await this.can(req, &quot;update&quot;, post);</code></pre>
+<p>Or explicitly:</p>
+<pre><code class="language-js">await this.authorize(req, PostPolicy, &quot;update&quot;, post);</code></pre>
+<h2 id="route-level-authorization">Route-Level Authorization</h2>
+<p>The starter also includes lightweight route middleware helpers:</p>
+<pre><code class="language-js">import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
+import { requireRole, authorize } from &quot;../app/Http/Middleware/role.js&quot;;
+
+router.group(authMiddleware, (router) =&gt; {
   router.group(requireRole(&quot;admin&quot;), (router) =&gt; {
     router.get(&quot;/users&quot;, UserController.index);
   });
-});</code></pre>
-<p>Route middleware policy check:</p>
-<pre><code class="language-js">router.delete(
-  &quot;/users/:id&quot;,
+});
+
+router.delete(
+  &quot;/posts/:id&quot;,
   authMiddleware,
-  authorize(UserPolicy, &quot;delete&quot;, async (req) =&gt; {
-    return UserService.findById(req.params.id);
-  }),
-  UserController.destroy,
+  authorize(PostPolicy, &quot;delete&quot;, (req) =&gt; PostService.show(req.params.id)),
+  PostController.destroy,
 );</code></pre>
-<p>Post policy example:</p>
-<pre><code class="language-js">export default class PostPolicy {
-  async update(authUser, post) {
-    return authUser.role === &quot;admin&quot; || authUser.id === post.userId;
-  }
-}</code></pre>
-<h2 id="advanced-usage">Advanced Usage</h2>
-<p>Keep policies close to the domain language of the app. When rules become more complex, call a service from the policy instead of turning route files into authorization logic.</p>
-<h2 id="notes-tips">Notes / Tips</h2>
+<h2 id="when-to-add-netpress-permissions">When To Add NetPress Permissions</h2>
+<p>Reach for the permissions package when your app needs:</p>
 <ul>
-  <li>Use roles for broad access.</li>
-  <li>Use policies for record-level access.</li>
-  <li>Return <code>false</code> from the policy and let the helper raise the <code>403</code> response.</li>
-  <li>Reach for NetPress Permissions when you want Laravel-style roles and permissions on top of the core <code>can()</code> and policy flow.</li>
+  <li>many reusable roles</li>
+  <li>named permissions like <code>posts.update</code></li>
+  <li>polymorphic role or permission assignments</li>
+  <li>dedicated route guards such as <code>AuthGuard.can()</code> or <code>AuthGuard.role()</code></li>
 </ul>
+<p>That package builds on top of Netpress core auth and authorization instead of replacing them.</p>
 
             
     <nav class="page-nav" aria-label="Page navigation">
       
       <a href="authentication.html">
         <small>Previous</small>
-        <strong>Authentication</strong>
+        <strong>Auth</strong>
       </a>
     
       
-      <a href="database-architecture.html">
+      <a href="mail.html">
         <small>Next</small>
-        <strong>Database Architecture</strong>
+        <strong>Mail</strong>
       </a>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.6 · starter v0.1.6 · docs v1.0.1. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -212,27 +231,22 @@ await this.authorize(req, UserPolicy, &quot;update&quot;, targetUser);</code></p
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#core-authorization">Core Authorization</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#explanation">Explanation</a>
+          <a class="toc-link level-2" href="#quick-policy-example">Quick Policy Example</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#additional-examples">Additional Examples</a>
+          <a class="toc-link level-2" href="#route-level-authorization">Route-Level Authorization</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#advanced-usage">Advanced Usage</a>
-        </li>
-      
-
-        <li class="toc-item">
-          <a class="toc-link level-2" href="#notes-tips">Notes / Tips</a>
+          <a class="toc-link level-2" href="#when-to-add-netpress-permissions">When To Add NetPress Permissions</a>
         </li>
       
       </ul>
