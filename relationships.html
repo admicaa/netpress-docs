@@ -233,9 +233,9 @@ await post.comments().create({ body: &quot;Nice post&quot; });</code></pre>
 <pre><code class="language-js">BaseModel.resetMorphMap();</code></pre>
 <h2 id="notes-on-defaults">Notes On Defaults</h2>
 <ul>
-  <li><code>hasOne</code> and <code>hasMany</code> default to <code>&amp;lt;parentClassName&amp;gt;Id</code></li>
-  <li><code>belongsTo</code> defaults to <code>&amp;lt;relatedClassName&amp;gt;Id</code></li>
-  <li>morph helpers default to <code>&amp;lt;name&amp;gt;Type</code> and <code>&amp;lt;name&amp;gt;Id</code></li>
+  <li><code>hasOne</code> and <code>hasMany</code> default to <code>&lt;parentClassName&gt;Id</code></li>
+  <li><code>belongsTo</code> defaults to <code>&lt;relatedClassName&gt;Id</code></li>
+  <li>morph helpers default to <code>&lt;name&gt;Type</code> and <code>&lt;name&gt;Id</code></li>
   <li>many-to-many helpers still let you override every pivot and key column explicitly</li>
 </ul>
 <p>Use the explicit arguments whenever your schema deviates from the default camelCase conventions.</p>

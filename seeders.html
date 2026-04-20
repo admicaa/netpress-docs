@@ -177,7 +177,7 @@ export async function run(db) {
 
   log.success(&quot;PostSeeder completed.&quot;);
 }</code></pre>
-<p><code>db.model(&amp;quot;Post&amp;quot;)</code> returns the regular discovered <code>Post</code> model class for the active runtime. Once you have it, methods like <code>Post.create()</code>, <code>Post.query()</code>, and <code>Post.first()</code> are the normal model API.</p>
+<p><code>db.model(&quot;Post&quot;)</code> returns the regular discovered <code>Post</code> model class for the active runtime. Once you have it, methods like <code>Post.create()</code>, <code>Post.query()</code>, and <code>Post.first()</code> are the normal model API.</p>
 <p>Seeder examples use <code>db.model(...)</code> because that is the helper Netpress passes into <code>run(db)</code>, and it matches the generated seeder stubs. In regular application code, you will usually import <code>Post</code> directly.</p>
 <h2 id="what-db-gives-you">What <code>db</code> Gives You</h2>
 <p>Inside a seeder, Netpress passes a helper object with:</p>
@@ -194,7 +194,7 @@ export async function run(db) {
 </table>
 <p><code>db.call(...)</code> accepts:</p>
 <ul>
-  <li>a seeder name like <code>&amp;quot;UserSeeder&amp;quot;</code></li>
+  <li>a seeder name like <code>&quot;UserSeeder&quot;</code></li>
   <li>an array of seeder names</li>
   <li>an imported module</li>
   <li>a class with <code>run()</code></li>

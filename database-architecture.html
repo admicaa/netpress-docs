@@ -208,16 +208,16 @@
     table.timestamps(true, true);
   });
 }</code></pre>
-<p><code>table.primaryKey(&amp;quot;id&amp;quot;)</code> is the recommended cross-driver primary key helper:</p>
+<p><code>table.primaryKey(&quot;id&quot;)</code> is the recommended cross-driver primary key helper:</p>
 <ul>
   <li>SQL uses <code>bigIncrements</code></li>
   <li>MongoDB uses a native <code>ObjectId</code></li>
-  <li><code>table.primaryKey(&amp;quot;id&amp;quot;, { mongo: &amp;quot;increments&amp;quot; })</code> opts into numeric Mongo ids when a project needs them</li>
+  <li><code>table.primaryKey(&quot;id&quot;, { mongo: &quot;increments&quot; })</code> opts into numeric Mongo ids when a project needs them</li>
 </ul>
 <p>Key behavior:</p>
 <ul>
   <li><code>database.createTable(...)</code> targets the default configured connection</li>
-  <li><code>database.connection(&amp;quot;mongo&amp;quot;)</code> or <code>database.connection(&amp;quot;mysql&amp;quot;)</code> scopes to a specific connection</li>
+  <li><code>database.connection(&quot;mongo&quot;)</code> or <code>database.connection(&quot;mysql&quot;)</code> scopes to a specific connection</li>
   <li>migration planning analyzes files first and only opens referenced connections</li>
   <li>the same blueprint is replayed into an in-memory manifest so Mongo models can infer schema without handwritten <code>static schema</code> definitions</li>
 </ul>

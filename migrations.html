@@ -179,11 +179,11 @@ export async function down(database) {
   log.success(&quot;Migration rolled back: posts dropped.&quot;);
 }</code></pre>
 <p>If the migration should target the default configured connection, you can use <code>database.createTable(...)</code> directly instead of <code>database.connection(...)</code>.</p>
-<p><code>table.primaryKey(&amp;quot;id&amp;quot;)</code> is the recommended default for shared migrations:</p>
+<p><code>table.primaryKey(&quot;id&quot;)</code> is the recommended default for shared migrations:</p>
 <ul>
   <li>SQL connections map it to <code>bigIncrements</code></li>
   <li>MongoDB maps it to a native <code>ObjectId</code></li>
-  <li><code>table.primaryKey(&amp;quot;id&amp;quot;, { mongo: &amp;quot;increments&amp;quot; })</code> switches MongoDB to numeric ids</li>
+  <li><code>table.primaryKey(&quot;id&quot;, { mongo: &quot;increments&quot; })</code> switches MongoDB to numeric ids</li>
 </ul>
 <h2 id="supported-schema-methods">Supported Schema Methods</h2>
 <h3 id="table-methods">Table Methods</h3>
@@ -195,9 +195,9 @@ export async function down(database) {
 </ul>
 <h3 id="column-methods">Column Methods</h3>
 <ul>
-  <li><code>primaryKey(name = &amp;quot;id&amp;quot;, options = {})</code></li>
-  <li><code>increments(name = &amp;quot;id&amp;quot;)</code></li>
-  <li><code>id(name = &amp;quot;id&amp;quot;)</code></li>
+  <li><code>primaryKey(name = &quot;id&quot;, options = {})</code></li>
+  <li><code>increments(name = &quot;id&quot;)</code></li>
+  <li><code>id(name = &quot;id&quot;)</code></li>
   <li><code>string(name, length = 255)</code></li>
   <li><code>text(name)</code></li>
   <li><code>integer(name)</code></li>

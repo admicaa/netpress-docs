@@ -156,10 +156,10 @@
 <p>Core authorization is policy-based and feels close to Laravel.</p>
 <p>You can:</p>
 <ul>
-  <li>call <code>await can(user, &amp;quot;posts.publish&amp;quot;)</code></li>
-  <li>call <code>await can(user, &amp;quot;update&amp;quot;, post)</code></li>
-  <li>use <code>await this.can(req, &amp;quot;update&amp;quot;, post)</code> inside a controller</li>
-  <li>use <code>await this.authorize(req, PolicyClass, &amp;quot;update&amp;quot;, post)</code> when you want an explicit policy class</li>
+  <li>call <code>await can(user, &quot;posts.publish&quot;)</code></li>
+  <li>call <code>await can(user, &quot;update&quot;, post)</code></li>
+  <li>use <code>await this.can(req, &quot;update&quot;, post)</code> inside a controller</li>
+  <li>use <code>await this.authorize(req, PolicyClass, &quot;update&quot;, post)</code> when you want an explicit policy class</li>
 </ul>
 <p>If a matching policy exists, Netpress uses it. If not, permission-aware models can fall back to permission checks.</p>
 <pre><code class="language-js">import { can } from &quot;@admicaa/netpress&quot;;

@@ -194,7 +194,7 @@ const rows = await Post.whereLike(&quot;title&quot;, &quot;Shared%&quot;)
 <tr><td><code>connection</code></td><td>Pin the model to a connection or driver</td><td>active <code>DB_CONNECTION</code></td></tr>
 <tr><td><code>table</code></td><td>Force a table name</td><td>pluralized snake_case of the class name</td></tr>
 <tr><td><code>collection</code></td><td>Force a Mongo collection name</td><td><code>null</code></td></tr>
-<tr><td><code>primaryKey</code></td><td>Primary key field</td><td><code>&amp;quot;id&amp;quot;</code></td></tr>
+<tr><td><code>primaryKey</code></td><td>Primary key field</td><td><code>&quot;id&quot;</code></td></tr>
 <tr><td><code>schema</code></td><td>Legacy Mongo schema override</td><td><code>null</code></td></tr>
 <tr><td><code>schemaOptions</code></td><td>Extra Mongoose schema options merged onto the inferred schema</td><td><code>{}</code></td></tr>
 <tr><td><code>hidden</code></td><td>Fields stripped by <code>toJSON()</code></td><td><code>[]</code></td></tr>
@@ -202,7 +202,7 @@ const rows = await Post.whereLike(&quot;title&quot;, &quot;Shared%&quot;)
 <tr><td><code>fillable</code></td><td>Mass-assignment allow list</td><td><code>null</code></td></tr>
 <tr><td><code>guarded</code></td><td>Mass-assignment deny list</td><td><code>[]</code></td></tr>
 <tr><td><code>softDeletes</code></td><td>Enable soft deletes</td><td><code>false</code></td></tr>
-<tr><td><code>deletedAtColumn</code></td><td>Soft-delete column name</td><td><code>&amp;quot;deletedAt&amp;quot;</code></td></tr>
+<tr><td><code>deletedAtColumn</code></td><td>Soft-delete column name</td><td><code>&quot;deletedAt&quot;</code></td></tr>
 </tbody>
 </table>
 <h2 id="supported-casts">Supported Casts</h2>
@@ -239,7 +239,7 @@ Post.withTrashed();</code></pre>
 <tr><td><code>where(column, value)</code></td><td>equality shorthand</td></tr>
 <tr><td><code>where(column, operator, value)</code></td><td>explicit operator</td></tr>
 <tr><td><code>where({ ... })</code></td><td>object shorthand</td></tr>
-<tr><td><code>where(q =&amp;gt; ...)</code></td><td>nested group</td></tr>
+<tr><td><code>where(q =&gt; ...)</code></td><td>nested group</td></tr>
 <tr><td><code>orWhere(...)</code></td><td>OR variant</td></tr>
 <tr><td><code>whereNot(column, value)</code></td><td><code>!=</code></td></tr>
 <tr><td><code>whereIn(column, values)</code></td><td>includes <code>orWhereIn</code> and <code>whereNotIn</code></td></tr>
@@ -262,11 +262,11 @@ Post.withTrashed();</code></pre>
 <tr><th>Method</th><th>Notes</th></tr>
 </thead>
 <tbody>
-<tr><td><code>with(&amp;quot;posts&amp;quot;)</code></td><td>eager load one relation</td></tr>
-<tr><td><code>with([&amp;quot;posts&amp;quot;, &amp;quot;profile&amp;quot;])</code></td><td>eager load many</td></tr>
-<tr><td><code>with(&amp;quot;posts.author&amp;quot;)</code></td><td>nested eager loading</td></tr>
-<tr><td><code>with(&amp;quot;posts&amp;quot;, q =&amp;gt; q.where(...))</code></td><td>constrained eager loading</td></tr>
-<tr><td><code>with({ posts: q =&amp;gt; q.where(...) })</code></td><td>object syntax</td></tr>
+<tr><td><code>with(&quot;posts&quot;)</code></td><td>eager load one relation</td></tr>
+<tr><td><code>with([&quot;posts&quot;, &quot;profile&quot;])</code></td><td>eager load many</td></tr>
+<tr><td><code>with(&quot;posts.author&quot;)</code></td><td>nested eager loading</td></tr>
+<tr><td><code>with(&quot;posts&quot;, q =&gt; q.where(...))</code></td><td>constrained eager loading</td></tr>
+<tr><td><code>with({ posts: q =&gt; q.where(...) })</code></td><td>object syntax</td></tr>
 <tr><td><code>when(condition, cb, otherwise?)</code></td><td>conditional builder branch</td></tr>
 <tr><td><code>tap(cb)</code></td><td>inspect or mutate the builder inline</td></tr>
 </tbody>
@@ -360,7 +360,7 @@ const copy = post.replicate([&quot;slug&quot;]);</code></pre>
 <p>All write paths filter payloads through the model's writable fields:</p>
 <ul>
   <li>if <code>fillable</code> is set, only those fields are written</li>
-  <li>if <code>guarded</code> contains <code>&amp;quot;*&amp;quot;</code>, nothing is mass assignable</li>
+  <li>if <code>guarded</code> contains <code>&quot;*&quot;</code>, nothing is mass assignable</li>
   <li>otherwise unknown fields are dropped automatically</li>
 </ul>
 <p>That behavior applies across <code>create</code>, <code>update</code>, relation writes, and bulk builder updates.</p>

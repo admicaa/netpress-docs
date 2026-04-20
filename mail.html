@@ -181,8 +181,8 @@ export default class WelcomeMail extends BaseMail {
 };</code></pre>
 <p>Valid mail engines:</p>
 <ul>
-  <li><code>&amp;quot;react&amp;quot;</code></li>
-  <li><code>&amp;quot;vue&amp;quot;</code></li>
+  <li><code>&quot;react&quot;</code></li>
+  <li><code>&quot;vue&quot;</code></li>
 </ul>
 <p>Unlike <code>config/view.js</code>, mail does not support <code>null</code>.</p>
 <h2 id="mailsend"><code>Mail.send(...)</code></h2>
@@ -216,9 +216,9 @@ await Mail.send(
 <p><code>BaseMail.queue(to)</code> uses BullMQ. It expects:</p>
 <ul>
   <li><code>queue.connection</code> in the container</li>
-  <li><code>queue.mail</code> optionally in the container, otherwise it defaults to <code>&amp;quot;emails&amp;quot;</code></li>
+  <li><code>queue.mail</code> optionally in the container, otherwise it defaults to <code>&quot;emails&quot;</code></li>
 </ul>
-<p>The queued job name convention is <code>&amp;quot;SendMail&amp;quot;</code>, which the app worker handles.</p>
+<p>The queued job name convention is <code>&quot;SendMail&quot;</code>, which the app worker handles.</p>
 <h2 id="template-layout">Template Layout</h2>
 <ul>
   <li><code>resources/mails/WelcomeMail.jsx</code> or <code>.vue</code></li>

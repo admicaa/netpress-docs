@@ -168,8 +168,8 @@ export default new HomeController();</code></pre>
 };</code></pre>
 <p>Valid values:</p>
 <ul>
-  <li><code>&amp;quot;react&amp;quot;</code></li>
-  <li><code>&amp;quot;vue&amp;quot;</code></li>
+  <li><code>&quot;react&quot;</code></li>
+  <li><code>&quot;vue&quot;</code></li>
   <li><code>null</code></li>
 </ul>
 <p>When the value is <code>null</code>, <code>RouteServiceProvider</code> does not mount <code>routes/web.js</code>.</p>
@@ -190,7 +190,7 @@ export default new HomeController();</code></pre>
 <h3 id="component-rendering">Component Rendering</h3>
 <p>When you pass a component to <code>res.render(...)</code> or <code>view(...)</code>, Netpress uses the registered renderer from <code>AppServiceProvider</code>, which calls <code>renderView(...)</code> with the configured engine.</p>
 <h3 id="string-templates">String Templates</h3>
-<p>When you pass a string like <code>&amp;quot;dashboard&amp;quot;</code> to <code>res.render(...)</code> or <code>view(&amp;quot;dashboard&amp;quot;, props)</code>, Netpress delegates to Express <code>res.render(...)</code> like a normal Express app.</p>
+<p>When you pass a string like <code>&quot;dashboard&quot;</code> to <code>res.render(...)</code> or <code>view(&quot;dashboard&quot;, props)</code>, Netpress delegates to Express <code>res.render(...)</code> like a normal Express app.</p>
 <h2 id="shared-view-state">Shared View State</h2>
 <p><code>AppServiceProvider</code> and the shared view middleware make these available to server-rendered pages:</p>
 <ul>

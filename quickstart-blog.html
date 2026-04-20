@@ -194,7 +194,7 @@ export async function down(database) {
   const schema = database.connection(&quot;mysql&quot;);
   await schema.dropTableIfExists(&quot;posts&quot;);
 }</code></pre>
-<p>Replace <code>&amp;quot;mysql&amp;quot;</code> with the connection name your app should target if different. <code>table.primaryKey(&amp;quot;id&amp;quot;)</code> keeps the migration portable: SQL uses <code>bigIncrements</code>, while MongoDB uses a native <code>ObjectId</code> unless you opt into <code>{ mongo: &amp;quot;increments&amp;quot; }</code>.</p>
+<p>Replace <code>&quot;mysql&quot;</code> with the connection name your app should target if different. <code>table.primaryKey(&quot;id&quot;)</code> keeps the migration portable: SQL uses <code>bigIncrements</code>, while MongoDB uses a native <code>ObjectId</code> unless you opt into <code>{ mongo: &quot;increments&quot; }</code>.</p>
 <p>Then run:</p>
 <pre><code class="language-bash">npm run artisan -- migrate</code></pre>
 <h2 id="3-write-the-model">3. Write The Model</h2>
@@ -315,7 +315,7 @@ router.group(&quot;/posts&quot;, (posts) =&gt; {
     });
   }
 }</code></pre>
-<p>Here <code>db.model(&amp;quot;Post&amp;quot;)</code> resolves the normal <code>Post</code> model class for the seeder context, so <code>Post.create()</code> is still the standard model API. Outside seeders, you would usually import <code>Post</code> directly.</p>
+<p>Here <code>db.model(&quot;Post&quot;)</code> resolves the normal <code>Post</code> model class for the seeder context, so <code>Post.create()</code> is still the standard model API. Outside seeders, you would usually import <code>Post</code> directly.</p>
 <p>Then call it from <code>database/seeders/DatabaseSeeder.js</code>:</p>
 <pre><code class="language-js">export async function run(db) {
   await db.call([

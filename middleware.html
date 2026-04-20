@@ -149,7 +149,7 @@
 <p>Use middleware for things that apply to many routes: authentication, throttling, authorization, sessions, CORS, or request shaping.</p>
 <h2 id="the-mental-model">The Mental Model</h2>
 <p>The request flow is:</p>
-<p><code>Request -&amp;gt; Middleware -&amp;gt; Controller -&amp;gt; Response</code></p>
+<p><code>Request -&gt; Middleware -&gt; Controller -&gt; Response</code></p>
 <p>Each middleware should do one small job, then call <code>next()</code>.</p>
 <h2 id="quick-example">Quick Example</h2>
 <pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
