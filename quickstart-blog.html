@@ -21,8 +21,8 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
@@ -129,8 +129,8 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.7</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.7</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
 <span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
@@ -174,7 +174,7 @@ export async function up(database) {
   const schema = database.connection(&quot;mysql&quot;);
 
   await schema.createTable(&quot;posts&quot;, (table) =&gt; {
-    table.increments(&quot;id&quot;).primary();
+    table.primaryKey(&quot;id&quot;);
     table.foreignId(&quot;userId&quot;)
       .notNullable()
       .references(&quot;id&quot;)
@@ -194,7 +194,7 @@ export async function down(database) {
   const schema = database.connection(&quot;mysql&quot;);
   await schema.dropTableIfExists(&quot;posts&quot;);
 }</code></pre>
-<p>Replace <code>&amp;quot;mysql&amp;quot;</code> with the connection name your app should target if different.</p>
+<p>Replace <code>&amp;quot;mysql&amp;quot;</code> with the connection name your app should target if different. <code>table.primaryKey(&amp;quot;id&amp;quot;)</code> keeps the migration portable: SQL uses <code>bigIncrements</code>, while MongoDB uses a native <code>ObjectId</code> unless you opt into <code>{ mongo: &amp;quot;increments&amp;quot; }</code>.</p>
 <p>Then run:</p>
 <pre><code class="language-bash">npm run artisan -- migrate</code></pre>
 <h2 id="3-write-the-model">3. Write The Model</h2>
@@ -351,7 +351,7 @@ curl http://127.0.0.1:3000/api/v1/posts/1</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.7 · starter v0.1.7 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
