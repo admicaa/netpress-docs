@@ -143,21 +143,37 @@
           
     <section class="hero">
       <div class="hero-copy">
-        <p class="hero-label">Laravel-inspired backend framework for Node.js</p>
+        <p class="hero-label">Node.js Backend Framework</p>
+        <h1 class="hero-title">Netpress brings Laravel-style structure to Node.js.</h1>
         <p class="hero-lead">
-          Netpress is a Laravel-inspired backend framework for Node.js focused
-          on clean architecture, predictable DX, and modular lazy-loaded
-          systems.
+          Netpress is a Node.js backend framework for teams that want structure
+          without ceremony.
         </p>
+        <p class="hero-summary">
+          Express gives you a blank folder. NestJS can feel heavier than the
+          app needs. Netpress gives you the balance: <strong>clean architecture</strong>,
+          a <strong>service container</strong>, <strong>lazy-loaded systems</strong>,
+          and <strong>predictable patterns</strong> you can follow from day one.
+        </p>
+        <ul class="hero-points">
+          <li><strong>Controller -> Service -> Response</strong> flow that stays easy to read</li>
+          <li><strong>Service Providers</strong> for explicit bootstrapping and lazy loading</li>
+          <li>Built-in auth, validation, CLI tooling, and an optional permissions package</li>
+        </ul>
         <div class="hero-actions">
           <a class="hero-button is-primary" href="installation.html">Get Started</a>
           <a class="hero-button" href="first-app.html">Build Your First App</a>
-          <a class="hero-button" href="architecture-overview.html">Explore Architecture</a>
         </div>
       </div>
 
       <div class="hero-panel">
         <img class="hero-banner" src="logo/netpress-banner-light.svg" alt="Netpress banner" />
+        <p class="hero-command-label">Why teams choose it</p>
+        <ul class="hero-checklist">
+          <li><strong>Express</strong>: flexible, but every app invents its own structure</li>
+          <li><strong>NestJS</strong>: powerful, but often too much ceremony for normal backends</li>
+          <li><strong>Netpress</strong>: structured, practical, and easy to scale</li>
+        </ul>
         <p class="hero-command-label">Starter quick start</p>
         <pre class="hero-command"><code>npx create-netpress-app my-app
 cd my-app
@@ -173,45 +189,46 @@ npm run dev</code></pre>
 
           <article class="article">
             <div class="eyebrow">Netpress Docs</div>
-            <h1 id="netpress">Netpress</h1>
-<p>Netpress is a Laravel-inspired backend framework for Node.js focused on clean architecture, predictable DX, and modular lazy-loaded systems.</p>
-<p>It gives Node teams a clear backend structure without forcing a heavy abstraction stack. You get controllers, services, providers, validation, responses, CLI tooling, and optional framework features that only load when you use them.</p>
-<h2 id="key-features">Key Features</h2>
+            <h2 id="why-netpress">Why Netpress</h2>
 <ul>
-  <li>Laravel-style project structure for Node.js backends</li>
-  <li>Service providers for predictable application bootstrapping</li>
-  <li>Lazy-loaded systems for mail, queue, storage, cache, and rendering</li>
-  <li>Thin controllers and service-first application design</li>
-  <li>Smart response layer with <code>res.success()</code>, <code>json()</code>, <code>view()</code>, and <code>redirect()</code></li>
-  <li>Built-in CLI for controllers, models, migrations, seeders, jobs, mail, providers, policies, observers, and commands</li>
-  <li>Shared model, migration, and seeder flow across MongoDB and SQL connections</li>
-  <li>Optional companion package for roles and permissions: <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a></li>
-</ul>
-<h2 id="why-netpress">Why Netpress</h2>
-<ul>
-  <li>It gives Express teams a real application structure instead of a blank folder and endless architecture decisions.</li>
-  <li>It keeps the good parts of framework conventions without forcing decorator-heavy or overly abstract patterns.</li>
-  <li>It makes backend code easier to reason about: request comes in, middleware runs, controller delegates, service handles business logic, response goes out.</li>
-  <li>It scales from small APIs to larger SaaS backends because optional systems stay lazy until used.</li>
+  <li><strong>Express</strong> is easy to start, but many teams end up rebuilding architecture by hand.</li>
+  <li><strong>NestJS</strong> gives structure, but often with more ceremony than the app actually needs.</li>
+  <li><strong>Netpress</strong> is the middle ground: <strong>clean architecture</strong>, a <strong>service container</strong>, <strong>lazy-loaded systems</strong>, and <strong>predictable patterns</strong> that stay readable.</li>
 </ul>
 <h2 id="quick-comparison">Quick Comparison</h2>
 <table class="md-table">
 <thead>
-<tr><th>Framework</th><th>What it feels like</th></tr>
+<tr><th>Topic</th><th>Express</th><th>NestJS</th><th>Netpress</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Express</strong></td><td>Maximum freedom, minimum structure. Great for simple APIs, but teams often rebuild architecture by hand.</td></tr>
-<tr><td><strong>NestJS</strong></td><td>Strong architecture and DI, but often more ceremony than many backend teams need.</td></tr>
-<tr><td><strong>Netpress</strong></td><td>Opinionated enough to stay clean, flexible enough to stay practical. Laravel-style DX for Node.js.</td></tr>
+<tr><td>Structure</td><td>Minimal by default</td><td>Strong, framework-driven</td><td>Clear by default</td></tr>
+<tr><td>Complexity</td><td>Low at first, grows later</td><td>High</td><td>Moderate and predictable</td></tr>
+<tr><td>Boilerplate</td><td>Low early, custom later</td><td>High</td><td>Low-to-moderate</td></tr>
+<tr><td>Flexibility</td><td>Maximum</td><td>Structured</td><td>Structured without lock-in</td></tr>
 </tbody>
 </table>
+<h2 id="key-features">Key Features</h2>
+<ul>
+  <li><strong>Dependency Injection Container</strong> for shared services and infrastructure clients</li>
+  <li><strong>Service Providers</strong> for explicit bootstrapping and lazy loading</li>
+  <li><strong>Controller -&gt; Service</strong> pattern for clear backend flow</li>
+  <li><strong>Built-in Auth</strong> in core and optional <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a> for roles and abilities</li>
+  <li><strong>Validation system</strong> through request classes or inline rules</li>
+  <li><strong>Queue / Mail / Cache / Storage</strong> support that loads only when needed</li>
+</ul>
+<h2 id="the-pattern">The Pattern</h2>
+<ul>
+  <li><strong>Controller</strong> handles the HTTP layer.</li>
+  <li><strong>Service</strong> handles business logic.</li>
+  <li><strong>Provider</strong> wires infrastructure and bootstrapping.</li>
+  <li><strong>Response</strong> stays consistent across the app.</li>
+</ul>
 <h2 id="get-started">Get Started</h2>
 <ol>
-  <li>Follow <a href="installation.html">Installation</a> to create a new app.</li>
-  <li>Build something small with <a href="first-app.html">First App</a>.</li>
-  <li>Read <a href="index.html">Architecture Overview</a> to understand the framework shape.</li>
-  <li>Scan <a href="index.html">Feature Overview</a> to see what is available.</li>
-  <li>When you need roles and permissions, add <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</li>
+  <li><a href="installation.html">Get Started</a> and create a new app.</li>
+  <li><a href="first-app.html">Build your first app</a> to learn the flow quickly.</li>
+  <li>Read <a href="architecture-overview.html">Architecture Overview</a> for the framework shape.</li>
+  <li>Scan <a href="feature-overview.html">Feature Overview</a> to see what ships in core.</li>
 </ol>
 
             
@@ -235,17 +252,22 @@ npm run dev</code></pre>
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#key-features">Key Features</a>
-        </li>
-      
-
-        <li class="toc-item">
           <a class="toc-link level-2" href="#why-netpress">Why Netpress</a>
         </li>
       
 
         <li class="toc-item">
           <a class="toc-link level-2" href="#quick-comparison">Quick Comparison</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#key-features">Key Features</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#the-pattern">The Pattern</a>
         </li>
       
 
