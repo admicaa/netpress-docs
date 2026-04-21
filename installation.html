@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -171,6 +171,10 @@ cd my-app</code></pre>
 <p>You can also run it non-interactively:</p>
 <pre><code class="language-bash">npm run artisan -- setup:rendering --web react --mail react
 npm run artisan -- setup:rendering --web none --mail vue --skip-install</code></pre>
+<p>If you want to republish the starter auth pages explicitly, run:</p>
+<pre><code class="language-bash">npm run artisan -- setup:auth
+npm run artisan -- setup:auth --web react --ui tailwind</code></pre>
+<p>That writes the <code>web</code> guard auth pages into <code>resources/views/layouts/</code> and <code>resources/views/pages/auth/</code>.</p>
 <h2 id="5-configure-the-database-and-app-secrets">5. Configure The Database And App Secrets</h2>
 <p>Set the connection that the starter should boot by default:</p>
 <pre><code class="language-bash"># MongoDB
@@ -197,6 +201,13 @@ DB_PASSWORD=secret
 DB_CONNECTION=sqlite
 DB_SQLITE_PATH=:memory:</code></pre>
 <p>The starter also expects the usual app, mail, queue, and auth settings from <code>.env</code>.</p>
+<p>Important auth-related settings:</p>
+<ul>
+  <li><code>APP_KEY</code> for signed sessions</li>
+  <li><code>JWT_SECRET</code> for the <code>api</code> guard</li>
+  <li><code>JWT_ISSUER</code> and <code>JWT_AUDIENCE</code> when you want stricter token validation</li>
+  <li><code>SESSION_COOKIE</code>, <code>SESSION_SAME_SITE</code>, and <code>SESSION_SECURE</code> for the <code>web</code> guard</li>
+</ul>
 <h2 id="6-run-shared-migrations">6. Run Shared Migrations</h2>
 <pre><code class="language-bash">npm run migrate</code></pre>
 <p>Netpress analyzes the shared migration files first, figures out which configured connections they target, and only opens the connections those files actually use.</p>
@@ -236,7 +247,7 @@ npm run artisan -- key:generate</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 

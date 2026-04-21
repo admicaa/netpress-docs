@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -145,7 +145,7 @@
           <article class="article">
             <div class="eyebrow">Features</div>
             <h1 id="artisan-cli">Artisan CLI</h1>
-<p>The starter exposes <code>artisan.js</code>, which forwards into <code>runCli()</code> from <code>@admicaa/netpress</code>. The implemented CLI now covers scaffolding, shared migrations, seeding, rendering setup, queues, route inspection, cache utilities, key generation, and user-defined commands.</p>
+<p>The starter exposes <code>artisan.js</code>, which forwards into <code>runCli()</code> from <code>@admicaa/netpress</code>. The implemented CLI now covers scaffolding, shared migrations, seeding, rendering setup, auth page scaffolding, queues, route inspection, cache utilities, key generation, and user-defined commands.</p>
 <h2 id="quick-example">Quick Example</h2>
 <pre><code class="language-js">// artisan.js
 import &quot;dotenv/config&quot;;
@@ -199,6 +199,17 @@ npm run artisan -- setup:rendering --web none --mail vue --skip-install</code></
   <li>updates <code>config/mail.js</code></li>
   <li>writes starter web and mail files</li>
 </ul>
+<p><code>setup:rendering</code> also keeps the starter auth views aligned with the chosen web engine unless web rendering is disabled.</p>
+<h2 id="auth-page-scaffolding">Auth Page Scaffolding</h2>
+<pre><code class="language-bash">npm run artisan -- setup:auth
+npm run artisan -- setup:auth --web react --ui tailwind
+npm run artisan -- setup:auth --web vue --ui bootstrap</code></pre>
+<p>This command publishes the starter auth pages for the selected renderer and UI stack:</p>
+<ul>
+  <li><code>resources/views/layouts/AuthLayout.*</code></li>
+  <li><code>resources/views/pages/auth/*</code></li>
+</ul>
+<p>Use it when you want to republish or restyle the default <code>web</code> guard pages without replacing the auth services or controllers.</p>
 <p>CLI output now goes through the shared <code>log</code> helper, so command status, warnings, success messages, and scaffold writes use the same colored formatter as the runtime.</p>
 <h2 id="queue-and-utility-commands">Queue And Utility Commands</h2>
 <pre><code class="language-bash">npm run artisan -- queue:work
@@ -232,7 +243,7 @@ npm run artisan -- storage:link</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -258,6 +269,11 @@ npm run artisan -- storage:link</code></pre>
 
         <li class="toc-item">
           <a class="toc-link level-2" href="#rendering-setup">Rendering Setup</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#auth-page-scaffolding">Auth Page Scaffolding</a>
         </li>
       
 

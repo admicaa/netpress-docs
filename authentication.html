@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -147,57 +147,141 @@
             <h1 id="authentication">Authentication</h1>
 <p>Authentication answers one question:</p>
 <p>Who is the current user for this request?</p>
-<p>Netpress handles that through auth guards in core. The starter app ships with a JWT-based auth flow out of the box.</p>
-<h2 id="quick-example">Quick Example</h2>
-<pre><code class="language-js">import { Router } from &quot;@admicaa/netpress&quot;;
-import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import AuthController from &quot;../app/Http/Controllers/Auth/AuthController.js&quot;;
+<p>Netpress handles that in core through <strong>auth guards</strong>. The starter ships with two named guards:</p>
+<ul>
+  <li><code>web</code> for signed-cookie session auth on server-rendered routes</li>
+  <li><code>api</code> for JWT bearer tokens on API routes</li>
+</ul>
+<p>That split is deliberate. The web guard stays ergonomic for forms and redirects. The API guard stays stateless for clients and mobile apps.</p>
+<h2 id="guard-split">Guard Split</h2>
+<p>Netpress treats the two guards differently on purpose:</p>
+<ul>
+  <li><code>web</code> uses encrypted cookies, a lazy session, and CSRF protection</li>
+  <li><code>api</code> uses <code>Authorization: Bearer &lt;token&gt;</code> only</li>
+  <li><code>web</code> routes may render pages and redirect with flash data</li>
+  <li><code>api</code> routes never mount session or CSRF middleware</li>
+</ul>
+<p>If you keep that split, auth stays predictable.</p>
+<h2 id="core-guard-api">Core Guard API</h2>
+<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
 
-const router = Router();
+Auth.extend(&quot;admin&quot;, adminGuard);
 
-router.post(&quot;/login&quot;, AuthController.login);
-router.post(&quot;/register&quot;, AuthController.register);
+await Auth.user(req);
+await Auth.user(req, { guard: &quot;web&quot; });
+await Auth.authenticate(req, { guard: &quot;api&quot; });
 
-router.group(authMiddleware, (router) =&gt; {
+router.group(Auth.middleware(&quot;api&quot;), (router) =&gt; {
   router.get(&quot;/me&quot;, AuthController.me);
-  router.post(&quot;/logout&quot;, AuthController.logout);
 });</code></pre>
-<h2 id="core-guard-model">Core Guard Model</h2>
-<p>A guard describes how Netpress turns a request into an authenticated user.</p>
 <p>Core auth gives you:</p>
 <ul>
   <li><code>Auth.extend(name, guard)</code> to register a guard</li>
-  <li><code>Auth.guard(name)</code> to resolve one</li>
-  <li><code>Auth.user(req)</code> to resolve the current user</li>
-  <li><code>Auth.authenticate(req)</code> to require authentication</li>
+  <li><code>Auth.guard(name)</code> to work with one named guard</li>
+  <li><code>Auth.user(req, { guard })</code> to resolve the current user</li>
+  <li><code>Auth.authenticate(req, { guard })</code> to require authentication</li>
   <li><code>Auth.middleware(name)</code> to protect routes</li>
   <li><code>Auth.guest(name)</code> for guest-only routes</li>
+  <li><code>Auth.currentGuard(req)</code> to inspect the active guard</li>
 </ul>
-<p>In the starter app, <code>AuthServiceProvider</code> registers the <code>jwt</code> guard and <code>app/Http/Middleware/auth.js</code> is just <code>Auth.middleware(&quot;jwt&quot;)</code>.</p>
-<h2 id="starter-auth-flow">Starter Auth Flow</h2>
-<p>The starter already includes:</p>
+<h2 id="starter-defaults">Starter Defaults</h2>
+<p>The starter keeps auth explicit:</p>
 <ul>
-  <li>registration</li>
-  <li>login</li>
-  <li>refresh</li>
-  <li>logout</li>
-  <li>current-user endpoint</li>
+  <li><code>app/Providers/AuthServiceProvider.js</code> registers <code>web</code> and <code>api</code></li>
+  <li><code>app/Services/Auth/SessionGuard.js</code> powers the <code>web</code> guard</li>
+  <li><code>app/Services/Auth/JwtGuard.js</code> powers the <code>api</code> guard</li>
+  <li><code>config/cookies.js</code> controls cookie encryption and XSRF defaults</li>
+  <li><code>app/Http/Middleware/auth.js</code> is <code>Auth.middleware(&quot;api&quot;)</code></li>
+  <li><code>app/Http/Middleware/resolveWebUser.js</code> resolves the <code>web</code> guard for views</li>
 </ul>
-<p><code>AuthService</code> owns token creation, token rotation, blacklist handling, and user lookup. Controllers stay thin and middleware handles request authentication.</p>
-<h2 id="multiple-guards">Multiple Guards</h2>
-<p>If your app needs more than one auth strategy, register more named guards:</p>
-<pre><code class="language-js">import { Auth } from &quot;@admicaa/netpress&quot;;
+<p>The route stacks are also separate:</p>
+<ul>
+  <li><code>routes/web.js</code> mounts cookie encryption, session, shared view state, current-user resolution, and CSRF</li>
+  <li><code>routes/api.js</code> stays stateless</li>
+</ul>
+<h2 id="lazy-sessions">Lazy Sessions</h2>
+<p>The starter mounts the session middleware on the <code>web</code> route stack only.</p>
+<ul>
+  <li>guest requests do not start a session just because a route is in the web stack</li>
+  <li>the cookie is only parsed when a request actually needs session data</li>
+  <li>flashed view state only loads the session when a session cookie already exists</li>
+  <li>requests that never touch session state do not emit <code>Set-Cookie</code></li>
+  <li>routes that call <code>req.csrfToken()</code> intentionally start a session because the token is session-backed</li>
+  <li>API routes never receive <code>req.session</code></li>
+</ul>
+<p>That keeps browser auth ergonomic without letting API traffic accidentally turn stateful.</p>
+<h2 id="cookie-encryption-and-xsrf">Cookie Encryption And XSRF</h2>
+<p>The starter mounts an <code>EncryptCookies</code>-style middleware on the <code>web</code> stack. By default:</p>
+<ul>
+  <li>every cookie is encrypted with <code>APP_KEY</code></li>
+  <li>normal cookies use <code>httpOnly</code>, <code>sameSite</code>, <code>path</code>, and <code>secure</code> defaults from <code>config/cookies.js</code></li>
+  <li><code>XSRF-TOKEN</code> is excluded from encryption so browser JavaScript can read it</li>
+  <li>the <code>web</code> guard session cookie is encrypted automatically</li>
+</ul>
+<p>The default config looks like this:</p>
+<pre><code class="language-js">export default {
+  encrypt: true,
+  except: [&quot;XSRF-TOKEN&quot;],
+  httpOnly: true,
+  secure: process.env.APP_ENV === &quot;production&quot;,
+  sameSite: &quot;lax&quot;,
+  xsrf: {
+    enabled: true,
+    cookie: &quot;XSRF-TOKEN&quot;,
+    field: &quot;_token&quot;,
+    header: &quot;x-xsrf-token&quot;,
+  },
+};</code></pre>
+<p>For server-rendered forms:</p>
+<pre><code class="language-js">class SessionsController {
+  create(req, res) {
+    req.csrfToken();
 
-Auth.extend(&quot;jwt&quot;, jwtGuard, { default: true });
-Auth.extend(&quot;admin-api&quot;, adminApiGuard);
-
-router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
-  router.get(&quot;/admin/me&quot;, AdminController.me);
-});</code></pre>
+    return res.render(LoginPage);
+  }
+}</code></pre>
+<p>That gives the view a <code>csrfToken</code> prop and sends the browser-readable <code>XSRF-TOKEN</code> cookie. Forms then post the hidden <code>_token</code> field. JavaScript clients can instead reflect the cookie through the <code>X-XSRF-TOKEN</code> header.</p>
+<p>CSRF protection is a web-only concern in the starter. It is not mounted on <code>routes/api.js</code>.</p>
+<h2 id="jwt-flow">JWT Flow</h2>
+<p>The starter <code>api</code> guard:</p>
+<ul>
+  <li>verifies bearer tokens against <code>config/auth.js</code></li>
+  <li>rejects refresh tokens on access-protected routes</li>
+  <li>respects issuer, audience, and clock tolerance when configured</li>
+  <li>checks the cache-based blacklist on logout</li>
+  <li>does not use cookies or sessions</li>
+  <li>ignores browser session cookies entirely</li>
+</ul>
+<p><code>AuthService</code> owns token issuing, refresh-token rotation, and password-reset cleanup so controllers stay thin.</p>
+<h2 id="web-auth-pages">Web Auth Pages</h2>
+<p>The starter also ships server-rendered auth pages:</p>
+<ul>
+  <li><code>/login</code></li>
+  <li><code>/register</code></li>
+  <li><code>/forgot-password</code></li>
+  <li><code>/reset-password/:token</code></li>
+</ul>
+<p>To republish them for a different renderer or UI stack:</p>
+<pre><code class="language-bash">npm run artisan -- setup:auth
+npm run artisan -- setup:auth --web react --ui tailwind
+npm run artisan -- setup:auth --web vue --ui bootstrap</code></pre>
+<p><code>setup:auth</code> writes the auth layouts and page components for the selected renderer. <code>setup:rendering</code> can also keep the auth views aligned when you switch the web engine.</p>
+<h2 id="authentication-in-views">Authentication In Views</h2>
+<p>Server-rendered views receive auth helpers automatically when the web guard is enabled:</p>
+<ul>
+  <li><code>auth.user</code></li>
+  <li><code>auth.guard</code></li>
+  <li><code>auth.check</code></li>
+  <li><code>csrfToken</code> when the controller requested one through <code>req.csrfToken()</code></li>
+  <li><code>Auth.user()</code></li>
+  <li><code>Auth.check()</code></li>
+  <li><code>can()</code></li>
+</ul>
+<p><code>Auth.user()</code> is synchronous in the template because the current user was already resolved by middleware. <code>can()</code> is still async because policies or permission checks may hit storage, so resolve permission booleans in the controller when a template needs branching.</p>
 <h2 id="authentication-vs-authorization">Authentication vs Authorization</h2>
 <p>Authentication identifies the user.</p>
 <p>Authorization decides what that user may do.</p>
-<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route guards similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
+<p>Use core policies and <code>can()</code> for authorization. If you need roles, permissions, morph assignments, and route middleware similar to Laravel Permission, use <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a>.</p>
 <p>Next, read <a href="authorization.html">Authorization</a>.</p>
 
             
@@ -216,7 +300,7 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -226,22 +310,42 @@ router.group(Auth.middleware(&quot;admin-api&quot;), (router) =&gt; {
       <ul class="toc-list">
         
         <li class="toc-item">
-          <a class="toc-link level-2" href="#quick-example">Quick Example</a>
+          <a class="toc-link level-2" href="#guard-split">Guard Split</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#core-guard-model">Core Guard Model</a>
+          <a class="toc-link level-2" href="#core-guard-api">Core Guard API</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#starter-auth-flow">Starter Auth Flow</a>
+          <a class="toc-link level-2" href="#starter-defaults">Starter Defaults</a>
         </li>
       
 
         <li class="toc-item">
-          <a class="toc-link level-2" href="#multiple-guards">Multiple Guards</a>
+          <a class="toc-link level-2" href="#lazy-sessions">Lazy Sessions</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#cookie-encryption-and-xsrf">Cookie Encryption And XSRF</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#jwt-flow">JWT Flow</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#web-auth-pages">Web Auth Pages</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#authentication-in-views">Authentication In Views</a>
         </li>
       
 

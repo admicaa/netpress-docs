@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -174,8 +174,18 @@ router.group(authMiddleware, (router) =&gt; {
   <li><code>role.js</code> adds simple role checks and policy middleware helpers</li>
   <li><code>throttle.js</code> rate-limits repeated requests</li>
   <li><code>cors.js</code> configures cross-origin access</li>
-  <li><code>session.js</code> and <code>shareViewState.js</code> support server-rendered flows</li>
+  <li><code>session.js</code>, <code>csrf.js</code>, and <code>shareViewState.js</code> support server-rendered flows</li>
   <li><code>errorHandler.js</code> normalizes thrown errors</li>
+</ul>
+<p>The core also ships cookie security middleware for Laravel-style browser flows:</p>
+<ul>
+  <li><code>createEncryptCookiesMiddleware()</code> encrypts cookies with <code>APP_KEY</code></li>
+  <li><code>createCsrfProtectionMiddleware()</code> validates <code>_token</code> and <code>X-XSRF-TOKEN</code></li>
+</ul>
+<p>The starter keeps them on the <code>web</code> side only:</p>
+<ul>
+  <li><code>routes/web.js</code> mounts encrypted cookies, the lazy session, shared view state, and CSRF</li>
+  <li><code>routes/api.js</code> does not mount cookie, session, or CSRF middleware</li>
 </ul>
 <h2 id="authorization-middleware">Authorization Middleware</h2>
 <p>Simple role check:</p>
@@ -233,7 +243,7 @@ export default function ensureInternalRequest(req, _res, next) {
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 

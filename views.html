@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -192,15 +192,52 @@ export default new HomeController();</code></pre>
 <h3 id="string-templates">String Templates</h3>
 <p>When you pass a string like <code>&quot;dashboard&quot;</code> to <code>res.render(...)</code> or <code>view(&quot;dashboard&quot;, props)</code>, Netpress delegates to Express <code>res.render(...)</code> like a normal Express app.</p>
 <h2 id="shared-view-state">Shared View State</h2>
-<p><code>AppServiceProvider</code> and the shared view middleware make these available to server-rendered pages:</p>
+<p>The web route stack and the shared view middleware make these available to server-rendered pages:</p>
 <ul>
   <li><code>errors</code>, an <code>ErrorBag</code></li>
   <li><code>old(field, fallback)</code></li>
+  <li><code>flash</code>, including flashed status messages</li>
+  <li><code>csrfToken</code> after the controller calls <code>req.csrfToken()</code></li>
+  <li><code>auth.user</code>, <code>auth.guard</code>, <code>auth.check</code>, and <code>auth.guest</code></li>
+  <li><code>Auth.user()</code>, <code>Auth.check()</code>, and <code>Auth.guest()</code></li>
+  <li><code>can()</code>, which resolves through core authorization</li>
 </ul>
 <p>That is what powers form redirects like:</p>
 <pre><code class="language-js">return redirect(&quot;/register&quot;)
   .withErrors({ email: [&quot;Required&quot;] })
   .withInput(req.body);</code></pre>
+<p>For auth pages and other server-rendered forms, redirects can also flash a status message:</p>
+<pre><code class="language-js">return redirect(&quot;/login&quot;)
+  .withSuccess(&quot;Your password has been reset.&quot;);</code></pre>
+<p>When a page contains a form, request the CSRF token before rendering and post it back as <code>_token</code>:</p>
+<pre><code class="language-js">class SessionsController {
+  create(req, res) {
+    req.csrfToken();
+    return res.render(LoginPage);
+  }
+}</code></pre>
+<pre><code class="language-jsx">export default function LoginPage({ csrfToken = &quot;&quot; }) {
+  return (
+    &lt;form method=&quot;post&quot; action=&quot;/login&quot;&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value={csrfToken} /&gt;
+      &lt;input type=&quot;email&quot; name=&quot;email&quot; /&gt;
+      &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+<p>The starter auth pages already include this wiring.</p>
+<p>These helpers are part of the <code>web</code> stack. API routes do not receive session, flash, or CSRF view state.</p>
+<h2 id="publishing-starter-auth-views">Publishing Starter Auth Views</h2>
+<p>The starter ships default auth pages for the <code>web</code> guard. To republish them for a different renderer or UI stack:</p>
+<pre><code class="language-bash">npm run artisan -- setup:auth
+npm run artisan -- setup:auth --web react --ui tailwind
+npm run artisan -- setup:auth --web vue --ui bootstrap</code></pre>
+<p>That command writes:</p>
+<ul>
+  <li><code>resources/views/layouts/AuthLayout.*</code></li>
+  <li><code>resources/views/pages/auth/*</code></li>
+</ul>
+<p>Use it when you switch between React and Vue, or when you want the starter auth pages to follow a Tailwind-style or Bootstrap-style surface.</p>
 <h2 id="folder-layout">Folder Layout</h2>
 <ul>
   <li><code>resources/views/pages/</code> for page components</li>
@@ -224,7 +261,7 @@ export default new HomeController();</code></pre>
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -265,6 +302,11 @@ export default new HomeController();</code></pre>
 
         <li class="toc-item">
           <a class="toc-link level-2" href="#shared-view-state">Shared View State</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#publishing-starter-auth-views">Publishing Starter Auth Views</a>
         </li>
       
 

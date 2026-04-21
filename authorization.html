@@ -21,9 +21,9 @@
 
       <div class="topbar-actions">
         <div class="topbar-meta">
-          <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+          <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
         </div>
         <a class="topbar-link" href="index.html">Overview</a>
         <a class="topbar-link" href="installation.html">Installation</a>
@@ -129,9 +129,9 @@
     <section class="sidebar-meta">
       <p class="sidebar-meta-title">Versions</p>
       <div class="version-stack">
-        <span class="version-badge"><span>Framework</span><strong>v0.1.11</strong></span>
-<span class="version-badge"><span>Starter</span><strong>v0.1.10</strong></span>
-<span class="version-badge"><span>Docs</span><strong>v1.0.2</strong></span>
+        <span class="version-badge"><span>Framework</span><strong>v0.1.12</strong></span>
+<span class="version-badge"><span>Starter</span><strong>v0.1.11</strong></span>
+<span class="version-badge"><span>Docs</span><strong>v1.0.3</strong></span>
       </div>
       <p class="sidebar-meta-note">These docs follow the checked-in implementation, not planned APIs.</p>
     </section>
@@ -153,15 +153,16 @@
   <li>the optional <a href="https://admica.github.io/netpress-permissions-docs/">NetPress Permissions</a> package for roles, permissions, morph assignments, and route guards</li>
 </ul>
 <h2 id="core-authorization">Core Authorization</h2>
-<p>Core authorization is policy-based and feels close to Laravel.</p>
+<p>Core authorization is policy-first and Laravel-like.</p>
 <p>You can:</p>
 <ul>
   <li>call <code>await can(user, &quot;posts.publish&quot;)</code></li>
   <li>call <code>await can(user, &quot;update&quot;, post)</code></li>
+  <li>call <code>await can(&quot;update&quot;, post, { user })</code></li>
   <li>use <code>await this.can(req, &quot;update&quot;, post)</code> inside a controller</li>
   <li>use <code>await this.authorize(req, PolicyClass, &quot;update&quot;, post)</code> when you want an explicit policy class</li>
 </ul>
-<p>If a matching policy exists, Netpress uses it. If not, permission-aware models can fall back to permission checks.</p>
+<p>If a matching policy exists, Netpress uses it first. If no policy matches, permission-aware models can fall back through <code>hasPermissionTo()</code>.</p>
 <pre><code class="language-js">import { can } from &quot;@admicaa/netpress&quot;;
 
 await can(user, &quot;posts.publish&quot;);
@@ -173,15 +174,21 @@ export default class PostPolicy {
     return user.role === &quot;admin&quot; || user.id === post.userId;
   }
 }</code></pre>
+<p>Register it:</p>
+<pre><code class="language-js">import { registerPolicy } from &quot;@admicaa/netpress&quot;;
+import Post from &quot;../Models/Post.js&quot;;
+import PostPolicy from &quot;../Policies/PostPolicy.js&quot;;
+
+registerPolicy(Post, PostPolicy);</code></pre>
 <p>Use it in a controller:</p>
 <pre><code class="language-js">const post = await PostService.show(req.params.id);
 await this.can(req, &quot;update&quot;, post);</code></pre>
 <p>Or explicitly:</p>
 <pre><code class="language-js">await this.authorize(req, PostPolicy, &quot;update&quot;, post);</code></pre>
 <h2 id="route-level-authorization">Route-Level Authorization</h2>
-<p>The starter also includes lightweight route middleware helpers:</p>
+<p>The starter also includes route middleware helpers for explicit policy checks:</p>
 <pre><code class="language-js">import authMiddleware from &quot;../app/Http/Middleware/auth.js&quot;;
-import { requireRole, authorize } from &quot;../app/Http/Middleware/role.js&quot;;
+import { authorize, requireRole } from &quot;../app/Http/Middleware/role.js&quot;;
 
 router.group(authMiddleware, (router) =&gt; {
   router.group(requireRole(&quot;admin&quot;), (router) =&gt; {
@@ -195,13 +202,26 @@ router.delete(
   authorize(PostPolicy, &quot;delete&quot;, (req) =&gt; PostService.show(req.params.id)),
   PostController.destroy,
 );</code></pre>
+<h2 id="authorization-in-views">Authorization In Views</h2>
+<p>When the starter resolves the <code>web</code> guard for server-rendered routes, views get:</p>
+<ul>
+  <li><code>auth.user</code></li>
+  <li><code>Auth.user()</code></li>
+  <li><code>Auth.check()</code></li>
+  <li><code>can()</code></li>
+</ul>
+<p>That means a page can read the current user directly:</p>
+<pre><code class="language-jsx">export default function DashboardPage({ Auth, auth }) {
+  return &lt;h1&gt;Hello {Auth.user()?.name || auth.user?.name}&lt;/h1&gt;;
+}</code></pre>
+<p><code>can()</code> is available too, but it stays async because policies and permissions may touch the database. For conditional rendering, prefer resolving those booleans in the controller and passing them as props.</p>
 <h2 id="when-to-add-netpress-permissions">When To Add NetPress Permissions</h2>
 <p>Reach for the permissions package when your app needs:</p>
 <ul>
   <li>many reusable roles</li>
   <li>named permissions like <code>posts.update</code></li>
   <li>polymorphic role or permission assignments</li>
-  <li>dedicated route guards such as <code>AuthGuard.can()</code> or <code>AuthGuard.role()</code></li>
+  <li>guard-aware route middleware such as <code>AuthGuard.can()</code> or <code>AuthGuard.role()</code></li>
 </ul>
 <p>That package builds on top of Netpress core auth and authorization instead of replacing them.</p>
 
@@ -221,7 +241,7 @@ router.delete(
     
     </nav>
   
-            <p class="footer-note">Synced to framework v0.1.11 · starter v0.1.10 · docs v1.0.2. Static HTML output ready for local preview and publishing.</p>
+            <p class="footer-note">Synced to framework v0.1.12 · starter v0.1.11 · docs v1.0.3. Static HTML output ready for local preview and publishing.</p>
           </article>
         </main>
 
@@ -242,6 +262,11 @@ router.delete(
 
         <li class="toc-item">
           <a class="toc-link level-2" href="#route-level-authorization">Route-Level Authorization</a>
+        </li>
+      
+
+        <li class="toc-item">
+          <a class="toc-link level-2" href="#authorization-in-views">Authorization In Views</a>
         </li>
       
 
